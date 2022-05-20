@@ -1,4 +1,4 @@
-package com.groupware.spring;
+package com.groupware.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
