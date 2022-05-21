@@ -1,15 +1,18 @@
 package com.groupware.vo;
 
-import java.sql.Date;
 
 import lombok.Data;
 
 @Data
 public class BoardVO {
-	private Long bno;
-	private String title;
+	private long boardIdx;
+	private long employeeIdx;
+	private String boardType;
 	private String content;
-	private String writer;
-	private Date regdate;
-	private Date updatedate;
+	private String attachedFile;
+	private String dateCreated;
+	private String modifiedDate;
+	private long state;
+
+
 }
