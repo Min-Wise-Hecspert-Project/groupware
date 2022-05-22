@@ -1,7 +1,5 @@
 package com.groupware.config;
 
-import java.io.IOException;
-
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,8 +8,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -21,13 +17,14 @@ import com.zaxxer.hikari.HikariDataSource;
 @MapperScan(basePackages = {"com.groupware.mapper"})
 public class RootConfig {
 	
-	@Bean // ¸Þ¼ÒµåÀÇ ½ÇÇà °á°ú·Î ¹ÝÈ¯µÇ´Â °´Ã¼´Â ½ºÇÁ¸µ °´Ã¼·Î µî·Ï
+	@Bean // ï¿½Þ¼Òµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ç´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@localhost:1521:XE");
-		hikariConfig.setUsername("scott");
-		hikariConfig.setPassword("tiger"); 
+//		jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE
+		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE");
+		hikariConfig.setUsername("hecto");
+		hikariConfig.setPassword("hecto");
 		
 		return new HikariDataSource(hikariConfig);
 	}
@@ -36,21 +33,8 @@ public class RootConfig {
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource());
-//		typeAlias ¼³Á¤ÇÏ±â
+//		typeAlias ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 //		sqlSessionFactory.setTypeAliasesPackage("com.groupware.vo");
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
-	}
-	
-	@Bean(name = "multipartResolver")
-	public CommonsMultipartResolver getResolver() throws IOException{
-		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-		resolver.setMaxUploadSize(1024*1024*10);
-		resolver.setMaxUploadSizePerFile(1024*1024*10);
-		resolver.setMaxInMemorySize(1024*1024);
-		//µð½ºÅ©¿¡ ÀúÀåÇÏÁö ¾Ê°í ¸Þ¸ð¸®¿¡ À¯ÁöÇÏµµ·Ï Çã¿ëÇÏ´Â ¹ÙÀÌÆ® ´ÜÀ§ÀÇ ÃÖ´ë ¿ë·®À» ¼³Á¤
-		resolver.setUploadTempDir(new FileSystemResource("e:/upload"));
-		resolver.setDefaultEncoding("utf-8");
-		
-		return resolver;
 	}
 }

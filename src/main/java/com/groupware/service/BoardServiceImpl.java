@@ -14,11 +14,11 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class BoardServiceImpl implements BoardService{
 	
-	private BoardMapper mapper;
+	private BoardMapper mapper; 
 	
 	@Override
 	public void register(BoardVO board) {
-		log.info("register...." + board.getBno());
+		log.info("register...." + board.getBoard_idx());
 		mapper.insertSelectKey(board);
 	}
 

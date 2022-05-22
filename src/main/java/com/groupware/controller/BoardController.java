@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class BoardController {
 
-		private BoardService service;
+		private BoardService service; 
 		
 		@GetMapping("/list")
 		public void list(Model model) {
@@ -36,7 +36,7 @@ public class BoardController {
 		public String register(BoardVO board, RedirectAttributes rttr) {
 			log.info("register: " + board);
 			service.register(board);
-			rttr.addFlashAttribute("result", board.getBno());
+			rttr.addFlashAttribute("result", board.getBoard_idx());
 			
 			return "redirect:/board/list";
 		}
@@ -51,7 +51,7 @@ public class BoardController {
 		public String modify(BoardVO board, RedirectAttributes rttr) {
 			log.info("modify: " + board);
 			if(service.modify(board)) {
-				rttr.addFlashAttribute("result", board.getBno());
+				rttr.addFlashAttribute("result", board.getBoard_idx());
 			}			
 			
 			return "redirect:/board/list";
