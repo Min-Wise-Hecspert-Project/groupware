@@ -18,7 +18,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public void register(BoardVO board) {
-		log.info("register...." + board.getBoardIdx());
+		log.info("register...." + board.getBoard_idx());
 		mapper.insertSelectKey(board);
 	}
 

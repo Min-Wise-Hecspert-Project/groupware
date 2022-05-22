@@ -17,7 +17,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service"})
+@ComponentScan(basePackages = {"com.groupware.*"})
 @MapperScan(basePackages = {"com.groupware.mapper"})
 public class RootConfig {
 	
@@ -25,9 +25,9 @@ public class RootConfig {
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE");
-	    hikariConfig.setUsername("hecto");
-	    hikariConfig.setPassword("hecto");
+		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@localhost:1521:XE");
+	    hikariConfig.setUsername("SYSTEM");
+	    hikariConfig.setPassword("1234");
 		
 		return new HikariDataSource(hikariConfig);
 	}
