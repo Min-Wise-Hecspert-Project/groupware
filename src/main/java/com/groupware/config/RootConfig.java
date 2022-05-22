@@ -24,7 +24,7 @@ public class RootConfig {
 //		jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE
 		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE");
 		hikariConfig.setUsername("hecto");
-		hikariConfig.setPassword("hecto"); 
+		hikariConfig.setPassword("hecto");
 		
 		return new HikariDataSource(hikariConfig);
 	}
