@@ -34,5 +34,5 @@
 	  	updateDate = sysdate
 	WHERE bno = #{bno}
   	
-  </update> -->
+  </update>
 </mapper>

@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class NoticeVO {
+public class NoticeListVO {
 	private Long noticeIdx;
 	private Long employeeIdx;
 	private String title;
