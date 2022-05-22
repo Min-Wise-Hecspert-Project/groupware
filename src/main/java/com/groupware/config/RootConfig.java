@@ -25,9 +25,10 @@ public class RootConfig {
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@localhost:1521:XE");
-	    hikariConfig.setUsername("SYSTEM");
-	    hikariConfig.setPassword("1234");
+//		jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE
+		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE");
+		hikariConfig.setUsername("hecto");
+		hikariConfig.setPassword("hecto"); 
 		
 		return new HikariDataSource(hikariConfig);
 	}
@@ -40,17 +41,4 @@ public class RootConfig {
 //		sqlSessionFactory.setTypeAliasesPackage("com.groupware.vo");
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
 	}
-	
-//	@Bean(name = "multipartResolver")
-//	public CommonsMultipartResolver getResolver() throws IOException{
-//		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-//		resolver.setMaxUploadSize(1024*1024*10);
-//		resolver.setMaxUploadSizePerFile(1024*1024*10);
-//		resolver.setMaxInMemorySize(1024*1024);
-//		//��ũ�� �������� �ʰ� �޸𸮿� �����ϵ��� ����ϴ� ����Ʈ ������ �ִ� �뷮�� ����
-//		resolver.setUploadTempDir(new FileSystemResource("e:/upload"));
-//		resolver.setDefaultEncoding("utf-8");
-//		
-//		return resolver;
-//	}
 }
