@@ -2,8 +2,14 @@ package com.groupware.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.groupware.vo.NoticeVO;
 
+import lombok.extern.log4j.Log4j;
+
+@Service
+@Log4j
 public class NoticeServiceImpl implements NoticeService {
 
 	@Override
