@@ -5,8 +5,8 @@
 <head>
 	<!-- 그리드 -->
     <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
-    <!-- 차트 -->
-    <link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
+    <!-- 차트 
+    <link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" /> -->
     <!-- calendar -->
     <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
     <!-- If you use the default popups, use this. -->
@@ -16,8 +16,8 @@
     <!-- 부트스트랩아이콘 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     
-    <!-- 차트 -->
-    <script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script>
+    <!-- 차트 
+    <script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script> -->
     <!-- 부트스트랩 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <!-- 그리드 -->

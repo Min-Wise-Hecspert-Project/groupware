@@ -14,7 +14,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service"})
-@MapperScan(basePackages = {"com.groupware.mapper"})
+@MapperScan(basePackages = {"com.groupware.mapper","com.groupware.dto"})
 public class RootConfig {
 	
 	@Bean // �޼ҵ��� ���� ����� ��ȯ�Ǵ� ��ü�� ������ ��ü�� ���
