@@ -6,10 +6,13 @@ import lombok.Data;
 
 @Data
 public class BoardDTO {
-	private Long bno;
-	private String title;
+	private Long boardIdx;
+	private String employeeIdx;
+	private String boardType;
 	private String content;
-	private String writer;
-	private Date regdate;
-	private Date updatedate;
+	private String File;
+	private String insDate;
+	private String updDate;
+	private String state;
+	private String title;
 }

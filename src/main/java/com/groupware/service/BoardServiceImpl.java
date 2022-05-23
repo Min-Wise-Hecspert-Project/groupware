@@ -2,6 +2,7 @@ package com.groupware.service;
 
 import java.util.List;
 
+import com.groupware.dto.BoardDTO;
 import com.groupware.mapper.BoardMapper;
 import com.groupware.vo.BoardVO;
 import org.springframework.stereotype.Service;
@@ -17,19 +18,19 @@ public class BoardServiceImpl implements BoardService{
 	private BoardMapper mapper; 
 	
 	@Override
-	public void register(BoardVO board) {
-		log.info("register...." + board.getBoard_idx());
+	public void register(BoardDTO board) {
+		log.info("register...." + board.getBoardIdx());
 		mapper.insertSelectKey(board);
 	}
 
 	@Override
-	public BoardVO get(Long bno) {
+	public BoardDTO get(Long bno) {
 		log.info("get...." + bno);
 		return mapper.read(bno);
 	}
 
 	@Override
-	public boolean modify(BoardVO board) {
+	public boolean modify(BoardDTO board) {
 		log.info("modify...." + board);
 		
 		return mapper.update(board) == 1;
@@ -42,7 +43,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardDTO> getList() {
 		log.info("getList....");
 		return mapper.getBoardList();
 	}

@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.groupware.mapper.BoardMapper">
-  <select id="getBoardList" resultType="com.groupware.vo.BoardVO">
-  	select * from tbl_board
+
+	<resultMap type="com.groupware.dto.BoardDTO" id="testMap">
+		<result property="boardIdx" column="BOARD_idx"/>
+		<result property="employeeIdx" column="EMPLOYEE_IDX"/>
+		<result property="boardType" column="BOARD_TYPE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="File" column="FILE"/>
+		<result property="insDate" column="INS_DATE"/>
+		<result property="updDate" column="UPD_DATE"/>
+		<result property="state" column="STATE"/>
+		<result property="title" column="title"/>
+	</resultMap>
+	
+  <select id="getBoardList" resultMap="testMap">
+  	select * from board
   </select>
   
-  <insert id="insert">
-  	insert into tbl_board(title, content, writer) values(#{title},#{content},#{writer})
+   <insert id="insert" >
+  	insert into board(BOARD_idx,EMPLOYEE_IDX, BOARD_TYPE, CONTENT,FILE,INS_DATE,UPD_DATE,STATE,title)
+  	 values(SEQ_BOARD.nextval,#{boardIdx},#{boardType},#{content},#{File},SYSDATE,SYSDATE,#{state},#{title})
   </insert>
   
-  <insert id="insertSelectKey">
+<!--   <insert id="insertSelectKey">
   	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
   		select board_seq.nextval from dual
   	</selectKey>
@@ -34,5 +48,5 @@
 	  	updateDate = sysdate
 	WHERE bno = #{bno}
   	
-  </update>
+  </update>  -->
 </mapper>

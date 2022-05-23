@@ -2,19 +2,19 @@ package com.groupware.mapper;
 
 import java.util.List;
 
-import com.groupware.vo.BoardVO;
+import com.groupware.dto.BoardDTO;
 
 public interface BoardMapper {
 //	@Select("select * from tbl_board")
-	public List<BoardVO> getBoardList();
+	public List<BoardDTO> getBoardList();
 	
-	public void insert(BoardVO board);
+	public void insert(BoardDTO board);
 
-	public void insertSelectKey(BoardVO board);
+	public void insertSelectKey(BoardDTO board);
 	
-	public BoardVO read(Long bno);
+	public BoardDTO read(Long bno);
 
-	public int update(BoardVO boardVO);
+	public int update(BoardDTO boardVO);
 
 	public int delete(long l);
 }
