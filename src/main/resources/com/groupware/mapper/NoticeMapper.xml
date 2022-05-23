@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.groupware.mapper.NoticeMapper">
-  <select id="getNoticeList" resultType="com.groupware.vo.NoticeListVO">
+
+	<resultMap type="noticeDTO" id="noticeMap">
+	  <id property="noticeIdx" column="NOTICE_IDX"/>
+	  <result property="employeeIdx" column="EMPLOYEE_IDX"/>
+	  <result property="title" column="TITLE"/>
+	  <result property="content" column="CONTENT"/>
+	  <result property="file" column="FILE"/>
+	  <result property="insDate" column="INS_DATE"/>
+	  <result property="updDate" column="UPD_DATE"/>
+	  <result property="state" column="STATE"/>
+	  <association property="employeeIdx" column="employee_idx" javaType="EmployeeDTO">
+	  	<id property="employeeIdx" column="employee_idx"/>
+	  	<result property="name" column="NAME"/>
+	  </association>
+	</resultMap>
+  
+  <select id="getNoticeList" resultMap="noticeMap">
 	SELECT
 	    a.notice_idx,
 	    a.employee_idx,
@@ -21,7 +37,7 @@
   	insert into notice(title, content, writer) values(#{title},#{content},#{writer})
   </insert>
   
-  <select id="read" resultType="com.groupware.vo.NoticeVO">
+  <select id="read" resultMap="noticeMap">
   	select * from notice where notice_idx = #{noticeIdx}
   </select>
   
