@@ -43,7 +43,8 @@ public class NoticeController {
 				) {
 			log.info("list");
 			
-			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page);
+			Integer PageSize = 5;
+			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, PageSize);
 			
 			List<NoticeDTO> dtos = service.selectList(searchVO);
 			
