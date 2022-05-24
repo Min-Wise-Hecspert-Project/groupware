@@ -1,12 +1,14 @@
 package com.groupware.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.groupware.dto.NoticeDTO;
 import com.groupware.mapper.NoticeMapper;
+import com.groupware.vo.SearchVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -34,8 +36,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeDTO> selectList() {
-		return mapper.selectList();
+	public List<NoticeDTO> selectList(SearchVO searchVO) {
+		return mapper.selectList(searchVO);
 	}
 
 	@Override

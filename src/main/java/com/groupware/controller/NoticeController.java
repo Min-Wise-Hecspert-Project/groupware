@@ -2,13 +2,17 @@ package com.groupware.controller;
 
 import com.groupware.dto.NoticeDTO;
 import com.groupware.service.NoticeService;
+import com.groupware.vo.SearchVO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,16 +28,26 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/notice")
 @AllArgsConstructor
-@RestController
 public class NoticeController {
 
 		private NoticeService service;
 		
 		@GetMapping("")
-		public List<NoticeDTO> list(Model model) {
+		public String list(
+				@ModelAttribute Model model,
+				@RequestParam(defaultValue = "") String title,
+				@RequestParam(defaultValue = "") String content,
+				@RequestParam(defaultValue = "") String writer,
+				@RequestParam(defaultValue = "") Integer sorting,
+				@RequestParam(defaultValue = "") Integer page
+				) {
 			log.info("list");
 			
-			return service.selectList();
+			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page);
+			
+			List<NoticeDTO> dtos = service.selectList(searchVO);
+			
+			return "/notice/list";
 		}
 		
 		@GetMapping("/new")
@@ -78,10 +92,8 @@ public class NoticeController {
 			return "redirect:/notice";
 		}
 		
-		@DeleteMapping("/notice/schedule")		
-		public String deleteBySchedule(RedirectAttributes rttr) {
-			log.info("deleteBySchedule: ");
-			
-			return "redirect:/notice";
+		@DeleteMapping("/notice/schedule")
+		public void deleteBySchedule(RedirectAttributes rttr) {
+			log.info("deleteBySchedule: ");			
 		}
 }
