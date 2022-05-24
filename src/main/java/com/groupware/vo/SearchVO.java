@@ -29,7 +29,7 @@ public class SearchVO {
 		this.sorting = sorting;
 		this.page = page;
 		this.pageSize = pageSize;
-		this.startNum = (this.page-1)/this.pageSize;
+		this.startNum = (page-1)*pageSize;
 	}
 
 	

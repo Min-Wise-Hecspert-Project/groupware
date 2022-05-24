@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,23 +21,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@Log4j
-@RequestMapping("/notice")
+@RequestMapping("/api")
 @AllArgsConstructor
+@RestController
+@Log4j
 public class NoticeController {
 
 		private NoticeService service;
 		
-		@GetMapping("")
-		@ResponseBody
-		public List<NoticeDTO> list(
+		@GetMapping("/notice")
+		public ResponseEntity<List<NoticeDTO>> list(
 				Model model,
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
@@ -43,22 +45,25 @@ public class NoticeController {
 				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page
 				) {
-			log.info("list");
 			
 			int pageSize = Config.globalPageSize;
 			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, pageSize);
 			
+			System.out.println(searchVO);
+			
 			List<NoticeDTO> dtos = service.selectList(searchVO);
 			
-			model.addAttribute("noticeList", dtos);
-			
-			return dtos;
+			if(dtos.size() < 1 ) {
+				return ResponseEntity
+						.status(HttpStatus.NO_CONTENT)
+						.body(dtos);
+			} else {
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(dtos);
+			}
 		}
-		
-		@GetMapping("/new")
-		public String insert() {
-			return "/notice/insertForm";
-		}
+
 		
 		@PostMapping("/notice")
 		public String post(NoticeDTO noticeDTO, RedirectAttributes rttr) {
