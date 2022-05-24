@@ -10,7 +10,7 @@
     <meta name="generator" content="Hugo 0.98.0">
     <title>EX</title>
     
-	<jsp:include page="head/head.jsp"></jsp:include>
+	<jsp:include page="../views/includes/head.jsp"></jsp:include>
 
     <style>
       .bd-placeholder-img {
@@ -114,7 +114,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link text-white">
+            <a href="/notice" class="nav-link text-white">
               <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
               공지사항
             </a>
@@ -163,7 +163,8 @@
       <div class="content">
         <div class="row align-items-start">
           
-          <div class="col-md-6" id="grid1"><h2>공지사항</h2></div>
+          <jsp:include page="notice/view.jsp"></jsp:include>
+          
           <div class="col-md-6">
             <h2>회사일정</h2>
             <div id="menu">
@@ -220,28 +221,7 @@
     }
   
   ]
-    const grid1 = new tui.Grid({
-      el: document.getElementById('grid1'),
-      data: gridData,
-      scrollX: false,
-      scrollY: false,
-      columns: [
-        {
-          header: 'No',
-          name: 'noticeIdx',
-          sortingType: 'desc',
-          sortable: true
-        },
-        {
-          header: '제목',
-          name: 'title'
-        },
-        {
-          header: '작성자',
-          name: 'employeeIdx'
-        }
-      ]
-    });
+    
     const grid3 = new tui.Grid({
       el: document.getElementById('grid3'),
       data: gridData,
