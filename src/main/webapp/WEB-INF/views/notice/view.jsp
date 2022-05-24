@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="col-md-6" id="grid1"><h2>공지사항</h2></div>
-
+<div class="col-md-6" id="notice-grid"><h2>공지사항</h2></div>
 <script type="text/javascript">
 let noticeDate = [
 	{
@@ -42,8 +41,8 @@ let noticeDate = [
 	}
 ]
 
-const grid1 = new tui.Grid({
-        el: document.getElementById('grid1'),
+const noticeGrid = new tui.Grid({
+        el: document.getElementById('notice-grid'),
         data: noticeDate,
         scrollX: false,
         scrollY: false,
@@ -69,19 +68,19 @@ const grid1 = new tui.Grid({
         }
         ]
     });
-	grid1.hideColumn("employeeIdx",true);
+noticeGrid.hideColumn("employeeIdx",true);
 	
-	grid1.on('click', (ev) => {
+noticeGrid.on('click', (ev) => {
 		console.log(ev);
         let rowKey = ev.rowKey;
         let columnName = ev.columnName;
-        let data = grid1.getValue(rowKey,columnName);
+        let data = noticeGrid.getValue(rowKey,columnName);
         if (columnName==="title") {
-        	data = grid1.getValue(rowKey,"noticeIdx");
+        	data = noticeGrid.getValue(rowKey,"noticeIdx");
             location.href=`/board/${'${data}'}`
         }
         if (columnName==="employee") {
-        	data = grid1.getValue(rowKey,"employeeIdx");
+        	data = noticeGrid.getValue(rowKey,"employeeIdx");
             location.href=`/user/${'${data}'}`
         }
 	});
