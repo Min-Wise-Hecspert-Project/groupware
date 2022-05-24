@@ -8,7 +8,8 @@ public interface NoticeService {
 	Boolean insert(NoticeDTO noticeDTO);
 	Boolean update(NoticeDTO noticeDTO);
 	Boolean delete(Long noticeDTO);
-	List<NoticeDTO> getNoticeList();
-	NoticeDTO getNotice(Long noticeDTO);
+	List<NoticeDTO> selectList();
+	NoticeDTO select(Long noticeIdx);
+	Boolean deleteBySchedule();
 
 }
