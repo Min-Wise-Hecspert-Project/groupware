@@ -32,12 +32,12 @@
   </insert>
    -->
   
-  <select id="read" resultType="com.groupware.dto.BoardDTO">
+  <select id="read" resultMap="testMap">
   	select * from board where BOARD_idx = #{boardIdx}
   </select>
   
   <delete id="delete">
-  	delete from tbl_board where bno = #{bno}
+  	delete from board where BOARD_idx = #{boardIdx}
   </delete>
   
   <update id="update">

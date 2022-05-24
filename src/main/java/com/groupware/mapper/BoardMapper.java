@@ -17,5 +17,5 @@ public interface BoardMapper {
 
 	public int update(BoardDTO boardVO);
 
-	public int delete(long l);
+	public int delete(long boardIdx);
 }
