@@ -20,13 +20,10 @@
 	</thead>
 	<tbody>
 		
-		<c:forEach items="${list }" var="notice">
+		<c:forEach items="${noticeList }" var="notice">
 		<tr>
-			<td>1</td>
-			<td><a href="${notice.noticeIdx} }">${notice.title }</a></td>
-			<td>${notice.author }</td>
-			<td>${notice.insDate }</td>
-			<td>100000</td>
+			<td>${notice.employeeDTO.name }</td>
+
 		</tr>
 		</c:forEach>
 	</tbody>
