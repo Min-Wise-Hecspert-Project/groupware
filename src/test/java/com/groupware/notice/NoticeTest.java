@@ -1,5 +1,8 @@
 package com.groupware.notice;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.groupware.config.RootConfig;
 import com.groupware.config.ServletConfig;
 import com.groupware.dto.NoticeDTO;
+import com.groupware.global.Sorting;
 import com.groupware.mapper.NoticeMapper;
+import com.groupware.vo.SearchVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -25,7 +30,9 @@ public class NoticeTest {
 	
 	@Test
 	public void testGetNoticeList() {
-		log.info(mapper.selectList());
+		//new SearchVO("제목", "내용", "작성자", 정렬, 페이지);
+		SearchVO searchVO = new SearchVO("", "", "", Sorting.sortByinsDateASC.getValue(), 1); 
+		log.info(mapper.selectList(searchVO));
 	}
 	
 	@Test
