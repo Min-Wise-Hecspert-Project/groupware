@@ -13,6 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.groupware.config.RootConfig;
 import com.groupware.config.ServletConfig;
 import com.groupware.dto.NoticeDTO;
+import com.groupware.global.Config;
 import com.groupware.global.Sorting;
 import com.groupware.mapper.NoticeMapper;
 import com.groupware.vo.SearchVO;
@@ -30,13 +31,13 @@ public class NoticeTest {
 	
 	@Test
 	public void testGetNoticeList() {
-		//new SearchVO("제목", "내용", "작성자", 정렬, 페이지);
 		String title = "";
 		String content = "성공";
 		String writer = "";
 		Integer sorting = Sorting.sortByinsDateDESC.getValue();
 		Integer page = 1;
-		Integer pageSize = 3;
+		int pageSize = Config.globalPageSize;
+		
 		try {
 			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, pageSize); 
 			log.info(mapper.selectList(searchVO));

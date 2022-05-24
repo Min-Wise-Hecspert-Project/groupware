@@ -1,6 +1,8 @@
 package com.groupware.controller;
 
 import com.groupware.dto.NoticeDTO;
+import com.groupware.global.Config;
+import com.groupware.global.Sorting;
 import com.groupware.service.NoticeService;
 import com.groupware.vo.SearchVO;
 
@@ -43,8 +45,8 @@ public class NoticeController {
 				) {
 			log.info("list");
 			
-			Integer PageSize = 5;
-			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, PageSize);
+			int pageSize = Config.globalPageSize;
+			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, pageSize);
 			
 			List<NoticeDTO> dtos = service.selectList(searchVO);
 			
