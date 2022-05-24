@@ -17,11 +17,10 @@ import com.zaxxer.hikari.HikariDataSource;
 @MapperScan(basePackages = {"com.groupware.mapper"})
 public class RootConfig {
 	
-	@Bean // �޼ҵ��� ���� ����� ��ȯ�Ǵ� ��ü�� ������ ��ü�� ���
+	@Bean
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-//		jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE
 		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE");
 		hikariConfig.setUsername("hecto");
 		hikariConfig.setPassword("hecto");
@@ -33,8 +32,7 @@ public class RootConfig {
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource());
-//		typeAlias �����ϱ�
-//		sqlSessionFactory.setTypeAliasesPackage("com.groupware.vo");
+		sqlSessionFactory.setTypeAliasesPackage("com.groupware.dto");
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
 	}
 }
