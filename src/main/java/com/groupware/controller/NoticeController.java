@@ -33,7 +33,7 @@ public class NoticeController {
 		public List<NoticeDTO> list(Model model) {
 			log.info("list");
 			
-			return service.getNoticeList();
+			return service.selectList();
 		}
 		
 		@GetMapping("/new")
@@ -53,7 +53,7 @@ public class NoticeController {
 		@GetMapping("/notice/{noticeIdx}")
 		public String get(@PathVariable("noticeIdx") Long noticeIdx, Model model) {
 			log.info("/get");
-			model.addAttribute("notice", service.getNotice(noticeIdx));
+			model.addAttribute("notice", service.select(noticeIdx));
 			
 			return "/notice/detailForm"; 
 		}
@@ -74,6 +74,13 @@ public class NoticeController {
 			if(service.delete(noticeIdx)) {
 				rttr.addFlashAttribute("result", "success");
 			}			
+			
+			return "redirect:/notice";
+		}
+		
+		@DeleteMapping("/notice/schedule")		
+		public String deleteBySchedule(RedirectAttributes rttr) {
+			log.info("deleteBySchedule: ");
 			
 			return "redirect:/notice";
 		}

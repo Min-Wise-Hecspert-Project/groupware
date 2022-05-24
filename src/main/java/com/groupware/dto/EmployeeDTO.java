@@ -2,9 +2,13 @@ package com.groupware.dto;
 
 import org.apache.ibatis.type.Alias;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Alias("EmployeeDTO")
 public class EmployeeDTO {
 	private long employeeIdx;
@@ -14,7 +18,7 @@ public class EmployeeDTO {
 	private long 	positionIdx ;
 	private long 	authorityIdx ;
 	private String 	name;
-	private String 	ENName;
+	private String 	enName;
 	private String 	profileImage;
 	private String 	gender;
 	private String 	birthday;

@@ -20,31 +20,32 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public Boolean insert(NoticeDTO noticeDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.insert(noticeDTO) >= 1;
 	}
 
 	@Override
 	public Boolean update(NoticeDTO noticeDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.update(noticeDTO) >= 1;
 	}
 
 	@Override
-	public Boolean delete(Long noticeDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean delete(Long noticeIdx) {
+		return mapper.delete(noticeIdx) >= 1;
 	}
 
 	@Override
-	public List<NoticeDTO> getNoticeList() {
-		return mapper.getNoticeList();
+	public List<NoticeDTO> selectList() {
+		return mapper.selectList();
 	}
 
 	@Override
-	public NoticeDTO getNotice(Long noticeDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	public NoticeDTO select(Long noticeIdx) {
+		return mapper.select(noticeIdx);
+	}
+	
+	@Override
+	public Boolean deleteBySchedule() {
+		return mapper.deleteBySchedule()>= 1;
 	}
 
 }

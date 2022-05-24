@@ -10,12 +10,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Alias("noticeDTO")
+@Alias("NoticeDTO")
 public class NoticeDTO {
 	
 	@NonNull
@@ -42,5 +44,7 @@ public class NoticeDTO {
 	private Integer state;
 	
 	@NonNull
-	private String name;
+	private EmployeeDTO employeeDTO;
+	
+	
 }

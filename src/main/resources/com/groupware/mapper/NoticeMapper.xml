@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.groupware.mapper.NoticeMapper">
 
-	<resultMap type="noticeDTO" id="noticeMap">
+	<resultMap type="NoticeDTO" id="NoticeMap">
 	  <id property="noticeIdx" column="NOTICE_IDX"/>
 	  <result property="employeeIdx" column="EMPLOYEE_IDX"/>
 	  <result property="title" column="TITLE"/>
@@ -11,13 +11,14 @@
 	  <result property="insDate" column="INS_DATE"/>
 	  <result property="updDate" column="UPD_DATE"/>
 	  <result property="state" column="STATE"/>
-	  <association property="employeeIdx" column="employee_idx" javaType="EmployeeDTO">
-	  	<id property="employeeIdx" column="employee_idx"/>
+	  <association property="employeeDTO" javaType="EmployeeDTO">
+	  	<id property="employeeIdx" column="EMPLOYEE_IDX"/>
 	  	<result property="name" column="NAME"/>
+	  	<result property="enName" column="EN_NAME"/>
 	  </association>
 	</resultMap>
   
-  <select id="getNoticeList" resultMap="noticeMap">
+  <select id="selectList" resultMap="NoticeMap">
 	SELECT
 	    a.notice_idx,
 	    a.employee_idx,
@@ -25,7 +26,8 @@
 	    a.ins_date,
 	    a.upd_date,
 	    
-	    b.name
+	    b.name,
+	    b.en_name
 	FROM
 	    notice a
 	    LEFT JOIN employee b ON a.employee_idx = b.employee_idx
@@ -33,26 +35,61 @@
 	    NOT a.state = 0
   </select>
   
-  <insert id="insert">
-  	insert into notice(title, content, writer) values(#{title},#{content},#{writer})
-  </insert>
-  
-  <select id="read" resultMap="noticeMap">
-  	select * from notice where notice_idx = #{noticeIdx}
+  <select id="select" resultMap="NoticeMap">
+  	SELECT
+  		*
+ 	FROM
+ 		notice
+ 	WHERE
+ 		notice_idx = #{noticeIdx}
   </select>
   
-  <delete id="delete">
-  	delete from notice where notice_idx = #{noticeIdx}
-  </delete>
+  <insert id="insert">
+  	INSERT INTO
+  		notice(
+			notice_idx,
+			employee_idx,
+			title,
+			content,
+			"FILE"
+  			)
+ 	VALUES(
+ 		NOTICE_SEQ.NEXTVAL,
+ 		#{employeeIdx},
+ 		#{title},
+ 		#{content},
+ 		#{file}
+ 		)
+  </insert>
   
   <update id="update">
-	  update
-	  	notice
-	  set
-	  	title = #{title},
-	  	content = #{content},
-	  	updateDate = sysdate
-	WHERE notice_idx = #{noticeIdx}
-  	
+  	UPDATE
+  		notice
+  	SET
+		title = #{title},
+ 		content = #{content},
+ 		"FILE" = #{file},
+ 		upd_date = SYSDATE
+ 	WHERE
+ 		notice_idx = #{noticeIdx}  	
   </update>
+   
+  <delete id="delete">
+  	UPDATE
+  		notice
+  	SET
+		state = 0,  	
+  		del_date = SYSDATE
+ 	WHERE
+ 		notice_idx = #{noticeIdx}
+  </delete>
+  
+  <delete id="deleteBySchedule">
+	DELETE FROM (SELECT notice_idx, state
+	             FROM notice
+	             WHERE del_date + (INTERVAL '9' HOUR) + (INTERVAL '3' MONTH) > (SELECT SYSDATE + (INTERVAL '9' HOUR)
+	                                                                            FROM dual)) del_data
+	WHERE
+	        del_data.state = 0
+  </delete>
 </mapper>

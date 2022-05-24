@@ -9,6 +9,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.groupware.config.RootConfig;
 import com.groupware.config.ServletConfig;
+import com.groupware.dto.NoticeDTO;
 import com.groupware.mapper.NoticeMapper;
 
 import lombok.extern.log4j.Log4j;
@@ -23,8 +24,38 @@ public class NoticeTest {
 	NoticeMapper mapper;
 	
 	@Test
-	public void testGetList() {
-		log.info(mapper.getNoticeList());
+	public void testGetNoticeList() {
+		log.info(mapper.selectList());
+	}
+	
+	@Test
+	public void testGetNotice() {
+		log.info(mapper.select(1L));
+	}
+	
+	@Test
+	public void testInsert() {
+		NoticeDTO noticeDTO = new NoticeDTO();
+		noticeDTO.setEmployeeIdx(1L);
+		noticeDTO.setTitle("삽입 테스트~~");
+		noticeDTO.setContent("성공");
+		noticeDTO.setFile("");
+		mapper.insert(noticeDTO);
+	}
+	
+	@Test
+	public void testUpdate() {
+		NoticeDTO noticeDTO = new NoticeDTO();
+		noticeDTO.setNoticeIdx(8L);
+		noticeDTO.setTitle("수정!!!!!");
+		noticeDTO.setContent("성공");
+		noticeDTO.setFile("");
+		mapper.update(noticeDTO);
+	}
+	
+	@Test
+	public void testDelete() {
+		mapper.delete(8L);
 	}
 	
 }
