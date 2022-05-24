@@ -29,6 +29,6 @@ public class MyController {
 		
 //		model.addAttribute("boardList", boardList);
 		 
-		return boardList;
+		return List<BoardVO>;
 	}
 }

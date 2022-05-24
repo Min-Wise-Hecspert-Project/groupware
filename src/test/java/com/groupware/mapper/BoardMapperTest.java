@@ -1,5 +1,7 @@
 package com.groupware.mapper;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -10,10 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.groupware.config.RootConfig;
 import com.groupware.dto.BoardDTO;
+import com.groupware.vo.BoardVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
-import oracle.net.aso.b;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RootConfig.class})
@@ -33,27 +35,25 @@ public class BoardMapperTest {
 		board.setEmployeeIdx("새로 작성하는 글");
 		board.setBoardType("새로 작성하는 내용");
 		board.setContent("newbie");
-		board.setFile("sksdf");
-		board.setState("sdffd");
-		board.setTitle("sdkfksdkdsfjk");
-	
+		board.setFile("file");
+		board.setState("!!");
+		board.setTitle("ww");
 		mapper.insert(board);
-		log.info("----------------------");
 		log.info(board);
 	}
 	
-	@Test
-	public void testInsertKey() {
-		BoardVO board = new BoardVO();
-		board.setTitle("새글 selectKey");
-		board.setContent("새글 selectKey");
-		board.setWriter("newbie");
-		mapper.insertSelectKey(board);
-		log.info(board);
-	}
+//	@Test
+//	public void testInsertKey() {
+//		BoardDTO board = new BoardDTO();
+//		board.setTitle("새글 selectKey");
+//		board.setContent("새글 selectKey");
+//		board.setWriter("newbie");
+//		mapper.insertSelectKey(board);
+//		log.info(board);
+//	}
 	@Test
 	public void testRead() {
-		BoardVO board = mapper.read(5L);
+		BoardDTO board = mapper.read(4L);
 		log.info(board);
 	}
 	@Test

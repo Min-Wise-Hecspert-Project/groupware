@@ -17,10 +17,11 @@ import com.zaxxer.hikari.HikariDataSource;
 @MapperScan(basePackages = {"com.groupware.mapper"})
 public class RootConfig {
 	
-	@Bean
+	@Bean // �޼ҵ��� ���� ����� ��ȯ�Ǵ� ��ü�� ������ ��ü�� ���
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
+//		jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE
 		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE");
 		hikariConfig.setUsername("hecto");
 		hikariConfig.setPassword("hecto");
