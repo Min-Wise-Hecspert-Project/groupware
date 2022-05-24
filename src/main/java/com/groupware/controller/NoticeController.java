@@ -1,6 +1,8 @@
 package com.groupware.controller;
 
 import com.groupware.dto.NoticeDTO;
+import com.groupware.global.Config;
+import com.groupware.global.Sorting;
 import com.groupware.service.NoticeService;
 import com.groupware.vo.SearchVO;
 
@@ -12,13 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -33,22 +34,25 @@ public class NoticeController {
 		private NoticeService service;
 		
 		@GetMapping("")
-		public String list(
-				@ModelAttribute Model model,
+		@ResponseBody
+		public List<NoticeDTO> list(
+				Model model,
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
 				@RequestParam(defaultValue = "") String writer,
 				@RequestParam(defaultValue = "") Integer sorting,
-				@RequestParam(defaultValue = "") Integer page
+				@RequestParam(defaultValue = "1") Integer page
 				) {
 			log.info("list");
 			
-			Integer PageSize = 5;
-			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, PageSize);
+			int pageSize = Config.globalPageSize;
+			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, pageSize);
 			
 			List<NoticeDTO> dtos = service.selectList(searchVO);
 			
-			return "/notice/list";
+			model.addAttribute("noticeList", dtos);
+			
+			return dtos;
 		}
 		
 		@GetMapping("/new")
@@ -84,7 +88,7 @@ public class NoticeController {
 		}
 		
 		@DeleteMapping("/notice/{noticeIdx}")		
-		public String delete(@RequestParam("noticeIdx") Long noticeIdx, RedirectAttributes rttr) {
+		public String delete(@PathVariable("noticeIdx") Long noticeIdx, RedirectAttributes rttr) {
 			log.info("delete: " + noticeIdx);
 			if(service.delete(noticeIdx)) {
 				rttr.addFlashAttribute("result", "success");
