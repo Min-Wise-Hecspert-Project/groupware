@@ -31,8 +31,20 @@ public class NoticeTest {
 	@Test
 	public void testGetNoticeList() {
 		//new SearchVO("제목", "내용", "작성자", 정렬, 페이지);
-		SearchVO searchVO = new SearchVO("", "", "", Sorting.sortByinsDateASC.getValue(), 1); 
-		log.info(mapper.selectList(searchVO));
+		String title = "";
+		String content = "성공";
+		String writer = "";
+		Integer sorting = Sorting.sortByinsDateDESC.getValue();
+		Integer page = 1;
+		Integer pageSize = 3;
+		try {
+			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, pageSize); 
+			log.info(mapper.selectList(searchVO));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@Test
