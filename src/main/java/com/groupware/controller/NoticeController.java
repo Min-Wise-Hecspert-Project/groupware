@@ -38,7 +38,6 @@ public class NoticeController {
 		
 		@GetMapping("/notice")
 		public ResponseEntity<List<NoticeDTO>> list(
-				Model model,
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
 				@RequestParam(defaultValue = "") String writer,
