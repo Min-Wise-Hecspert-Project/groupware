@@ -37,13 +37,23 @@
 		</div>
 	</div>
 	<script>
-		
-		$(".row align-items-start").change(function (e) { 
-			e.preventDefault();
-			let width = $(".row align-items-start").width();
-			console.log(width);
+		$(function () {
+			let notice = $("#notice-grid")
+			notice.removeClass("col-md-6");
+			notice.addClass("col-md-12");
+			let width = notice.width();
 			noticeGrid.setWidth(width);
+			$("#notice-grid").resize(function () { 
+				notice = $("#notice-grid")
+				let width = notice.width();
+				noticeGrid.setWidth(width);
+				console.log("active resize")
+			});
 		});
+		
+		
+		
+		
 	</script>
 </body>
 
