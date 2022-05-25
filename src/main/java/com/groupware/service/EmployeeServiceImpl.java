@@ -3,7 +3,6 @@ package com.groupware.service;
 import com.groupware.dto.EmployeeDTO;
 import com.groupware.mapper.EmployeeMapper;
 import com.groupware.vo.CommonSearchVO;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +27,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public EmployeeDTO delete(Long noticeIdx) {
-		EmployeeDTO resEmployeeDTO = this.select(noticeIdx);
-		return mapper.delete(noticeIdx) < 1 ? null : resEmployeeDTO;
+	public EmployeeDTO delete(Long employeeIdx) {
+		EmployeeDTO resEmployeeDTO = this.select(employeeIdx);
+		return mapper.delete(employeeIdx) < 1 ? null : resEmployeeDTO;
 	}
 
 	@Override
@@ -39,8 +38,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public EmployeeDTO select(Long noticeIdx) {
-		return mapper.select(noticeIdx);
+	public EmployeeDTO select(Long employeeIdx) {
+		return mapper.select(employeeIdx);
 	}
 	
 	@Override
