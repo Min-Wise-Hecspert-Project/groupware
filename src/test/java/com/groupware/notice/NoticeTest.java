@@ -36,7 +36,7 @@ public class NoticeTest {
 		String title = "";
 		String content = "성공";
 		String writer = "";
-		Integer sorting = Sorting.sortByinsDateDESC.getValue();
+		Integer sorting = Sorting.ORDER_BY_INS_DATE_DESC.getValue();
 		Integer page = 1;
 		int pageSize = Config.globalPageSize;
 		
