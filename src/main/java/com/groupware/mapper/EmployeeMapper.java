@@ -7,15 +7,15 @@ import com.groupware.vo.CommonSearchVO;
 import java.util.List;
 
 public interface EmployeeMapper {
-	public List<EmployeeDTO> selectList(CommonSearchVO searchVO);
+	List<EmployeeDTO> selectList(CommonSearchVO searchVO);
 	
-	public Long insert(EmployeeDTO Notice);
+	Long insert(EmployeeDTO Notice);
 	
-	public EmployeeDTO select(Long noticeIdx);
+	EmployeeDTO select(Long noticeIdx);
 
-	public Long update(EmployeeDTO employeeDTO);
+	Long update(EmployeeDTO employeeDTO);
 
-	public Long delete(Long noticeIdx);
+	Long delete(Long noticeIdx);
 	
-	public int deleteBySchedule();
+	int deleteBySchedule();
 }
