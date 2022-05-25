@@ -42,7 +42,7 @@
   
   <update id="update">
 	  update
-	  	tbl_board
+	  	board
 	  set
 	  	title = #{title},
 	  	content = #{content},

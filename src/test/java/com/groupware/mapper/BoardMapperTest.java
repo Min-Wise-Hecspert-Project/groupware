@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 import java.util.List;
 
+import org.conan.domain.Criteria;
+import org.conan.mapper.BoardMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +44,14 @@ public class BoardMapperTest {
 		log.info(board);
 	}
 	
+
+
+	
+
+//	
 //	@Test
 //	public void testInsertKey() {
-//		BoardDTO board = new BoardDTO();
+//		BoardVO board = new BoardVO();
 //		board.setTitle("새글 selectKey");
 //		board.setContent("새글 selectKey");
 //		board.setWriter("newbie");
@@ -53,21 +60,20 @@ public class BoardMapperTest {
 //	}
 	@Test
 	public void testRead() {
-		BoardDTO board = mapper.read(4L);
+		BoardDTO board = mapper.read(5L);
 		log.info(board);
 	}
 	@Test
 	public void testDelete() {
-		log.info("DELETE COUNT : " + mapper.delete(1L));
+		log.info("DELETE COUNT : " + mapper.delete(5L));
 	}
 	
 	@Test
 	public void testUpdate() {
-		BoardVO board = new BoardVO();
-		board.setBno(2L);
+		BoardDTO board = new BoardDTO();
 		board.setTitle("수정한 제목");
 		board.setContent("수정한 내용");
-		board.setWriter("rose");
+		board.setFile("rose");
 		
 		int count = mapper.update(board);
 		log.info("UPDATE COUNT : " +count);
