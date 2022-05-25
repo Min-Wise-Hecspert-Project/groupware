@@ -1,42 +1,42 @@
 package com.groupware.service;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.groupware.dto.NoticeDTO;
 import com.groupware.mapper.NoticeMapper;
-import com.groupware.vo.SearchVO;
+import com.groupware.vo.CommonSearchVO;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Service
-@Log4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class NoticeServiceImpl implements NoticeService {
 	
-	NoticeMapper mapper;
+	private final NoticeMapper mapper;
 
 	@Override
-	public Boolean insert(NoticeDTO noticeDTO) {
-		return mapper.insert(noticeDTO) >= 1;
+	public NoticeDTO insert(NoticeDTO noticeDTO) {
+		mapper.insert(noticeDTO);
+		return this.select(noticeDTO.getNoticeIdx());
 	}
 
 	@Override
-	public Boolean update(NoticeDTO noticeDTO) {
-		return mapper.update(noticeDTO) >= 1;
+	public NoticeDTO update(NoticeDTO noticeDTO) {
+		mapper.update(noticeDTO);
+		return this.select(noticeDTO.getNoticeIdx());
 	}
 
 	@Override
-	public Boolean delete(Long noticeIdx) {
-		return mapper.delete(noticeIdx) >= 1;
+	public NoticeDTO delete(Long noticeIdx) {
+		NoticeDTO resNoticeDTO = this.select(noticeIdx);
+		return mapper.delete(noticeIdx) < 1 ? null : resNoticeDTO;
 	}
 
 	@Override
-	public List<NoticeDTO> selectList(SearchVO searchVO) {
+	public List<NoticeDTO> selectList(CommonSearchVO searchVO) {
 		return mapper.selectList(searchVO);
 	}
 
@@ -46,8 +46,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public Boolean deleteBySchedule() {
-		return mapper.deleteBySchedule()>= 1;
+	public int deleteBySchedule() {
+		return mapper.deleteBySchedule();
 	}
 
 }

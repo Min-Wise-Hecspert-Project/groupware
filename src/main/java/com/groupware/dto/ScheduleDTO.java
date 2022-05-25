@@ -9,43 +9,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Alias("NoticeDTO")
-public class NoticeDTO {
-	
+@Alias("scheduleDTO")
+public class ScheduleDTO {
 	@NonNull
-	private Long noticeIdx;
-	
+	private Long scheduleIdx;
 	@NonNull
 	private Long employeeIdx;
-	
 	@NonNull
-	private String title;
-	
+	private Long state;
 	@NonNull
-	private String content;
+	private Date insDate;
+	@NonNull
+	private Date updDate;
+	@NonNull
+	private Date startDate;
+	@NonNull
+	private Date endDate;
 	
 	private String file;
 	
-	@NonNull
-	private Date insDate;
+	private String participant;
 	
-	@NonNull
-	private Date updDate;
-	
-	@NonNull
-	private Integer state;
-	
-	@NonNull
-	private EmployeeDTO employeeDTO;
 	
 	
 }

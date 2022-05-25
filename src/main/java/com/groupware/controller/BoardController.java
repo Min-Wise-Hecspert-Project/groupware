@@ -3,6 +3,10 @@ package com.groupware.controller;
 import com.groupware.dto.BoardDTO;
 import com.groupware.service.BoardService;
 import com.groupware.vo.BoardVO;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,19 +19,30 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-@Controller
+@RestController
 @Log4j
-@RequestMapping("/api/board/*")
+@RequestMapping("/api/boarsd/*")
 @AllArgsConstructor
 @ResponseBody
 public class BoardController {
 
 		private BoardService service; 
 		
+//		@GetMapping("/list")
+//		public void list(Model model) {
+//			log.info("list");
+//			model.addAttribute("list", service.getList());
+//		}
 		@GetMapping("/list")
-		public void list(Model model) {
-			log.info("list");
-			model.addAttribute("list", service.getList());
+		public ResponseEntity<List<BoardDTO>>list(
+				@RequestParam(defaultValue = "") String title,
+				@RequestParam(defaultValue = "") String content,
+				@RequestParam(defaultValue = "") String File
+
+				){
+			BoardDTO boardDTO = new BoardDTO(boardType,content,File);
+			
+			
 		}
 		
 		@GetMapping("/register")

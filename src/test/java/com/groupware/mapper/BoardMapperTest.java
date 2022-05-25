@@ -60,7 +60,7 @@ public class BoardMapperTest {
 //	}
 	@Test
 	public void testRead() {
-		BoardDTO board = mapper.read(5L);
+		BoardDTO board = mapper.read(9L);
 		log.info(board);
 	}
 	@Test
@@ -71,6 +71,7 @@ public class BoardMapperTest {
 	@Test
 	public void testUpdate() {
 		BoardDTO board = new BoardDTO();
+		board.setBoardIdx(9L);
 		board.setTitle("수정한 제목");
 		board.setContent("수정한 내용");
 		board.setFile("rose");

@@ -3,8 +3,6 @@ package com.groupware.vo;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Getter
@@ -12,7 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 
-public class SearchVO {
+public class CommonSearchVO {
 	private String title;
 	private String content;
 	private String writer;
@@ -21,15 +19,22 @@ public class SearchVO {
 	private Integer pageSize;
 	private Integer startNum;
 	
-	public SearchVO(String title, String content, String writer, Integer sorting, Integer page, Integer pageSize) {
-		super();
+	public CommonSearchVO(String title, String content, String writer, Integer sorting, Integer page, Integer pageSize) {
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
 		this.sorting = sorting;
 		this.page = page;
 		this.pageSize = pageSize;
-		this.startNum = (this.page-1)/this.pageSize;
+		this.startNum = (page-1)*pageSize;
+	}
+
+	public CommonSearchVO( String writer, Integer sorting, Integer page, Integer pageSize) {
+		this.writer = writer;
+		this.sorting = sorting;
+		this.page = page;
+		this.pageSize = pageSize;
+		this.startNum = (page-1)*pageSize;
 	}
 
 	

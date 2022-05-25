@@ -94,9 +94,11 @@
  		notice
  	WHERE
  		notice_idx = #{noticeIdx}
+ 	AND
+ 		state = 1
   </select>
   
-  <insert id="insert">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="noticeIdx" keyColumn="notice_idx">
   	INSERT INTO
   		notice(
 			notice_idx,
@@ -126,7 +128,7 @@
  		notice_idx = #{noticeIdx}  	
   </update>
    
-  <delete id="delete">
+  <update id="delete">
   	UPDATE
   		notice
   	SET
@@ -134,7 +136,7 @@
   		del_date = SYSDATE
  	WHERE
  		notice_idx = #{noticeIdx}
-  </delete>
+  </update>
   
   <delete id="deleteBySchedule">
 	DELETE FROM (SELECT notice_idx, state

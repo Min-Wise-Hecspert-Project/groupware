@@ -2,10 +2,15 @@ package com.groupware.dto;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BoardDTO {
+
 	private Long boardIdx;
 	private String employeeIdx;
 	private String boardType;
@@ -15,4 +20,7 @@ public class BoardDTO {
 	private String updDate;
 	private String state;
 	private String title;
+
+	
+	
 }

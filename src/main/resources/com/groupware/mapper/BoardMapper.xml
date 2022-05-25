@@ -12,6 +12,11 @@
 		<result property="updDate" column="UPD_DATE"/>
 		<result property="state" column="STATE"/>
 		<result property="title" column="title"/>
+		<association property="employeeDTO" column="EmployeeDTO">
+			<id property="employeeIdx" column="EMPLOYEE_IDX"/>
+			<result property="name" column="NAME"/>
+	  		<result property="enName" column="EN_NAME"/>
+		</association>
 	</resultMap>
 	
   <select id="getBoardList" resultMap="testMap">
@@ -21,7 +26,7 @@
    <insert id="insert">
   	 insert into board(BOARD_IDX,EMPLOYEE_IDX, BOARD_TYPE, "CONTENT","FILE",INS_DATE,UPD_DATE,STATE,TITLE)
   	 values(BOARD_SEQ.NEXTVAL,#{employeeIdx},#{boardType},#{content},#{File},SYSDATE,SYSDATE,#{state},#{title})
-  </insert>
+   </insert>
   <!-- 
   <insert id="insertSelectKey">
   	<selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
@@ -46,8 +51,8 @@
 	  set
 	  	title = #{title},
 	  	content = #{content},
-	  	updateDate = sysdate
-	WHERE bno = #{bno}
+	  	UPD_DATE = sysdate
+	WHERE BOARD_idx = #{boardIdx}
   	
   </update> 
 </mapper>
