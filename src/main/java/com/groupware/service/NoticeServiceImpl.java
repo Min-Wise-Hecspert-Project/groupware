@@ -19,18 +19,21 @@ public class NoticeServiceImpl implements NoticeService {
 	NoticeMapper mapper;
 
 	@Override
-	public Boolean insert(NoticeDTO noticeDTO) {
-		return mapper.insert(noticeDTO) >= 1;
+	public NoticeDTO insert(NoticeDTO noticeDTO) {
+		mapper.insert(noticeDTO);
+		return this.select(noticeDTO.getNoticeIdx());
 	}
 
 	@Override
-	public Boolean update(NoticeDTO noticeDTO) {
-		return mapper.update(noticeDTO) >= 1;
+	public NoticeDTO update(NoticeDTO noticeDTO) {
+		Long noticeIdx = mapper.update(noticeDTO);
+		return this.select(noticeIdx);
 	}
 
 	@Override
-	public Boolean delete(Long noticeIdx) {
-		return mapper.delete(noticeIdx) >= 1;
+	public NoticeDTO delete(Long noticeIdx) {
+		NoticeDTO resNoticeDTO = this.select(noticeIdx);
+		return mapper.delete(noticeIdx) < 1 ? null : resNoticeDTO;
 	}
 
 	@Override
@@ -44,8 +47,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public Boolean deleteBySchedule() {
-		return mapper.deleteBySchedule()>= 1;
+	public int deleteBySchedule() {
+		return mapper.deleteBySchedule();
 	}
 
 }

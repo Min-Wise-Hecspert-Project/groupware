@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 @AllArgsConstructor
-@RestController
 @Log4j
 public class NoticeController {
 
@@ -45,18 +45,17 @@ public class NoticeController {
 				@RequestParam(defaultValue = "1") Integer page
 				) {
 			
-			int pageSize = Config.globalPageSize;
-			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, pageSize);
-			
-			System.out.println(searchVO);
+			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, Config.globalPageSize);
 			
 			List<NoticeDTO> dtos = service.selectList(searchVO);
 			
 			if(dtos.size() < 1 ) {
+				// 값이 없을때 204 - 응답 body가 필요 없는 자원
 				return ResponseEntity
 						.status(HttpStatus.NO_CONTENT)
-						.body(dtos);
+						.body(null);
 			} else {
+				// 성공시 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
 						.body(dtos);
@@ -65,44 +64,83 @@ public class NoticeController {
 
 		
 		@PostMapping("/notice")
-		public String post(NoticeDTO noticeDTO, RedirectAttributes rttr) {
-			log.info("post: " + noticeDTO);
-			service.insert(noticeDTO);
-			rttr.addFlashAttribute("result", noticeDTO.getNoticeIdx());
+		public ResponseEntity<NoticeDTO> post(NoticeDTO noticeDTO) {
+
+			NoticeDTO resNoticeDTO = service.insert(noticeDTO);
 			
-			return "redirect:/notice";
+			if(resNoticeDTO == null) {
+				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
+				return ResponseEntity
+						.status(HttpStatus.CONFLICT)
+						.body(null);
+			} else {
+				// 성공시 201 - 요청에 성공하고 새로운 리소스를 만든 경우
+				return ResponseEntity
+						.status(HttpStatus.CREATED)
+						.body(resNoticeDTO);
+			}
 		}
 		
 		@GetMapping("/notice/{noticeIdx}")
-		public String get(@PathVariable("noticeIdx") Long noticeIdx, Model model) {
-			log.info("/get");
-			model.addAttribute("notice", service.select(noticeIdx));
+		public ResponseEntity<NoticeDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
+
+			NoticeDTO resNoticeDTO = service.select(noticeIdx);
 			
-			return "/notice/detailForm"; 
+			if(resNoticeDTO == null) {
+				// 값이 없을때 204 - 응답 body가 필요 없는 자원
+				return ResponseEntity
+						.status(HttpStatus.NO_CONTENT)
+						.body(null);
+			} else {
+				// 성공시 200 - OK
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(resNoticeDTO);
+			}
 		}
 		
 		@PutMapping("/notice")
-		public String put(NoticeDTO noticeDTO, RedirectAttributes rttr) {
-			log.info("put: " + noticeDTO);
-			if(service.update(noticeDTO)) {
-				rttr.addFlashAttribute("result", noticeDTO.getNoticeIdx());
-			}			
-			
-			return "redirect:/notice";
+		public ResponseEntity<NoticeDTO> put(NoticeDTO noticeDTO) {
+
+			NoticeDTO resNoticeDTO = service.update(noticeDTO);
+
+			if(resNoticeDTO == null) {
+				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
+				return ResponseEntity
+						.status(HttpStatus.CONFLICT)
+						.body(null);
+			} else {
+				// 성공시 200 - OK
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(resNoticeDTO);
+			}
 		}
 		
 		@DeleteMapping("/notice/{noticeIdx}")		
-		public String delete(@PathVariable("noticeIdx") Long noticeIdx, RedirectAttributes rttr) {
-			log.info("delete: " + noticeIdx);
-			if(service.delete(noticeIdx)) {
-				rttr.addFlashAttribute("result", "success");
-			}			
+		public ResponseEntity<NoticeDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
 			
-			return "redirect:/notice";
+			NoticeDTO resNoticeDTO = service.delete(noticeIdx);
+			
+			if(resNoticeDTO == null) {
+				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
+				return ResponseEntity
+						.status(HttpStatus.CONFLICT)
+						.body(null);				
+			} else {
+				// 성공시 200 - OK
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(resNoticeDTO);
+			}
+
 		}
 		
 		@DeleteMapping("/notice/schedule")
 		public void deleteBySchedule(RedirectAttributes rttr) {
-			log.info("deleteBySchedule: ");			
+			log.info("deleteBySchedule: ");	
+//			return ResponseEntity
+//					.status(HttpStatus.OK)
+//					.body(null); // 수정 필요
 		}
 }

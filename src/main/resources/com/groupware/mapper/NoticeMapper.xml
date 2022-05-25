@@ -96,7 +96,7 @@
  		notice_idx = #{noticeIdx}
   </select>
   
-  <insert id="insert">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="noticeIdx" keyColumn="notice_idx">
   	INSERT INTO
   		notice(
 			notice_idx,
@@ -114,7 +114,7 @@
  		)
   </insert>
   
-  <update id="update">
+  <update id="update" useGeneratedKeys="true" keyProperty="noticeIdx" keyColumn="notice_idx">
   	UPDATE
   		notice
   	SET
@@ -126,7 +126,7 @@
  		notice_idx = #{noticeIdx}  	
   </update>
    
-  <delete id="delete">
+  <update id="delete" useGeneratedKeys="true" keyProperty="noticeIdx" keyColumn="notice_idx">
   	UPDATE
   		notice
   	SET
@@ -134,7 +134,7 @@
   		del_date = SYSDATE
  	WHERE
  		notice_idx = #{noticeIdx}
-  </delete>
+  </update>
   
   <delete id="deleteBySchedule">
 	DELETE FROM (SELECT notice_idx, state

@@ -6,11 +6,11 @@ import com.groupware.dto.NoticeDTO;
 import com.groupware.vo.SearchVO;
 
 public interface NoticeService {
-	Boolean insert(NoticeDTO noticeDTO);
-	Boolean update(NoticeDTO noticeDTO);
-	Boolean delete(Long noticeDTO);
+	NoticeDTO insert(NoticeDTO noticeDTO);
+	NoticeDTO update(NoticeDTO noticeDTO);
+	NoticeDTO delete(Long noticeDTO);
 	List<NoticeDTO> selectList(SearchVO searchVO);
 	NoticeDTO select(Long noticeIdx);
-	Boolean deleteBySchedule();
+	int deleteBySchedule();
 
 }
