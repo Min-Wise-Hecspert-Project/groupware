@@ -53,7 +53,7 @@ public class NoticeController {
 				// 성공시 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
-						.body(dtos);  
+						.body(dtos);
 			}
 		}
 
