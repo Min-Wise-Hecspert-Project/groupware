@@ -9,10 +9,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.groupware.config.RootConfig;
 import com.groupware.config.ServletConfig;
+import com.groupware.controller.NoticeController;
 import com.groupware.dto.NoticeDTO;
 import com.groupware.global.Config;
 import com.groupware.global.Sorting;
 import com.groupware.mapper.NoticeMapper;
+import com.groupware.service.NoticeService;
 import com.groupware.vo.SearchVO;
 
 import lombok.extern.log4j.Log4j;
@@ -25,6 +27,9 @@ public class NoticeTest {
 
 	@Autowired
 	NoticeMapper mapper;
+	
+	@Autowired
+	NoticeService ns;
 	
 	@Test
 	public void testGetNoticeList() {
@@ -57,7 +62,8 @@ public class NoticeTest {
 		noticeDTO.setTitle("삽입 테스트~~");
 		noticeDTO.setContent("성공");
 		noticeDTO.setFile("");
-		mapper.insert(noticeDTO);
+		
+		log.info(ns.insert(noticeDTO));
 	}
 	
 	@Test
