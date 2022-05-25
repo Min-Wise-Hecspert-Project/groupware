@@ -79,7 +79,10 @@
 				</when>
 				<when test="sorting == 8">
 				ORDER BY a.view_cnt DESC
-				</when>								
+				</when>
+				<otherwise>
+					ORDER BY a.ins_date DESC
+				</otherwise>
 			</choose>	
 		</if>
 		)

@@ -36,7 +36,7 @@ public class NoticeController {
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
 				@RequestParam(defaultValue = "") String writer,
-				@RequestParam(defaultValue = "1") Integer sorting,
+				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page
 				) {
 			
