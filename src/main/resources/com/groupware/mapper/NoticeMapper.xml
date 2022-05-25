@@ -114,7 +114,7 @@
  		)
   </insert>
   
-  <update id="update" useGeneratedKeys="true" keyProperty="noticeIdx" keyColumn="notice_idx">
+  <update id="update">
   	UPDATE
   		notice
   	SET
@@ -126,7 +126,7 @@
  		notice_idx = #{noticeIdx}  	
   </update>
    
-  <update id="delete" useGeneratedKeys="true" keyProperty="noticeIdx" keyColumn="notice_idx">
+  <update id="delete">
   	UPDATE
   		notice
   	SET

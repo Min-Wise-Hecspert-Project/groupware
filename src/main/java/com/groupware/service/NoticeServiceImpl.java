@@ -9,10 +9,8 @@ import com.groupware.mapper.NoticeMapper;
 import com.groupware.vo.SearchVO;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Service
-@Log4j
 @AllArgsConstructor
 public class NoticeServiceImpl implements NoticeService {
 	
@@ -26,8 +24,8 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public NoticeDTO update(NoticeDTO noticeDTO) {
-		Long noticeIdx = mapper.update(noticeDTO);
-		return this.select(noticeIdx);
+		mapper.update(noticeDTO);
+		return this.select(noticeDTO.getNoticeIdx());
 	}
 
 	@Override
