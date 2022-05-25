@@ -2,6 +2,7 @@ package com.groupware.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.groupware.dto.NoticeDTO;
@@ -11,10 +12,10 @@ import com.groupware.vo.CommonSearchVO;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class NoticeServiceImpl implements NoticeService {
 	
-	NoticeMapper mapper;
+	private final NoticeMapper mapper;
 
 	@Override
 	public NoticeDTO insert(NoticeDTO noticeDTO) {

@@ -1,10 +1,8 @@
 package com.groupware.controller;
 
 import com.groupware.dto.EmployeeDTO;
-import com.groupware.dto.employeeDTO;
 import com.groupware.global.Config;
 import com.groupware.service.EmployeeService;
-import com.groupware.service.employeeService;
 import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
@@ -42,7 +40,7 @@ public class EmployeeController {
 				@RequestParam(defaultValue = "1") Integer page
 				) {
 			
-			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, Config.globalPageSize);
+			CommonSearchVO searchVO = new CommonSearchVO(writer, sorting, page, Config.globalPageSize);
 			
 			List<EmployeeDTO> dtos = service.selectList(searchVO);
 			

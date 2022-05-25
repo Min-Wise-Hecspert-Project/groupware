@@ -20,9 +20,16 @@ public class CommonSearchVO {
 	private Integer startNum;
 	
 	public CommonSearchVO(String title, String content, String writer, Integer sorting, Integer page, Integer pageSize) {
-		super();
 		this.title = title;
 		this.content = content;
+		this.writer = writer;
+		this.sorting = sorting;
+		this.page = page;
+		this.pageSize = pageSize;
+		this.startNum = (page-1)*pageSize;
+	}
+
+	public CommonSearchVO( String writer, Integer sorting, Integer page, Integer pageSize) {
 		this.writer = writer;
 		this.sorting = sorting;
 		this.page = page;
