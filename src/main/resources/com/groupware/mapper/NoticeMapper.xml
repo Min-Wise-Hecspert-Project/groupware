@@ -94,6 +94,8 @@
  		notice
  	WHERE
  		notice_idx = #{noticeIdx}
+ 	AND
+ 		state = 1
   </select>
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="noticeIdx" keyColumn="notice_idx">
