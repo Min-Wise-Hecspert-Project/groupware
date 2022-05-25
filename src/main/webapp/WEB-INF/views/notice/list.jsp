@@ -38,17 +38,10 @@
 	</div>
 	<script>
 		$(function () {
-			let notice = $("#notice-grid")
-			notice.removeClass("col-md-6");
-			notice.addClass("col-md-12");
-			let width = notice.width();
-			noticeGrid.setWidth(width);
-			$("#notice-grid").resize(function () { 
-				notice = $("#notice-grid")
-				let width = notice.width();
-				noticeGrid.setWidth(width);
-				console.log("active resize")
-			});
+			//넓이값 측정 후 변경
+			widthBoolean = true;
+			
+			
 		});
 		
 		

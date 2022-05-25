@@ -27,7 +27,7 @@ public class FlowController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/todo/notice", method = RequestMethod.GET)
+	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String noticeList() {
 		return "/notice/list";
 	}	
