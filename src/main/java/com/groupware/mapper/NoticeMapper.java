@@ -3,10 +3,10 @@ package com.groupware.mapper;
 import java.util.List;
 
 import com.groupware.dto.NoticeDTO;
-import com.groupware.vo.SearchVO;
+import com.groupware.vo.CommonSearchVO;
 
 public interface NoticeMapper {
-	public List<NoticeDTO> selectList(SearchVO searchVO);
+	public List<NoticeDTO> selectList(CommonSearchVO searchVO);
 	
 	public Long insert(NoticeDTO Notice);
 	

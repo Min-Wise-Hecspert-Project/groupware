@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.groupware.dto.NoticeDTO;
 import com.groupware.mapper.NoticeMapper;
-import com.groupware.vo.SearchVO;
+import com.groupware.vo.CommonSearchVO;
 
 import lombok.AllArgsConstructor;
 
@@ -35,7 +35,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeDTO> selectList(SearchVO searchVO) {
+	public List<NoticeDTO> selectList(CommonSearchVO searchVO) {
 		return mapper.selectList(searchVO);
 	}
 

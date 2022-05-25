@@ -15,7 +15,7 @@ import com.groupware.global.Config;
 import com.groupware.global.Sorting;
 import com.groupware.mapper.NoticeMapper;
 import com.groupware.service.NoticeService;
-import com.groupware.vo.SearchVO;
+import com.groupware.vo.CommonSearchVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -41,7 +41,7 @@ public class NoticeTest {
 		int pageSize = Config.globalPageSize;
 		
 		try {
-			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, pageSize); 
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, pageSize); 
 			log.info(mapper.selectList(searchVO));
 			
 		} catch (Exception e) {

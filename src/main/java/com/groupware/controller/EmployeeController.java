@@ -1,8 +1,10 @@
 package com.groupware.controller;
 
-import com.groupware.dto.NoticeDTO;
+import com.groupware.dto.EmployeeDTO;
+import com.groupware.dto.employeeDTO;
 import com.groupware.global.Config;
-import com.groupware.service.NoticeService;
+import com.groupware.service.EmployeeService;
+import com.groupware.service.employeeService;
 import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
@@ -27,12 +29,12 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @Log4j
-public class NoticeController {
+public class EmployeeController {
 
-		private final NoticeService service;
+		private final EmployeeService service;
 		
-		@GetMapping("/notice")
-		public ResponseEntity<List<NoticeDTO>> list(
+		@GetMapping("/employee")
+		public ResponseEntity<List<EmployeeDTO>> list(
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
 				@RequestParam(defaultValue = "") String writer,
@@ -42,7 +44,7 @@ public class NoticeController {
 			
 			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, Config.globalPageSize);
 			
-			List<NoticeDTO> dtos = service.selectList(searchVO);
+			List<EmployeeDTO> dtos = service.selectList(searchVO);
 			
 			if(dtos.size() < 1 ) {
 				// 값이 없을때 204 - 응답 body가 필요 없는 자원
@@ -58,12 +60,12 @@ public class NoticeController {
 		}
 
 		
-		@PostMapping("/notice")
-		public ResponseEntity<NoticeDTO> post(NoticeDTO noticeDTO) {
+		@PostMapping("/employee")
+		public ResponseEntity<EmployeeDTO> post(EmployeeDTO employeeDTO) {
 
-			NoticeDTO resNoticeDTO = service.insert(noticeDTO);
+			EmployeeDTO resemployeeDTO = service.insert(employeeDTO);
 			
-			if(resNoticeDTO == null) {
+			if(resemployeeDTO == null) {
 				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
 				return ResponseEntity
 						.status(HttpStatus.CONFLICT)
@@ -72,16 +74,16 @@ public class NoticeController {
 				// 성공시 201 - 요청에 성공하고 새로운 리소스를 만든 경우
 				return ResponseEntity
 						.status(HttpStatus.CREATED)
-						.body(resNoticeDTO);
+						.body(resemployeeDTO);
 			}
 		}
 		
-		@GetMapping("/notice/{noticeIdx}")
-		public ResponseEntity<NoticeDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
+		@GetMapping("/employee/{employeeIdx}")
+		public ResponseEntity<EmployeeDTO> get(@PathVariable("employeeIdx") Long employeeIdx) {
 
-			NoticeDTO resNoticeDTO = service.select(noticeIdx);
+			EmployeeDTO resemployeeDTO = service.select(employeeIdx);
 			
-			if(resNoticeDTO == null) {
+			if(resemployeeDTO == null) {
 				// 값이 없을때 204 - 응답 body가 필요 없는 자원
 				return ResponseEntity
 						.status(HttpStatus.NO_CONTENT)
@@ -90,16 +92,16 @@ public class NoticeController {
 				// 성공시 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
-						.body(resNoticeDTO);
+						.body(resemployeeDTO);
 			}
 		}
 		
-		@PutMapping("/notice")
-		public ResponseEntity<NoticeDTO> put(@RequestBody NoticeDTO noticeDTO) {
+		@PutMapping("/employee")
+		public ResponseEntity<EmployeeDTO> put(@RequestBody EmployeeDTO employeeDTO) {
 
-			NoticeDTO resNoticeDTO = service.update(noticeDTO);
+			EmployeeDTO resemployeeDTO = service.update(employeeDTO);
 
-			if(resNoticeDTO == null) {
+			if(resemployeeDTO == null) {
 				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
 				return ResponseEntity
 						.status(HttpStatus.CONFLICT)
@@ -108,16 +110,16 @@ public class NoticeController {
 				// 성공시 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
-						.body(resNoticeDTO);
+						.body(resemployeeDTO);
 			}
 		}
 		
-		@DeleteMapping("/notice/{noticeIdx}")		
-		public ResponseEntity<NoticeDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
+		@DeleteMapping("/employee/{employeeIdx}")		
+		public ResponseEntity<EmployeeDTO> delete(@PathVariable("employeeIdx") Long employeeIdx) {
 			
-			NoticeDTO resNoticeDTO = service.delete(noticeIdx);
+			EmployeeDTO resemployeeDTO = service.delete(employeeIdx);
 			
-			if(resNoticeDTO == null) {
+			if(resemployeeDTO == null) {
 				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
 				return ResponseEntity
 						.status(HttpStatus.CONFLICT)
@@ -126,12 +128,12 @@ public class NoticeController {
 				// 성공시 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
-						.body(resNoticeDTO);
+						.body(resemployeeDTO);
 			}
 
 		}
 		
-		@DeleteMapping("/notice/schedule")
+		@DeleteMapping("/employee/schedule")
 		public void deleteBySchedule(RedirectAttributes rttr) {
 			log.info("deleteBySchedule: ");	
 //			return ResponseEntity

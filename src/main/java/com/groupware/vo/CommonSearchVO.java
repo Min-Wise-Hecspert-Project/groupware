@@ -12,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 
-public class SearchVO {
+public class CommonSearchVO {
 	private String title;
 	private String content;
 	private String writer;
@@ -21,7 +21,7 @@ public class SearchVO {
 	private Integer pageSize;
 	private Integer startNum;
 	
-	public SearchVO(String title, String content, String writer, Integer sorting, Integer page, Integer pageSize) {
+	public CommonSearchVO(String title, String content, String writer, Integer sorting, Integer page, Integer pageSize) {
 		super();
 		this.title = title;
 		this.content = content;
