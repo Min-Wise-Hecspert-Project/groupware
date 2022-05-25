@@ -1,8 +1,5 @@
 package com.groupware.notice;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +9,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.groupware.config.RootConfig;
 import com.groupware.config.ServletConfig;
+import com.groupware.controller.NoticeController;
 import com.groupware.dto.NoticeDTO;
 import com.groupware.global.Config;
 import com.groupware.global.Sorting;
 import com.groupware.mapper.NoticeMapper;
-import com.groupware.vo.SearchVO;
+import com.groupware.service.NoticeService;
+import com.groupware.vo.CommonSearchVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -29,6 +28,9 @@ public class NoticeTest {
 	@Autowired
 	NoticeMapper mapper;
 	
+	@Autowired
+	NoticeService ns;
+	
 	@Test
 	public void testGetNoticeList() {
 		String title = "";
@@ -39,7 +41,7 @@ public class NoticeTest {
 		int pageSize = Config.globalPageSize;
 		
 		try {
-			SearchVO searchVO = new SearchVO(title, content, writer, sorting, page, pageSize); 
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, pageSize); 
 			log.info(mapper.selectList(searchVO));
 			
 		} catch (Exception e) {
@@ -60,7 +62,8 @@ public class NoticeTest {
 		noticeDTO.setTitle("삽입 테스트~~");
 		noticeDTO.setContent("성공");
 		noticeDTO.setFile("");
-		mapper.insert(noticeDTO);
+		
+		log.info(ns.insert(noticeDTO));
 	}
 	
 	@Test
