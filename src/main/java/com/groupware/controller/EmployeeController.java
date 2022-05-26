@@ -33,12 +33,12 @@ public class EmployeeController {
 		
 		@GetMapping("/employee")
 		public ResponseEntity<List<EmployeeDTO>> list(
-				@RequestParam(defaultValue = "") String writer,
-				@RequestParam(defaultValue = "1") Integer sorting,
+				@RequestParam(value = "name", defaultValue = "") String writer,
+				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page
 				) {
 			
-			CommonSearchVO searchVO = new CommonSearchVO(writer, sorting, page, Config.globalPageSize);
+			CommonSearchVO searchVO = new CommonSearchVO(writer, sorting, page);
 			
 			List<EmployeeDTO> dtos = service.selectList(searchVO);
 			
