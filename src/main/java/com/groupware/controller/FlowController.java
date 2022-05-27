@@ -31,4 +31,9 @@ public class FlowController {
 	public String noticeList() {
 		return "/notice/list";
 	}	
+	
+	@RequestMapping(value = "/notice/register", method = RequestMethod.GET)
+	public String noticeRegister() {
+		return "/notice/register";
+	}	
 }

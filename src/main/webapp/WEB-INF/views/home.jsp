@@ -29,7 +29,7 @@
         <div class="content">
           <div class="row align-items-start">
 
-            <jsp:include page="notice/view.jsp"></jsp:include>
+            <jsp:include page="notice/gridView.jsp"></jsp:include>
 
             <div class="col-md-6">
               <h2>회사일정</h2>
