@@ -51,7 +51,14 @@
 						console.log("요청보내기");
 					}
 				});
+				
 			});
+			editor.removeHook("addImageBlobHook");
+				
+			editor.addHook("addImageBlobHook", (blob, callback) =>{
+				console.log(blob);
+				callback("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png","imageURL");
+			})
 		
 		</script>
 	</body>
