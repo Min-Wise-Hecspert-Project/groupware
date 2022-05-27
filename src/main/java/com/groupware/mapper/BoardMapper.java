@@ -18,4 +18,6 @@ public interface BoardMapper {
 	public int update(BoardDTO boardDTO);
 
 	public int delete(long boardIdx);
+	
+	public List<BoardDTO> selectemployee_idx(String string);
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.groupware.mapper.BoardMapper">
 
-	<resultMap type="BoardDTO" id="testMap">
+	<resultMap type="BoardDTO" id="BoardDTO">
 		<result property="boardIdx" column="BOARD_idx"/>
 		<result property="employeeIdx" column="EMPLOYEE_IDX"/>
 		<result property="boardType" column="BOARD_TYPE"/>
@@ -12,15 +12,39 @@
 		<result property="updDate" column="UPD_DATE"/>
 		<result property="state" column="STATE"/>
 		<result property="title" column="title"/>
-		
-	 	<association property="employeeDTO" column="EmployeeDTO">
-			<id property="employeeIdx" column="EMPLOYEE_IDX"/>
-			<result property="name" column="NAME"/>
-	  		<result property="enName" column="EN_NAME"/>
-		</association> 
 	</resultMap>
 	
-  <select id="getBoardList" resultMap="testMap">
+	<resultMap type="EmployeeDTO" id="EmployeeDTO">
+		<result property="employeeIdx" column="employee_idx"/>
+		<result property="companyIdx" column="company_Idx"/>
+		<result property="teamIdx" column="team_Idx"/>
+		<result property="dutyIdx" column="duty_Idx"/>
+		<result property="authorityIdx" column="authority_Idx"/>
+		<result property="departmentIdx" column="department_Idx"/>
+		<result property="name" column="name"/>
+		<result property="enName" column="en_Name"/>
+		<result property="profileImage" column="profile_Image"/>
+		<result property="gender" column="gender"/>
+		<result property="birthday" column="birthday"/>
+		<result property="phoneNumber" column="phone_Number"/>
+		<result property="email" column="email"/>
+		<result property="salary" column="salary"/>
+		<result property="annualLeave" column="annual_Leave"/>
+		<result property="state" column="state"/>
+		<result property="hireDate" column="hire_Date"/>
+		<result property="resignationDate" column="resignation_Date"/>
+		<result property="insDate" column="ins_Date"/>
+		<result property="updDate" column="upd_Date"/>
+		<collection property="BoardDTO" resultMap="BoardDTO" />
+	</resultMap>
+	<select id="selectemployee_idx" parameterType="EmployeeDTO" resultMap="EmployeeDTO">
+		SELECT *
+			     FROM Board b JOIN Employee e	
+			     ON b.employee_idx = e.employee_idx	
+	</select>
+	
+	
+  <select id="getBoardList" resultMap="BoardDTO">
   	select * from board
   </select>
   
@@ -28,6 +52,8 @@
   	 insert into board(BOARD_IDX,EMPLOYEE_IDX, BOARD_TYPE, "CONTENT","FILE",INS_DATE,UPD_DATE,STATE,TITLE)
   	 values(BOARD_SEQ.NEXTVAL,#{employeeIdx},#{boardType},#{content},#{File},SYSDATE,SYSDATE,#{state},#{title})
    </insert>
+   
+   
   <!-- 
   <insert id="insertSelectKey">
   	<selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
@@ -38,7 +64,7 @@
   </insert>
    -->
   
-  <select id="read" resultMap="testMap">
+  <select id="read" resultMap="BoardDTO">
   	select * from board where BOARD_idx = #{boardIdx}
   </select>
   

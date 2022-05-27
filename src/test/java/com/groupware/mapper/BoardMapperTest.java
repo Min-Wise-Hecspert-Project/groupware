@@ -27,8 +27,8 @@ public class BoardMapperTest {
 	@Test
 	public void testInsert() {
 		BoardDTO board = new BoardDTO();
-		board.setEmployeeIdx("새로 작성하는 글");
-		board.setBoardType("새로 작성하는 내용");
+		board.setEmployeeIdx(1L);
+		board.setBoardType("1");
 		board.setContent("newbie");
 		board.setFile("file");
 		board.setState("!!");
@@ -37,6 +37,12 @@ public class BoardMapperTest {
 		log.info(board);
 	}
 	
+	@Test
+	public void testJoin() {
+		mapper.selectemployee_idx("1");
+		log.info(mapper);
+		
+	}
 
 
 	

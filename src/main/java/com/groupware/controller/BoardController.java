@@ -51,7 +51,10 @@ public class BoardController {
 				@RequestParam(defaultValue = "1") String boardType
 				){
 			
-			CommonSearchVO searchVO = new CommonSearchVO(title, content, sorting, page, Config.globalPageSize,boardType );
+					/*
+					 * CommonSearchVO searchVO = new CommonSearchVO(title, content, sorting, page,
+					 * Config.globalPageSize,boardType );
+					 */
 //			List<BoardDTO> dtos = service.se
 			
 			return null;

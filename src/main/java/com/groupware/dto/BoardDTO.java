@@ -26,7 +26,7 @@ public class BoardDTO {
 	
 	@NonNull
 	private Long boardIdx;
-	private String employeeIdx;
+	private Long employeeIdx;
 	private String boardType;
 	private String content;
 

@@ -3,7 +3,7 @@ package com.groupware.service;
 import java.util.List;
 
 import com.groupware.dto.BoardDTO;
-import com.groupware.dto.NoticeDTO;
+import com.groupware.dto.Notice;
 import com.groupware.mapper.BoardMapper;
 import com.groupware.vo.BoardVO;
 import com.groupware.vo.CommonSearchVO;
@@ -52,7 +52,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<NoticeDTO> selectList(CommonSearchVO searchVO) {
+	public List<Notice> selectList(CommonSearchVO searchVO) {
 		// TODO Auto-generated method stub
 		return null;
 	}
