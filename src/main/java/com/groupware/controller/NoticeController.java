@@ -1,7 +1,6 @@
 package com.groupware.controller;
 
-import com.groupware.dto.NoticeDTO;
-import com.groupware.global.Config;
+import com.groupware.dto.Notice;
 import com.groupware.service.NoticeService;
 import com.groupware.vo.CommonSearchVO;
 
@@ -32,17 +31,17 @@ public class NoticeController {
 		private final NoticeService service;
 		
 		@GetMapping("/notice")
-		public ResponseEntity<List<NoticeDTO>> list(
+		public ResponseEntity<List<Notice.listDTO>> list(
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
 				@RequestParam(defaultValue = "") String writer,
-				@RequestParam(defaultValue = "1") Integer sorting,
+				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page
 				) {
 			
-			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, Config.globalPageSize);
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page);
 			
-			List<NoticeDTO> dtos = service.selectList(searchVO);
+			List<Notice.listDTO> dtos = service.selectList(searchVO);
 			
 			if(dtos.size() < 1 ) {
 				// 媛믪씠 �뾾�쓣�븣 204 - �쓳�떟 body媛� �븘�슂 �뾾�뒗 �옄�썝
@@ -59,9 +58,9 @@ public class NoticeController {
 
 		
 		@PostMapping("/notice")
-		public ResponseEntity<NoticeDTO> post(NoticeDTO noticeDTO) {
+		public ResponseEntity<Notice.detailDTO> post(Notice.insertDTO insertDTO) {
 
-			NoticeDTO resNoticeDTO = service.insert(noticeDTO);
+			Notice.detailDTO resNoticeDTO = service.insert(insertDTO);
 			
 			if(resNoticeDTO == null) {
 				// �떎�뙣�떆 409 - �빐�떦 �슂泥��쓽 泥섎━媛� 鍮꾩��땲�뒪 濡쒖쭅�긽 遺덇��뒫�븯嫄곕굹 紐⑥닚�씠 �깮湲� 寃쎌슦
@@ -77,9 +76,9 @@ public class NoticeController {
 		}
 		
 		@GetMapping("/notice/{noticeIdx}")
-		public ResponseEntity<NoticeDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
+		public ResponseEntity<Notice.detailDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
 
-			NoticeDTO resNoticeDTO = service.select(noticeIdx);
+			Notice.detailDTO resNoticeDTO = service.select(noticeIdx);
 			
 			if(resNoticeDTO == null) {
 				// 媛믪씠 �뾾�쓣�븣 204 - �쓳�떟 body媛� �븘�슂 �뾾�뒗 �옄�썝
@@ -95,9 +94,9 @@ public class NoticeController {
 		}
 		
 		@PutMapping("/notice")
-		public ResponseEntity<NoticeDTO> put(@RequestBody NoticeDTO noticeDTO) {
+		public ResponseEntity<Notice.detailDTO> put(@RequestBody Notice.updateDTO updateDTO) {
 
-			NoticeDTO resNoticeDTO = service.update(noticeDTO);
+			Notice.detailDTO resNoticeDTO = service.update(updateDTO);
 
 			if(resNoticeDTO == null) {
 				// �떎�뙣�떆 409 - �빐�떦 �슂泥��쓽 泥섎━媛� 鍮꾩��땲�뒪 濡쒖쭅�긽 遺덇��뒫�븯嫄곕굹 紐⑥닚�씠 �깮湲� 寃쎌슦
@@ -113,9 +112,9 @@ public class NoticeController {
 		}
 		
 		@DeleteMapping("/notice/{noticeIdx}")		
-		public ResponseEntity<NoticeDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
-			
-			NoticeDTO resNoticeDTO = service.delete(noticeIdx);
+		public ResponseEntity<Notice.detailDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
+
+			Notice.detailDTO resNoticeDTO = service.delete(noticeIdx);
 			
 			if(resNoticeDTO == null) {
 				// �떎�뙣�떆 409 - �빐�떦 �슂泥��쓽 泥섎━媛� 鍮꾩��땲�뒪 濡쒖쭅�긽 遺덇��뒫�븯嫄곕굹 紐⑥닚�씠 �깮湲� 寃쎌슦

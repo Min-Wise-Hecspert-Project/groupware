@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.groupware.mapper.EmployeeMapper">
+
+	<resultMap type="EmployeeDTO" id="EmployeeMap">
+	  <id property="employeeIdx" column="NOTICE_IDX"/>
+	  <result property="employeeIdx" column="EMPLOYEE_IDX"/>
+	  <result property="title" column="TITLE"/>
+	  <result property="content" column="CONTENT"/>
+	  <result property="file" column="FILE"/>
+	  <result property="insDate" column="INS_DATE"/>
+	  <result property="updDate" column="UPD_DATE"/>
+	  <result property="state" column="STATE"/>
+	  <association property="employeeDTO" javaType="EmployeeDTO">
+	  	<id property="employeeIdx" column="EMPLOYEE_IDX"/>
+	  	<result property="name" column="NAME"/>
+	  	<result property="enName" column="EN_NAME"/>
+	  </association>
+	</resultMap>
+  
+  <select id="selectList" resultMap="EmployeeMap">
+  SELECT
+  	notice_idx,
+  	employee_idx,
+  	title,
+  	ins_date,
+  	upd_date,
+  	name,
+  	en_name,
+  	rnum
+  FROM
+  	(
+		SELECT
+		    a.notice_idx,
+		    a.employee_idx,
+		    a.title,
+		    a.ins_date,
+		    a.upd_date,
+		    
+		    b.name,
+		    b.en_name,
+		    ROWNUM as rnum
+		FROM
+		    notice a
+		    LEFT JOIN employee b ON a.employee_idx = b.employee_idx
+		WHERE
+		    a.state = 1
+		<if test='title != ""'>
+			AND a.title like '%'||#{title}||'%'
+		</if>
+		<if test='content != ""'>
+			AND a.content like '%'||#{content}||'%'
+		</if>
+		<if test='writer != ""'>
+			AND b.name like '%'||#{writer}||'%'
+		</if>
+		<if test='sorting != ""'>
+			<choose>
+				<when test="sorting == 1">
+				ORDER BY a.title ASC
+				</when>
+				<when test="sorting == 2">
+				ORDER BY a.title DESC
+				</when>
+				<when test="sorting == 3">
+				ORDER BY b.name ASC
+				</when>
+				<when test="sorting == 4">
+				ORDER BY b.name DESC
+				</when>
+				<when test="sorting == 5">
+				ORDER BY a.ins_date ASC
+				</when>
+				<when test="sorting == 6">
+				ORDER BY a.ins_date DESC
+				</when>
+				<when test="sorting == 7">
+				ORDER BY a.view_cnt ASC
+				</when>
+				<when test="sorting == 8">
+				ORDER BY a.view_cnt DESC
+				</when>
+				<otherwise>
+					ORDER BY a.ins_date DESC
+				</otherwise>
+			</choose>	
+		</if>
+		)
+	WHERE
+		<![CDATA[ rnum >= #{startNum} AND rnum <= #{pageSize} ]]>
+  </select>
+  
+  <select id="select" resultMap="EmployeeMap">
+  	SELECT
+  		*
+ 	FROM
+ 		employee
+ 	WHERE
+ 		employee_idx = #{employeeIdx}
+ 	AND
+ 		state = 1
+  </select>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="employeeIdx" keyColumn="employee_idx">
+  	INSERT INTO
+  		employee(
+			notice_idx,
+			employee_idx,
+			title,
+			content,
+			"FILE"
+  			)
+ 	VALUES(
+ 		NOTICE_SEQ.NEXTVAL,
+ 		#{employeeIdx},
+ 		#{title},
+ 		#{content},
+ 		#{file}
+ 		)
+  </insert>
+  
+  <update id="update">
+  	UPDATE
+  		employee
+  	SET
+		title = #{title},
+ 		content = #{content},
+ 		"FILE" = #{file},
+ 		upd_date = SYSDATE
+ 	WHERE
+ 		employee_idx = #{employeeIdx}
+  </update>
+   
+  <update id="delete">
+  	UPDATE
+  		employee
+  	SET
+		state = 0,  	
+  		del_date = SYSDATE
+ 	WHERE
+ 		employee_idx = #{employeeIdx}
+  </update>
+  
+  <delete id="deleteBySchedule">
+	DELETE FROM (SELECT employee_idx, state
+	             FROM employee
+	             WHERE del_date + (INTERVAL '9' HOUR) + (INTERVAL '3' MONTH) > (SELECT SYSDATE + (INTERVAL '9' HOUR)
+	                                                                            FROM dual)) del_data
+	WHERE
+	        del_data.state = 0
+  </delete>
+</mapper>
