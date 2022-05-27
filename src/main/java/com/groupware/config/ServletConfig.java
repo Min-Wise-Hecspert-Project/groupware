@@ -40,7 +40,7 @@ public class ServletConfig implements WebMvcConfigurer {
 	    resolver.setMaxUploadSizePerFile(1024*1024*10);
 	    resolver.setMaxInMemorySize(1024*1024);
 	    //디스크에 저장하지 않고 메모리에 유지하도록 허용하는 바이트 단위의 최대 용량을 설정
-	    resolver.setUploadTempDir(new FileSystemResource("c:/upload"));
+	    resolver.setUploadTempDir(new FileSystemResource("e:/upload"));
 	    resolver.setDefaultEncoding("utf-8");
 	    return resolver;
 	  }

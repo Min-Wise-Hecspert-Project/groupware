@@ -1,8 +1,10 @@
 package com.groupware.controller;
 
 import com.groupware.dto.BoardDTO;
+import com.groupware.global.Config;
 import com.groupware.service.BoardService;
 import com.groupware.vo.BoardVO;
+import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +24,7 @@ import lombok.extern.log4j.Log4j;
 
 @RestController
 @Log4j
-@RequestMapping("/api/boarsd/*")
+@RequestMapping("/api/board/*")
 @AllArgsConstructor
 @ResponseBody
 public class BoardController {
@@ -33,16 +36,26 @@ public class BoardController {
 //			log.info("list");
 //			model.addAttribute("list", service.getList());
 //		}
+		@GetMapping("/22")
+		public String addr(@RequestParam("name")String name){
+			return name;
+			
+			
+		}
 		@GetMapping("/list")
 		public ResponseEntity<List<BoardDTO>>list(
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
-				@RequestParam(defaultValue = "") String File
-
+				@RequestParam(defaultValue = "1") Integer sorting,
+				@RequestParam(defaultValue = "1") Integer page,
+				@RequestParam(defaultValue = "1") String boardType
 				){
-			BoardDTO boardDTO = new BoardDTO(boardType,content,File);
 			
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, sorting, page, Config.globalPageSize,boardType );
+//			List<BoardDTO> dtos = service.se
 			
+			return null;
+				
 		}
 		
 		@GetMapping("/register")

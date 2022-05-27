@@ -45,12 +45,12 @@ public class NoticeController {
 			List<NoticeDTO> dtos = service.selectList(searchVO);
 			
 			if(dtos.size() < 1 ) {
-				// 값이 없을때 204 - 응답 body가 필요 없는 자원
+				// 媛믪씠 �뾾�쓣�븣 204 - �쓳�떟 body媛� �븘�슂 �뾾�뒗 �옄�썝
 				return ResponseEntity
 						.status(HttpStatus.NO_CONTENT)
 						.body(null);
 			} else {
-				// 성공시 200 - OK
+				// �꽦怨듭떆 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
 						.body(dtos);
@@ -64,12 +64,12 @@ public class NoticeController {
 			NoticeDTO resNoticeDTO = service.insert(noticeDTO);
 			
 			if(resNoticeDTO == null) {
-				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
+				// �떎�뙣�떆 409 - �빐�떦 �슂泥��쓽 泥섎━媛� 鍮꾩��땲�뒪 濡쒖쭅�긽 遺덇��뒫�븯嫄곕굹 紐⑥닚�씠 �깮湲� 寃쎌슦
 				return ResponseEntity
 						.status(HttpStatus.CONFLICT)
 						.body(null);
 			} else {
-				// 성공시 201 - 요청에 성공하고 새로운 리소스를 만든 경우
+				// �꽦怨듭떆 201 - �슂泥��뿉 �꽦怨듯븯怨� �깉濡쒖슫 由ъ냼�뒪瑜� 留뚮뱺 寃쎌슦
 				return ResponseEntity
 						.status(HttpStatus.CREATED)
 						.body(resNoticeDTO);
@@ -82,12 +82,12 @@ public class NoticeController {
 			NoticeDTO resNoticeDTO = service.select(noticeIdx);
 			
 			if(resNoticeDTO == null) {
-				// 값이 없을때 204 - 응답 body가 필요 없는 자원
+				// 媛믪씠 �뾾�쓣�븣 204 - �쓳�떟 body媛� �븘�슂 �뾾�뒗 �옄�썝
 				return ResponseEntity
 						.status(HttpStatus.NO_CONTENT)
 						.body(null);
 			} else {
-				// 성공시 200 - OK
+				// �꽦怨듭떆 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
 						.body(resNoticeDTO);
@@ -100,12 +100,12 @@ public class NoticeController {
 			NoticeDTO resNoticeDTO = service.update(noticeDTO);
 
 			if(resNoticeDTO == null) {
-				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
+				// �떎�뙣�떆 409 - �빐�떦 �슂泥��쓽 泥섎━媛� 鍮꾩��땲�뒪 濡쒖쭅�긽 遺덇��뒫�븯嫄곕굹 紐⑥닚�씠 �깮湲� 寃쎌슦
 				return ResponseEntity
 						.status(HttpStatus.CONFLICT)
 						.body(null);
 			} else {
-				// 성공시 200 - OK
+				// �꽦怨듭떆 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
 						.body(resNoticeDTO);
@@ -118,12 +118,12 @@ public class NoticeController {
 			NoticeDTO resNoticeDTO = service.delete(noticeIdx);
 			
 			if(resNoticeDTO == null) {
-				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
+				// �떎�뙣�떆 409 - �빐�떦 �슂泥��쓽 泥섎━媛� 鍮꾩��땲�뒪 濡쒖쭅�긽 遺덇��뒫�븯嫄곕굹 紐⑥닚�씠 �깮湲� 寃쎌슦
 				return ResponseEntity
 						.status(HttpStatus.CONFLICT)
 						.body(null);				
 			} else {
-				// 성공시 200 - OK
+				// �꽦怨듭떆 200 - OK
 				return ResponseEntity
 						.status(HttpStatus.OK)
 						.body(resNoticeDTO);
@@ -136,6 +136,6 @@ public class NoticeController {
 			log.info("deleteBySchedule: ");	
 //			return ResponseEntity
 //					.status(HttpStatus.OK)
-//					.body(null); // 수정 필요
+//					.body(null); // �닔�젙 �븘�슂
 		}
 }

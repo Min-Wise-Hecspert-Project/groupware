@@ -3,8 +3,11 @@ package com.groupware.service;
 import java.util.List;
 
 import com.groupware.dto.BoardDTO;
+import com.groupware.dto.NoticeDTO;
 import com.groupware.mapper.BoardMapper;
 import com.groupware.vo.BoardVO;
+import com.groupware.vo.CommonSearchVO;
+
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -46,6 +49,12 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardDTO> getList() {
 		log.info("getList....");
 		return mapper.getBoardList();
+	}
+
+	@Override
+	public List<NoticeDTO> selectList(CommonSearchVO searchVO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
