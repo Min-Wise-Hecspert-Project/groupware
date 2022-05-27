@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.groupware.mapper.BoardMapper">
 
-	<resultMap type="com.groupware.dto.BoardDTO" id="testMap">
+	<resultMap type="BoardDTO" id="testMap">
 		<result property="boardIdx" column="BOARD_idx"/>
 		<result property="employeeIdx" column="EMPLOYEE_IDX"/>
 		<result property="boardType" column="BOARD_TYPE"/>
@@ -12,11 +12,12 @@
 		<result property="updDate" column="UPD_DATE"/>
 		<result property="state" column="STATE"/>
 		<result property="title" column="title"/>
-<!-- 		<association property="employeeDTO" column="EmployeeDTO">
+		
+	 	<association property="employeeDTO" column="EmployeeDTO">
 			<id property="employeeIdx" column="EMPLOYEE_IDX"/>
 			<result property="name" column="NAME"/>
 	  		<result property="enName" column="EN_NAME"/>
-		</association> -->
+		</association> 
 	</resultMap>
 	
   <select id="getBoardList" resultMap="testMap">
