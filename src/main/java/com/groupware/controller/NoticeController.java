@@ -41,93 +41,27 @@ public class NoticeController {
 			
 			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page);
 			
-			List<Notice.listDTO> dtos = service.selectList(searchVO);
-			
-			if(dtos.size() < 1 ) {
-				// 값이 없을때 204 - 응답 body가 필요 없는 자원
-				return ResponseEntity
-						.status(HttpStatus.NO_CONTENT)
-						.body(null);
-			} else {
-				// 성공시 200 - OK
-				return ResponseEntity
-						.status(HttpStatus.OK)
-						.body(dtos);
-			}
+			return service.selectList(searchVO);
 		}
-
 		
 		@PostMapping("/notice")
 		public ResponseEntity<Notice.detailDTO> post(Notice.insertDTO insertDTO) {
-
-			Notice.detailDTO resNoticeDTO = service.insert(insertDTO);
-			
-			if(resNoticeDTO == null) {
-				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
-				return ResponseEntity
-						.status(HttpStatus.CONFLICT)
-						.body(null);
-			} else {
-				// 성공시 201 - 요청에 성공하고 새로운 리소스를 만든 경우
-				return ResponseEntity
-						.status(HttpStatus.CREATED)
-						.body(resNoticeDTO);
-			}
+			return service.insert(insertDTO);
 		}
 		
 		@GetMapping("/notice/{noticeIdx}")
 		public ResponseEntity<Notice.detailDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
-
-			Notice.detailDTO resNoticeDTO = service.select(noticeIdx);
-			
-			if(resNoticeDTO == null) {
-				// 값이 없을때 204 - 응답 body가 필요 없는 자원
-				return ResponseEntity
-						.status(HttpStatus.NO_CONTENT)
-						.body(null);
-			} else {
-				// 성공시 200 - OK
-				return ResponseEntity
-						.status(HttpStatus.OK)
-						.body(resNoticeDTO);
-			}
+			return service.select(noticeIdx);
 		}
 		
 		@PutMapping("/notice")
 		public ResponseEntity<Notice.detailDTO> put(@RequestBody Notice.updateDTO updateDTO) {
-
-			Notice.detailDTO resNoticeDTO = service.update(updateDTO);
-
-			if(resNoticeDTO == null) {
-				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
-				return ResponseEntity
-						.status(HttpStatus.CONFLICT)
-						.body(null);
-			} else {
-				// 성공시 200 - OK
-				return ResponseEntity
-						.status(HttpStatus.OK)
-						.body(resNoticeDTO);
-			}
+			return service.update(updateDTO);
 		}
 		
 		@DeleteMapping("/notice/{noticeIdx}")		
 		public ResponseEntity<Notice.detailDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
-
-			Notice.detailDTO resNoticeDTO = service.delete(noticeIdx);
-			
-			if(resNoticeDTO == null) {
-				// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
-				return ResponseEntity
-						.status(HttpStatus.CONFLICT)
-						.body(null);				
-			} else {
-				// 성공시 200 - OK
-				return ResponseEntity
-						.status(HttpStatus.OK)
-						.body(resNoticeDTO);
-			}
-
+			return service.delete(noticeIdx);
 		}
 		
 		@DeleteMapping("/notice/schedule")
