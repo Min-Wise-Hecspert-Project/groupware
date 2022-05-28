@@ -47,6 +47,10 @@ select * from Employee;
 
 		SELECT * FROM Board b,Employee e where b.employee_idx = e.employee_idx	;
 commit;
+SELECT * 
+FROM Board b 
+left join Employee e on b.employee_idx = e.employee_idx
+where b.employee_idx = e.employee_idx;
 --alter table board modify(
 --
 --ALTER TABLE board MODIFY employee_idx NUMBER;

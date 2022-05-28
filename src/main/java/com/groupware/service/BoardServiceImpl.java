@@ -27,9 +27,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardDTO get(Long bno) {
-		log.info("get...." + bno);
-		return mapper.read(bno);
+	public List<BoardDTO> gets(Long employee_idx) {
+		log.info("get...." + employee_idx);
+		return mapper.reads(employee_idx);
 	}
 
 	@Override
@@ -52,10 +52,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<Notice> selectList(CommonSearchVO searchVO) {
+	public List<BoardDTO> selectList(BoardDTO boardDTO) {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.getBoardList();
 	}
+
+
 	
 	
 }

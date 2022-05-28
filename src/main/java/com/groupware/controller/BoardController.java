@@ -8,15 +8,18 @@ import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -36,38 +39,63 @@ public class BoardController {
 //			log.info("list");
 //			model.addAttribute("list", service.getList());
 //		}
-		@GetMapping("/22")
-		public String addr(@RequestParam("name")String name){
-			return name;
-			
-			
+		@GetMapping("/a")
+		public ModelAndView a() {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("/board/list");
+			return mv;
 		}
+		@GetMapping("/b")
+		public ModelAndView b() {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("/board/list");
+			return mv;
+		}
+		//board 통쨰로 가져옴
 		@GetMapping("/list")
 		public ResponseEntity<List<BoardDTO>>list(
-				@RequestParam(defaultValue = "") String title,
-				@RequestParam(defaultValue = "") String content,
-				@RequestParam(defaultValue = "1") Integer sorting,
-				@RequestParam(defaultValue = "1") Integer page,
-				@RequestParam(defaultValue = "1") String boardType
+//				@RequestParam(defaultValue = "") String title,
+//				@RequestParam(defaultValue = "") Long employeeIdx,
+//
+//				@RequestParam(defaultValue = "") String content,
+//				@RequestParam(defaultValue = "1") String boardType
 				){
 			
-					/*
-					 * CommonSearchVO searchVO = new CommonSearchVO(title, content, sorting, page,
-					 * Config.globalPageSize,boardType );
-					 */
-//			List<BoardDTO> dtos = service.se
+//			BoardDTO boardDTO = new BoardDTO(employeeIdx,boardType,content,title);
+			BoardDTO boardDTO = new BoardDTO();
+			List<BoardDTO> dtos =service.selectList(boardDTO);
 			
-			return null;
+			if (dtos.size()<1) {
+				return ResponseEntity
+						.status(HttpStatus.NO_CONTENT)
+						.body(null);
+			}else {
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(dtos);
+			}
+			
 				
 		}
 		
-		@GetMapping("/register")
-		public void list() {
-				
+		//아이디로 조회함
+		@GetMapping("/list/{employeeIdx}")
+		public ResponseEntity<List<BoardDTO>> getboard_employeeIdx(@PathVariable("employeeIdx")Long employeeIdx){
+			List<BoardDTO> boardDTO = service.gets(employeeIdx);
+			
+			if (boardDTO==null) {
+				return ResponseEntity
+						.status(HttpStatus.NO_CONTENT)
+						.body(null);
+			}else {
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(boardDTO);
+			}
 		}
 		
 		@PostMapping("/register")
-		public String register(BoardDTO board, RedirectAttributes rttr) {
+		public String board_register(BoardDTO board, RedirectAttributes rttr) {
 			log.info("register: " + board);
 			service.register(board);
 			rttr.addFlashAttribute("result", board.getBoardIdx());
@@ -75,11 +103,11 @@ public class BoardController {
 			return "redirect:/board/list";
 		}
 		
-		@GetMapping("/get")
-		public void get(@RequestParam("bno") Long bno, Model model) {
-			log.info("/get");
-			model.addAttribute("board", service.get(bno));
-		}
+//		@GetMapping("/get")
+//		public void get(@RequestParam("bno") Long bno, Model model) {
+//			log.info("/get");
+//			model.addAttribute("board", service.get(bno));
+//		}
 		
 		@PostMapping("/modify")
 		public String modify(BoardDTO board, RedirectAttributes rttr) {

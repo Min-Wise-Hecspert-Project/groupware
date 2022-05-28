@@ -24,6 +24,17 @@ import lombok.ToString;
 @Alias("BoardDTO")
 public class BoardDTO {
 	
+	
+	
+	public BoardDTO(Long employeeIdx, String boardType, String content, String title) {
+		super();
+		this.employeeIdx = employeeIdx;
+		this.boardType = boardType;
+		this.content = content;
+		this.title = title;
+	}
+
+
 	@NonNull
 	private Long boardIdx;
 	private Long employeeIdx;

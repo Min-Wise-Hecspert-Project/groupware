@@ -39,7 +39,7 @@ public class BoardMapperTest {
 	
 	@Test
 	public void testJoin() {
-		mapper.selectemployee_idx("1");
+		mapper.selectemployee_idx(1);
 		log.info(mapper);
 		
 	}

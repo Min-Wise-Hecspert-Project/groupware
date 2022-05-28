@@ -13,11 +13,11 @@ public interface BoardMapper {
 
 	public void insertSelectKey(BoardDTO board);
 	
-	public BoardDTO read(Long bno);
+	public List<BoardDTO> reads(Long employee_idx);
 
 	public int update(BoardDTO boardDTO);
 
 	public int delete(long boardIdx);
 	
-	public List<BoardDTO> selectemployee_idx(String string);
+	public List<BoardDTO> selectemployee_idx(int employeeIdx);
 }
