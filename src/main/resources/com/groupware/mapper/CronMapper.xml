@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.groupware.mapper.CronMapper">
+  
+  <delete id="deleteNotice">
+	DELETE FROM (SELECT notice_idx, state
+	             FROM notice
+	             WHERE del_date + (INTERVAL '9' HOUR) + (INTERVAL '3' MONTH) > (SELECT SYSDATE + (INTERVAL '9' HOUR)
+	                                                                            FROM dual)) del_data
+	WHERE
+	        del_data.state = 0
+  </delete>
+</mapper>
