@@ -19,5 +19,8 @@ public interface BoardMapper {
 
 	public int delete(long boardIdx);
 	
+	public BoardDTO select(long boardIdx);
+	
+	
 	public List<BoardDTO> selectemployee_idx(int employeeIdx);
 }

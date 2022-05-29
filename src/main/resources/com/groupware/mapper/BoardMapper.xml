@@ -55,20 +55,14 @@
   	 insert into board(BOARD_IDX,EMPLOYEE_IDX, BOARD_TYPE, "CONTENT","FILE",INS_DATE,UPD_DATE,STATE,TITLE)
   	 values(BOARD_SEQ.NEXTVAL,#{employeeIdx},#{boardType},#{content},#{File},SYSDATE,SYSDATE,#{state},#{title})
    </insert>
-   
-   
-  <!-- 
-  <insert id="insertSelectKey">
-  	<selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
-  		select BOARD_SEQ.nextval from dual
-  	</selectKey>
-  	insert into board(bno, title, content, writer)
-  	values(#{boardIdx}, #{title}, #{content}, #{writer})
-  </insert>
-   -->
+
   
-  <select id="reads" resultMap="BoardDTO">
+  <select id="reads" resultMap="BoardDTO">s
   	select * from board where employee_idx = #{employeeIdx}
+  </select>
+  
+   <select id="select" resultMap="BoardDTO">
+  	select * from board where BOARD_idx = #{boardIdx}
   </select>
   
   <delete id="delete">
@@ -81,10 +75,22 @@
 	  set
 	  	title = #{title},
 	  	content = #{content},
-	  	UPD_DATE = sysdate
+	  	UPD_DATE = SYSDATE
 	WHERE BOARD_idx = #{boardIdx}
   	
   </update> 
+  
+     
+   
+  <!-- 
+  <insert id="insertSelectKey">
+  	<selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
+  		select BOARD_SEQ.nextval from dual
+  	</selectKey>
+  	insert into board(bno, title, content, writer)
+  	values(#{boardIdx}, #{title}, #{content}, #{writer})
+  </insert>
+   -->
 <!--   <select id="selectList" resultMap="testMap">
   SELECT
   	notice_idx,

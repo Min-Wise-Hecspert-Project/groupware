@@ -31,12 +31,18 @@ public class BoardServiceImpl implements BoardService{
 		log.info("get...." + employee_idx);
 		return mapper.reads(employee_idx);
 	}
+	@Override
+	public BoardDTO select(Long board_idx) {
+		// TODO Auto-generated method stub
+		return mapper.select(board_idx);
+	}
+
 
 	@Override
-	public boolean modify(BoardDTO board) {
+	public BoardDTO modify(BoardDTO board) {
 		log.info("modify...." + board);
-		
-		return mapper.update(board) == 1;
+		mapper.update(board);
+		return select(board.getBoardIdx());
 	}
 
 	@Override
@@ -56,6 +62,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return mapper.getBoardList();
 	}
+
 
 
 	

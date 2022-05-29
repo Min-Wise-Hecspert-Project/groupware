@@ -41,9 +41,23 @@ public class BoardMapperTest {
 	public void testJoin() {
 		mapper.selectemployee_idx(1);
 		log.info(mapper);
-		
+	}
+	
+	@Test
+	public void testSelect() {
+		mapper.select(13L);
 	}
 
+	@Test 
+	public void testUpdate() {
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO.setBoardIdx(9L);
+		boardDTO.setTitle("junho");
+		boardDTO.setContent("junho1");
+		
+		mapper.update(boardDTO);
+		log.info(mapper);
+	}
 
 	
 

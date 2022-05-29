@@ -1,6 +1,7 @@
 package com.groupware.controller;
 
 import com.groupware.dto.BoardDTO;
+import com.groupware.dto.Notice;
 import com.groupware.global.Config;
 import com.groupware.service.BoardService;
 import com.groupware.vo.BoardVO;
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @Log4j
 @RequestMapping("/api/board/*")
-@AllArgsConstructor
+@AllArgsConstructor	
 @ResponseBody
 public class BoardController {
 
@@ -53,15 +56,8 @@ public class BoardController {
 		}
 		//board 통쨰로 가져옴
 		@GetMapping("/list")
-		public ResponseEntity<List<BoardDTO>>list(
-//				@RequestParam(defaultValue = "") String title,
-//				@RequestParam(defaultValue = "") Long employeeIdx,
-//
-//				@RequestParam(defaultValue = "") String content,
-//				@RequestParam(defaultValue = "1") String boardType
-				){
+		public ResponseEntity<List<BoardDTO>>list(){
 			
-//			BoardDTO boardDTO = new BoardDTO(employeeIdx,boardType,content,title);
 			BoardDTO boardDTO = new BoardDTO();
 			List<BoardDTO> dtos =service.selectList(boardDTO);
 			
@@ -109,14 +105,22 @@ public class BoardController {
 //			model.addAttribute("board", service.get(bno));
 //		}
 		
-		@PostMapping("/modify")
-		public String modify(BoardDTO board, RedirectAttributes rttr) {
+		@PutMapping("/modify")
+		public ResponseEntity<BoardDTO>  modify(@RequestBody BoardDTO board) {
 			log.info("modify: " + board);
-			if(service.modify(board)) {
-				rttr.addFlashAttribute("result", board.getBoardIdx());
-			}			
+			BoardDTO boardDTO = service.modify(board);
 			
-			return "redirect:/board/list";
+			if(board == null) {
+				// �떎�뙣�떆 409 - �빐�떦 �슂泥��쓽 泥섎━媛� 鍮꾩��땲�뒪 濡쒖쭅�긽 遺덇��뒫�븯嫄곕굹 紐⑥닚�씠 �깮湲� 寃쎌슦
+				return ResponseEntity
+						.status(HttpStatus.CONFLICT)
+						.body(null);
+			} else {
+				// �꽦怨듭떆 200 - OK
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(board);
+			}
 		}
 		
 		@PostMapping("/remove")
