@@ -4,6 +4,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CronMapper {
-    void deleteNotice();
-    void deleteBoard();
+    int deleteNotice();
+    int deleteBoard();
 }

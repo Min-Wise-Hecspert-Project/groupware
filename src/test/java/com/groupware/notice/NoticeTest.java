@@ -10,7 +10,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.groupware.config.RootConfig;
 import com.groupware.config.ServletConfig;
-import com.groupware.global.Config;
 import com.groupware.global.Sorting;
 import com.groupware.mapper.NoticeMapper;
 import com.groupware.service.NoticeService;

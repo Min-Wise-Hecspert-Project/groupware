@@ -1,9 +1,9 @@
-package com.groupware.service;
+package com.groupware.cron;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public interface CronService {
+public interface Cron {
 
     int deleteNotice();
     int deleteBoard();
