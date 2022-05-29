@@ -1,13 +1,11 @@
 package com.groupware.controller;
 
-import com.groupware.dto.EmployeeDTO;
-import com.groupware.global.Config;
+import com.groupware.dto.Employee;
 import com.groupware.service.EmployeeService;
 import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +30,7 @@ public class EmployeeController {
 		private final EmployeeService service;
 		
 		@GetMapping("/employee")
-		public ResponseEntity<List<EmployeeDTO>> list(
+		public ResponseEntity<List<Employee>> list(
 				@RequestParam(value = "name", defaultValue = "") String writer,
 				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page
@@ -45,22 +43,22 @@ public class EmployeeController {
 
 		
 		@PostMapping("/employee")
-		public ResponseEntity<EmployeeDTO> post(EmployeeDTO employeeDTO) {
+		public ResponseEntity<Employee> post(Employee employeeDTO) {
 			return service.insert(employeeDTO);
 		}
 		
 		@GetMapping("/employee/{employeeIdx}")
-		public ResponseEntity<EmployeeDTO> get(@PathVariable("employeeIdx") Long employeeIdx) {
+		public ResponseEntity<Employee> get(@PathVariable("employeeIdx") Long employeeIdx) {
 			return service.select(employeeIdx);
 		}
 		
 		@PutMapping("/employee")
-		public ResponseEntity<EmployeeDTO> put(@RequestBody EmployeeDTO employeeDTO) {
+		public ResponseEntity<Employee> put(@RequestBody Employee employeeDTO) {
 			return service.update(employeeDTO);
 		}
 		
 		@DeleteMapping("/employee/{employeeIdx}")		
-		public ResponseEntity<EmployeeDTO> delete(@PathVariable("employeeIdx") Long employeeIdx) {
+		public ResponseEntity<Employee> delete(@PathVariable("employeeIdx") Long employeeIdx) {
 			return service.delete(employeeIdx);
 		}
 		

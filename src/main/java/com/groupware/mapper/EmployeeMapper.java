@@ -1,18 +1,18 @@
 package com.groupware.mapper;
 
-import com.groupware.dto.EmployeeDTO;
+import com.groupware.dto.Employee;
 import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
 
 public interface EmployeeMapper {
-	List<EmployeeDTO> selectList(CommonSearchVO searchVO);
+	List<Employee> selectList(CommonSearchVO searchVO);
 	
-	Long insert(EmployeeDTO Notice);
+	Long insert(Employee Notice);
 	
-	EmployeeDTO select(Long noticeIdx);
+	Employee select(Long noticeIdx);
 
-	Long update(EmployeeDTO employeeDTO);
+	Long update(Employee employeeDTO);
 
 	Long delete(Long noticeIdx);
 	
