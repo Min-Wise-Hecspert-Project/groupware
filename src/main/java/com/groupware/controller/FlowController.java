@@ -38,7 +38,12 @@ public class FlowController {
 	public String notice(@PathVariable("noticeIdx") Long noticeIdx, Model model) {
 		model.addAttribute("noticeIdx",noticeIdx);
 		return "/notice/view";
-	}	
+	}
+	@RequestMapping(value = "/notice/modify/{noticeIdx}", method = RequestMethod.GET)
+	public String noticeModify(@PathVariable("noticeIdx") Long noticeIdx, Model model) {
+		model.addAttribute("noticeIdx",noticeIdx);
+		return "/notice/modify";
+	}
 	
 	@RequestMapping(value = "/notice/register", method = RequestMethod.GET)
 	public String noticeRegister() {
