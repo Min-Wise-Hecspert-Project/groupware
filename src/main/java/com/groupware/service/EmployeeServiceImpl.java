@@ -22,10 +22,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private final EmployeeMapper mapper;
 
 	@Override
-	public ResponseEntity<Employee> insert(Employee employeeDTO) {
+	public ResponseEntity<Employee.DetailDTO> insert(Employee.DetailDTO employeeDTO) {
 		mapper.insert(employeeDTO);
 
-		Employee resEmployeeDTO = this.getEmployee(employeeDTO.getEmployeeIdx());
+		Employee.DetailDTO resEmployeeDTO = this.getEmployee(employeeDTO.getEmployeeIdx());
 
 		if(resEmployeeDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
@@ -41,9 +41,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<Employee> update(Employee employeeDTO) {
+	public ResponseEntity<Employee.DetailDTO> update(Employee.DetailDTO employeeDTO) {
 		mapper.update(employeeDTO);
-		Employee resEmployeeDTO = this.getEmployee(employeeDTO.getEmployeeIdx());
+		Employee.DetailDTO resEmployeeDTO = this.getEmployee(employeeDTO.getEmployeeIdx());
 
 		if(resEmployeeDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
@@ -59,8 +59,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<Employee> delete(Long employeeIdx) {
-		Employee employeeDTO = this.getEmployee(employeeIdx);
+	public ResponseEntity<Employee.DetailDTO> delete(Long employeeIdx) {
+		Employee.DetailDTO employeeDTO = this.getEmployee(employeeIdx);
 		employeeDTO = mapper.delete(employeeIdx) < 1 ? null : employeeDTO;
 
 		if(employeeDTO == null) {
@@ -77,9 +77,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<List<Employee>> selectList(CommonSearchVO searchVO) {
+	public ResponseEntity<List<Employee.DetailDTO>> selectList(CommonSearchVO searchVO) {
 
-		List<Employee> employeeDTOS = mapper.selectList(searchVO);
+		List<Employee.DetailDTO> employeeDTOS = mapper.selectList(searchVO);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -99,9 +99,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<Employee> select(Long employeeIdx) {
+	public ResponseEntity<Employee.DetailDTO> select(Long employeeIdx) {
 
-		Employee employeeDTO = this.getEmployee(employeeIdx);
+		Employee.DetailDTO employeeDTO = this.getEmployee(employeeIdx);
 
 		if(employeeDTO == null) {
 			// 값이 없을때 204 - 응답 body가 필요 없는 자원
@@ -121,7 +121,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return mapper.deleteBySchedule();
 	}
 
-	public Employee getEmployee(Long employeeIdx) {
+	public Employee.DetailDTO getEmployee(Long employeeIdx) {
 		return mapper.select(employeeIdx);
 	}
 

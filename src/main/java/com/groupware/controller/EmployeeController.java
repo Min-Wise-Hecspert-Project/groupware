@@ -30,7 +30,7 @@ public class EmployeeController {
 		private final EmployeeService service;
 		
 		@GetMapping("/employee")
-		public ResponseEntity<List<Employee>> list(
+		public ResponseEntity<List<Employee.DetailDTO>> list(
 				@RequestParam(value = "name", defaultValue = "") String writer,
 				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page
@@ -43,22 +43,22 @@ public class EmployeeController {
 
 		
 		@PostMapping("/employee")
-		public ResponseEntity<Employee> post(Employee employeeDTO) {
+		public ResponseEntity<Employee.DetailDTO> post(Employee.DetailDTO employeeDTO) {
 			return service.insert(employeeDTO);
 		}
 		
 		@GetMapping("/employee/{employeeIdx}")
-		public ResponseEntity<Employee> get(@PathVariable("employeeIdx") Long employeeIdx) {
+		public ResponseEntity<Employee.DetailDTO> get(@PathVariable("employeeIdx") Long employeeIdx) {
 			return service.select(employeeIdx);
 		}
 		
 		@PutMapping("/employee")
-		public ResponseEntity<Employee> put(@RequestBody Employee employeeDTO) {
+		public ResponseEntity<Employee.DetailDTO> put(@RequestBody Employee.DetailDTO employeeDTO) {
 			return service.update(employeeDTO);
 		}
 		
 		@DeleteMapping("/employee/{employeeIdx}")		
-		public ResponseEntity<Employee> delete(@PathVariable("employeeIdx") Long employeeIdx) {
+		public ResponseEntity<Employee.DetailDTO> delete(@PathVariable("employeeIdx") Long employeeIdx) {
 			return service.delete(employeeIdx);
 		}
 		

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.groupware.mapper.EmployeeMapper">
 
-	<resultMap type="com.groupware.dto.Employee$detailDTO" id="EmployeeDetailMap">
+	<resultMap type="com.groupware.dto.Employee$DetailDTO" id="EmployeeDetailMap">
 		<result property="noticeIdx" column="NOTICE_IDX"/>
 		<result property="employeeIdx" column="EMPLOYEE_IDX"/>
 		<result property="title" column="TITLE"/>
@@ -15,7 +15,7 @@
 		<result property="enName" column="EN_NAME"/>
 	</resultMap>
 
-	<resultMap type="com.groupware.dto.Employee$listDTO" id="EmployeeListMap">
+	<resultMap type="com.groupware.dto.Employee$ListDTO" id="EmployeeListMap">
 		<result property="noticeIdx" column="NOTICE_IDX"/>
 		<result property="employeeIdx" column="EMPLOYEE_IDX"/>
 		<result property="title" column="TITLE"/>
