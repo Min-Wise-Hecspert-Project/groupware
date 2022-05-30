@@ -139,13 +139,8 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.deleteBySchedule();
 	}
 
-
-
 	private Notice.DetailDTO getNotice(Long noticeIdx){
 		return mapper.select(noticeIdx);
 	}
 
-	public int getPageData(CommonSearchVO searchVO) {
-		return mapper.getPageData(searchVO);
-	}
 }
