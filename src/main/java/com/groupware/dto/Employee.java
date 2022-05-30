@@ -25,7 +25,7 @@ public class Employee {
 		private String email;
 		private String address;
 		private int salary;
-		private String annualLeave;
+		private int annualLeave;
 		private int state;
 		private Date hireDate;
 		private Date resignationDate;
