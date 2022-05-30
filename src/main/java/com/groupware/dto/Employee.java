@@ -6,9 +6,7 @@ import java.util.Date;
 
 public class Employee {
 
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter	@Setter	@ToString
+	@Getter	@Setter
 	public static class DetailDTO {
 		private Long employeeIdx;
 		private String companyName;
@@ -33,9 +31,7 @@ public class Employee {
 		private Date updDate;
 	}
 
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter	@Setter	@ToString
+	@Getter	@Setter
 	public static class ListDTO {
 		private Long employeeIdx;
 		private String companyName;
@@ -55,9 +51,7 @@ public class Employee {
 	}
 
 	// 기본값 관련 수정해야함
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter	@Setter	@ToString
+	@Getter	@Setter
 	public static class InsertDTO {
 		private Long employeeIdx;
 		private Long companyIdx = 1L;
@@ -81,9 +75,7 @@ public class Employee {
 		private Date resignationDate = new Date();
 	}
 
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter	@Setter	@ToString
+	@Getter	@Setter
 	public static class UpdateDTO {
 		private Long employeeIdx;
 		private Long companyIdx = 1L;
