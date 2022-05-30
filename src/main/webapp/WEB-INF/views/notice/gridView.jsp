@@ -77,7 +77,7 @@
 						let data = noticeGrid.getValue(rowKey, columnName);
 						if (columnName === "title") {
 							data = noticeGrid.getValue(rowKey, "noticeIdx");
-							location.href = `/board/${'${data}'}`
+							location.href = `/notice/${'${data}'}`
 						}
 						if (columnName === "name") {
 							data = noticeGrid.getValue(rowKey, "employeeIdx");

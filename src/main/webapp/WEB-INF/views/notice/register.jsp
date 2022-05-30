@@ -26,7 +26,16 @@
 				<div class="container-fluid">
 					<div class="content">
 						<div class="row align-items-start">
+							<input class="col-md-6" id="notice_title" placeholder="공지사항 제목을 입력하세요"></input>
+						</div>
+						<div class="row align-items-start">
 							<div class="col-md-12" id="editor"></div>
+						</div>
+						<div class="row align-items-start">
+							<div class="col-md-12" id="editor2"></div>
+						</div>
+						<div class="row align-items-start">
+							<div class="col-md-12" id="viewer"></div>
 						</div>
 					</div>
 				</div>
@@ -41,6 +50,11 @@
 					initialEditType: 'wysiwyg',
 					height: '500px'
 			});
+			const editor2 = new toastui.Editor({
+				el: document.querySelector('#editor2'),
+				viewer: true
+			});
+			editor2.isViewer();
 			$(function () {
 				$('button').on("click", function () {
 					let action = $(this).data("action");
@@ -49,6 +63,28 @@
 					}
 					if (action==="register") {
 						console.log("요청보내기");
+						let title = $("#notice_title").val();
+						let content = editor.getHTML();
+						editor2.setHTML(content,"ture");
+						let viewer = $('#viewer').html(content);
+						
+						var formdata = new FormData();
+						formdata.append("title", title);
+						formdata.append("content", content);
+						formdata.append("file", "없음!");
+						formdata.append("employeeIdx", "1");
+						formdata.append("state", "1");
+
+						var requestOptions = {
+						  method: 'POST',
+						  body: formdata,
+						  redirect: 'follow'
+						};
+
+						fetch("http://localhost:8080/api/notice", requestOptions)
+						  .then(response => response.json())
+						  .then(result => console.log(result))
+						  .catch(error => console.log('error', error));	
 					}
 				});
 				

@@ -4,10 +4,13 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.websocket.server.PathParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,6 +33,11 @@ public class FlowController {
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String noticeList() {
 		return "/notice/list";
+	}	
+	@RequestMapping(value = "/notice/{noticeIdx}", method = RequestMethod.GET)
+	public String notice(@PathVariable("noticeIdx") Long noticeIdx, Model model) {
+		model.addAttribute("noticeIdx",noticeIdx);
+		return "/notice/view";
 	}	
 	
 	@RequestMapping(value = "/notice/register", method = RequestMethod.GET)
