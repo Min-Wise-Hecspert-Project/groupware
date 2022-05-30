@@ -2,6 +2,7 @@ package com.groupware.employee;
 
 import com.groupware.config.RootConfig;
 import com.groupware.config.ServletConfig;
+import com.groupware.dto.Employee;
 import com.groupware.service.EmployeeService;
 import com.groupware.vo.CommonSearchVO;
 import com.groupware.vo.EmployeeSearchVO;
@@ -29,5 +30,19 @@ public class EmployeeTest {
         EmployeeSearchVO searchVO = new EmployeeSearchVO("","","","",1,1,10);
         ResponseEntity<Map<String, Object>> mapResponseEntity = es.selectList(searchVO);
         log.info(mapResponseEntity);
+    }
+
+    @Test
+    public void getEmployee(){
+        ResponseEntity<Employee.DetailDTO> select = es.select(1L);
+        log.info(select);
+    }
+
+    @Test
+    public void insertEmployee(){
+        Employee.InsertDTO insertDTO = new Employee.InsertDTO();
+        insertDTO.setName("삽입테스트");
+        insertDTO.setCompanyIdx(1L);
+        log.info(es.insert(insertDTO));
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmployeeMapper {
 	List<Employee.ListDTO> selectList(EmployeeSearchVO searchVO);
 	
-	Long insert(Employee.DetailDTO Notice);
+	Long insert(Employee.InsertDTO insertDTO);
 
 	Employee.DetailDTO select(Long noticeIdx);
 

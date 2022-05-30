@@ -49,8 +49,8 @@ public class EmployeeController {
 
 		
 		@PostMapping("/employee")
-		public ResponseEntity<Employee.DetailDTO> post(Employee.DetailDTO employeeDTO) {
-			return service.insert(employeeDTO);
+		public ResponseEntity<Employee.DetailDTO> post(Employee.InsertDTO insertDTO) {
+			return service.insert(insertDTO);
 		}
 		
 		@GetMapping("/employee/{employeeIdx}")

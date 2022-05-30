@@ -24,10 +24,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private final EmployeeMapper mapper;
 
 	@Override
-	public ResponseEntity<Employee.DetailDTO> insert(Employee.DetailDTO employeeDTO) {
-		mapper.insert(employeeDTO);
+	public ResponseEntity<Employee.DetailDTO> insert(Employee.InsertDTO insertDTO) {
+		mapper.insert(insertDTO);
 
-		Employee.DetailDTO resEmployeeDTO = this.getEmployee(employeeDTO.getEmployeeIdx());
+		Employee.DetailDTO resEmployeeDTO = this.getEmployee(insertDTO.getEmployeeIdx());
 
 		if(resEmployeeDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우

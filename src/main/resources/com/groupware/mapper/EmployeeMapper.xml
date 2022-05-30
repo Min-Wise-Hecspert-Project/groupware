@@ -244,21 +244,57 @@
 	</select>
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="employeeIdx" keyColumn="employee_idx">
-  	INSERT INTO
-  		employee(
-			notice_idx,
-			employee_idx,
-			title,
-			content,
-			"FILE"
-  			)
- 	VALUES(
- 		NOTICE_SEQ.NEXTVAL,
- 		#{employeeIdx},
- 		#{title},
- 		#{content},
- 		#{file}
- 		)
+	  INSERT INTO
+		  employee
+	  (
+		  employee_idx,
+		  company_idx,
+		  department_idx,
+		  team_idx,
+		  duty_idx,
+		  position_idx,
+		  authority_idx,
+		  name,
+		  en_name,
+		  profile_image,
+		  gender,
+		  birthday,
+		  phone_number,
+		  email,
+		  address,
+		  salary,
+		  annual_leave,
+		  state,
+		  hire_date,
+		  resignation_date,
+		  ins_date,
+		  upd_date
+	  )
+	  VALUES
+		  (
+			  employee_seq.nextval,
+			  #{companyIdx},
+			  #{departmentIdx},
+			  #{teamIdx},
+			  #{dutyIdx},
+			  #{positionIdx},
+			  #{authorityIdx},
+			  #{name},
+			  #{enName},
+			  #{profileImage},
+			  #{gender},
+			  #{birthday},
+			  #{phoneNumber},
+			  #{email},
+			  #{address},
+			  #{salary},
+			  #{annualLeave},
+			  #{state},
+			  #{hireDate},
+			  #{resignationDate},
+			  sysdate,
+			  sysdate
+		  )
   </insert>
   
   <update id="update">
