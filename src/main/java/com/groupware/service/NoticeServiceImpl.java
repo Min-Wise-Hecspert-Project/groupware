@@ -78,24 +78,7 @@ public class NoticeServiceImpl implements NoticeService {
 					.body(resDetailDTO);
 		}
 	}
-
-	/**
-	 * {
-	 *   "result": true,
-	 *   "data": {
-	 *     "contents": [],
-	 *     "pagination": {
-	 *       "page": 1,
-	 *       "totalCount": 100
-	 *     }
-	 *   }
-	 * }
-	 *
-	 * {
-	 *   "result": false,
-	 *   "message": "Error message from the server"
-	 * }
-	 */
+	
 	@Override
 	public ResponseEntity<Map<String, Object>> selectList(CommonSearchVO searchVO) {
 
@@ -103,20 +86,16 @@ public class NoticeServiceImpl implements NoticeService {
 
 		Map<String, Object> noticeListPageMap = new HashMap<>();
 
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("zzz","utf-8");
+
 		if(listDTOS.size() < 1 ) {
 			// 값이 없을때 204 - 응답 body가 필요 없는 자원 But error message 를 위해 200으로 보낸다~!
-
 			String message = "no notice ^^";
-
 			noticeListPageMap.put("result", false);
 			noticeListPageMap.put("message", message);
-
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("zzz","utf-8");
-
 		} else {
 			// 성공시 200 - OK
-
 			noticeListPageMap.put("result", true);
 
 			Map<String, Integer> pagination = new HashMap<>();
@@ -132,6 +111,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 		return ResponseEntity
 				.status(HttpStatus.OK)
+				.headers(headers)
 				.body(noticeListPageMap);
 	}
 
