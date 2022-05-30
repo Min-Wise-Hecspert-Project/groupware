@@ -10,7 +10,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 @ToString
-
 public class CommonSearchVO {
 	private String title;
 	private String content;

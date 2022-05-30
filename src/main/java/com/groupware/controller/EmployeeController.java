@@ -7,6 +7,7 @@ import com.groupware.vo.CommonSearchVO;
 import java.util.List;
 import java.util.Map;
 
+import com.groupware.vo.EmployeeSearchVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,13 +33,16 @@ public class EmployeeController {
 		
 		@GetMapping("/employee")
 		public ResponseEntity<Map<String, Object>> list(
-				@RequestParam(value = "name", defaultValue = "") String writer,
+				@RequestParam(value = "name", defaultValue = "") String name,
+				@RequestParam(value = "companyName", defaultValue = "") String companyName,
+				@RequestParam(value = "departmentName", defaultValue = "") String departmentName,
+				@RequestParam(value = "teamName", defaultValue = "") String teamName,
 				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page,
 				@RequestParam(defaultValue = "10") Integer perPage
 				) {
-			
-			CommonSearchVO searchVO = new CommonSearchVO(writer, sorting, page, perPage);
+
+			EmployeeSearchVO searchVO = new EmployeeSearchVO(name, companyName, departmentName, teamName, sorting, page, perPage);
 			
 			return service.selectList(searchVO);
 		}

@@ -3,6 +3,7 @@ package com.groupware.service;
 import com.groupware.dto.Employee;
 import com.groupware.mapper.EmployeeMapper;
 import com.groupware.vo.CommonSearchVO;
+import com.groupware.vo.EmployeeSearchVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -78,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<Map<String, Object>> selectList(CommonSearchVO searchVO) {
+	public ResponseEntity<Map<String, Object>> selectList(EmployeeSearchVO searchVO) {
 
 		List<Employee.ListDTO> listDTOS = mapper.selectList(searchVO);
 
