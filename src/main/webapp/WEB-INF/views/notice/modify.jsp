@@ -28,7 +28,7 @@
 				<div class="container-fluid">
 					<div class="content">
 						<div class="row align-items-start">
-							<input class="col-md-6" id="notice_title" placeholder="공지사항 제목을 입력하세요"></input>
+							<input class="col-md-6 form-control m-3" id="notice_title" placeholder="공지사항 제목을 입력하세요"></input>
 						</div>
 						<div class="row align-items-start">
 							<div class="col-md-12" id="editor"></div>
@@ -59,6 +59,7 @@
 			.then(response => response.json())
 			.then(result => {
 				editor.setHTML(result.content);
+				$('#notice_title').val(result.title)
 			})
 			.catch(error => console.log('error', error));
 

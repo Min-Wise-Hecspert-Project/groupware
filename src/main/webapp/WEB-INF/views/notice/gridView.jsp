@@ -1,28 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<div class="col-md-6" id="notice-grid">
+<div id="notice-grid">
 	<h2>공지사항</h2>
 </div>
 <script type="text/javascript">
 	let noticeGrid = "";
 	let widthBoolean = false;
 	$(function () {
-		// 그리드 반응형을 위한 동작 트리거 함수
-		const widthControl = boolean => {
-			if (boolean === true) {
-				let notice = $("#notice-grid")
-				notice.removeClass("col-md-6");
-				notice.addClass("col-md-12");
-				let width = notice.width();
-				noticeGrid.setWidth(width);
-				$("#notice-grid").resize(function () {
-					notice = $("#notice-grid")
-					let width = notice.width();
-					noticeGrid.setWidth(width);
-					console.log("active resize")
-				});
-			}
-		}
-
+		
 		//??
 		class RowNumberRenderer {
 			constructor(props) {
@@ -110,6 +94,5 @@
 			}
 		});
 		//반응형 함수 동작
-		widthControl(widthBoolean);
 	})
 </script>

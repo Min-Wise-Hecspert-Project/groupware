@@ -1,11 +1,5 @@
 package com.groupware.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import javax.websocket.server.PathParam;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -48,5 +42,10 @@ public class FlowController {
 	@RequestMapping(value = "/notice/register", method = RequestMethod.GET)
 	public String noticeRegister() {
 		return "/notice/register";
+	}
+	
+	@RequestMapping(value = "/schedule", method = RequestMethod.GET)
+	public String sceduleList() {
+		return "/schedule/list";
 	}	
 }

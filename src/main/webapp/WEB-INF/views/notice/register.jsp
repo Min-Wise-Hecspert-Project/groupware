@@ -28,7 +28,7 @@
 				<div class="container-fluid">
 					<div class="content">
 						<div class="row align-items-start form-group">
-							<input class="col-md-3 form-control" id="notice_title" placeholder="공지사항 제목을 입력하세요"></input>
+							<input class="col-md-3 form-control m-3" id="notice_title" placeholder="공지사항 제목을 입력하세요"></input>
 						</div>
 						<div class="row form-group">
 							<div class="col-md-12" id="editor"></div>

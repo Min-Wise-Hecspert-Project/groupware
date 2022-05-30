@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath }#" class="nav-link text-white">
+                        <a href="${pageContext.request.contextPath }/schedule" class="nav-link text-white">
                             <svg class="bi pe-none me-2" width="16" height="16">
                                 <use xlink:href="#grid" />
                             </svg>

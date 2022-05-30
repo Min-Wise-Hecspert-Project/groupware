@@ -4,7 +4,7 @@
 
 <head>
 	<jsp:include page="../includes/head.jsp"></jsp:include>
-	<title>ERP HOME</title>
+	<title>Notice</title>
 </head>
 
 <body>
@@ -25,7 +25,10 @@
 				<div class="container-fluid">
 					<div class="content">
 						<div class="row align-items-start">
-							<jsp:include page="gridView.jsp"></jsp:include>
+							<div class="col-md-12">
+								<jsp:include page="gridView.jsp"></jsp:include>
+							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -34,8 +37,12 @@
 	</div>
 	<script>
 		$(function () {
+			
+			noticeGrid.on('failResponse', function(data) {
+			  alert("검색 결과가 없습니다.!");
+			})
+			
 			//넓이값 측정 후 변경
-			widthBoolean = true;
 			searchBoolean = false;
 			$('button').on("click", function () {
 				let action = $(this).data("action");
@@ -54,49 +61,63 @@
 					console.log(`keyword`, keyword);
 					console.log(`select1`, select1);
 					console.log(`select2`, select2);
-					let params ="";
+					let params;
+
+					params = {
+						title : keyword
+					}
+
 					if (select1==="title") {
-						 params = `title=${'${keyword }'}`;
+						params = {
+							title : keyword
+						}
 					}
 					if (select1==="content") {
-						 params = `content=${'${keyword }'}`;
+						params = {
+							content : keyword
+						}
 					}
 					if (select1==="writer") {
-						 params = `writer=${'${keyword }'}`;
+						params = {
+							writer : keyword
+						}
 					}
 					if (select1==="titleAndContent") {
-						 params = `title=${'${keyword }'}&content=${'${keyword }'}`;
+						params = {
+							title : keyword,
+							content : keyword
+						}
 					}
 					if (select1==="titleAndWriter") {
-						 params = `title=${'${keyword }'}&writer=${'${keyword }'}`;
+						params = {
+							title : keyword,
+							writer : keyword
+						}
 					}
 					if (select1==="contentAndWriter") {
-						 params = `content=${'${keyword }'}&writer=${'${keyword }'}`;
+						params = {
+							content : keyword,
+							writer : keyword
+						}
 					}
 					if (select1==="titleAndContentAndWriter") {
-						 params = `title=${'${keyword }'}&writer=${'${keyword }'}`;
+						params = {
+							title : keyword,
+							content : keyword,
+							writer : keyword
+						}
 					}
 					var requestOptions = {
 							method: 'GET',
 							redirect: 'follow'
 					};
-						fetch(`http://localhost:8080/api/notice?${'${params}'}&sorting=${'${select2}'}`, requestOptions)
-							.then(response => response.json())
-							.then(result => {
-								let noticeGridDate = new Array();
-								//toast grid에 사용하기 위해 header정보와 맞게 데이터 파싱
-								for (let i = 0; i < result.length; i++) {
-									let data = new Object;
-									//console.log('데이터', result[i]);
-									data.noticeIdx = result[i].noticeIdx
-									data.employeeIdx = result[i].employeeIdx
-									data.title = result[i].title
-									data.name = result[i].employeeDTO.name
-									noticeGridDate.push(data);
-								}
-								noticeGrid.resetData(noticeGridDate,"");
-							})
-							.catch(error => console.log('error', error));
+					const dataSource = {
+							  api: {
+							    readData: { url: `/api/notice?${'${params}'}&sorting=${'${select2}'}`, method: 'GET', initParams: { param: 'param' } }
+							  }
+					};
+					// 파리미터 적용 후 통신 요청
+					noticeGrid.readData(1,params);
 				} //if end
 				if (action==="search") {
 					$(this).attr('type', "text");
