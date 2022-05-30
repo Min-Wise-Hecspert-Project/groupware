@@ -2,6 +2,7 @@
 	<div class="col-md-6" id="notice-grid">
 		<h2>공지사항</h2>
 	</div>
+	<div class="cursor"></div>
 	<script type="text/javascript">
 		let noticeGrid = "";
 		let widthBoolean = false;
@@ -52,7 +53,8 @@
 								header: 'No',
 								name: 'noticeIdx',
 								sortingType: 'desc',
-								sortable: true
+								sortable: true,
+								cusor : 'pointer'
 							},
 							{
 								header: '제목',
@@ -67,7 +69,8 @@
 								header: '작성자IDX',
 								name: 'employeeIdx'
 							}
-						]
+						],
+						
 					});
 					noticeGrid.hideColumn("employeeIdx", true);
 					noticeGrid.on('click', (ev) => {
@@ -82,6 +85,15 @@
 						if (columnName === "name") {
 							data = noticeGrid.getValue(rowKey, "employeeIdx");
 							location.href = `/user/${'${data}'}`
+						}
+					});
+					noticeGrid.on('mouseover', (ev) => {
+						console.log(ev);
+						console.log(ev.columnName);
+						if((ev.columnName==="name"||ev.columnName==="title")&&ev.targetType==="cell"){
+							$('html').css('cursor','pointer');
+						}else {
+							$('html').css('cursor','auto');
 						}
 					});
 					widthControl(widthBoolean);
