@@ -6,13 +6,13 @@ import com.groupware.dto.Notice;
 import com.groupware.vo.CommonSearchVO;
 
 public interface NoticeMapper {
-	List<Notice.listDTO> selectList(CommonSearchVO searchVO);
+	List<Notice.ListDTO> selectList(CommonSearchVO searchVO);
 	
-	Long insert(Notice.insertDTO insertDTO);
+	Long insert(Notice.InsertDTO insertDTO);
 	
-	Notice.detailDTO select(Long noticeIdx);
+	Notice.DetailDTO select(Long noticeIdx);
 
-	Long update(Notice.updateDTO updateDTO);
+	Long update(Notice.UpdateDTO updateDTO);
 
 	Long delete(Long noticeIdx);
 	

@@ -7,11 +7,10 @@ import org.apache.ibatis.type.Alias;
 
 public class Notice {
 
-	@Alias("NoticeDetailDTO")
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Getter	@Setter	@ToString
-	public static class detailDTO{
+	public static class DetailDTO {
 		private Long noticeIdx;
 		private Long employeeIdx;
 		private String title;
@@ -24,11 +23,10 @@ public class Notice {
 		private String enName;
 	}
 
-	@Alias("NoticeListDTO")
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Getter	@Setter	@ToString
-	public static class listDTO{
+	public static class ListDTO {
 		private Long noticeIdx;
 		private Long employeeIdx;
 		private String title;
@@ -42,7 +40,7 @@ public class Notice {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Getter	@Setter	@ToString
-	public static class insertDTO{
+	public static class InsertDTO {
 		private Long noticeIdx;
 		private Long employeeIdx;
 		private String title;
@@ -54,14 +52,14 @@ public class Notice {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Getter	@Setter	@ToString
-	public static class deleteDTO{
+	public static class DeleteDTO {
 		private Long noticeIdx;
 	}
 
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Getter	@Setter	@ToString
-	public static class updateDTO{
+	public static class UpdateDTO {
 		private Long noticeIdx;
 		private String title;
 		private String content;

@@ -6,7 +6,6 @@ import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,7 @@ public class NoticeController {
 		private final NoticeService service;
 		
 		@GetMapping("/notice")
-		public ResponseEntity<List<Notice.listDTO>> list(
+		public ResponseEntity<List<Notice.ListDTO>> list(
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
 				@RequestParam(defaultValue = "") String writer,
@@ -45,22 +44,22 @@ public class NoticeController {
 		}
 		
 		@PostMapping("/notice")
-		public ResponseEntity<Notice.detailDTO> post(Notice.insertDTO insertDTO) {
+		public ResponseEntity<Notice.DetailDTO> post(Notice.InsertDTO insertDTO) {
 			return service.insert(insertDTO);
 		}
 		
 		@GetMapping("/notice/{noticeIdx}")
-		public ResponseEntity<Notice.detailDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
+		public ResponseEntity<Notice.DetailDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
 			return service.select(noticeIdx);
 		}
 		
 		@PutMapping("/notice")
-		public ResponseEntity<Notice.detailDTO> put(@RequestBody Notice.updateDTO updateDTO) {
+		public ResponseEntity<Notice.DetailDTO> put(@RequestBody Notice.UpdateDTO updateDTO) {
 			return service.update(updateDTO);
 		}
 		
 		@DeleteMapping("/notice/{noticeIdx}")		
-		public ResponseEntity<Notice.detailDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
+		public ResponseEntity<Notice.DetailDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
 			return service.delete(noticeIdx);
 		}
 		

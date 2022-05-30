@@ -7,11 +7,11 @@ import com.groupware.vo.CommonSearchVO;
 import org.springframework.http.ResponseEntity;
 
 public interface NoticeService {
-	ResponseEntity<Notice.detailDTO> insert(Notice.insertDTO insertDTO);
-	ResponseEntity<Notice.detailDTO> update(Notice.updateDTO updateDTO);
-	ResponseEntity<Notice.detailDTO> delete(Long noticeIdx);
-	ResponseEntity<List<Notice.listDTO>> selectList(CommonSearchVO searchVO);
-	ResponseEntity<Notice.detailDTO> select(Long noticeIdx);
+	ResponseEntity<Notice.DetailDTO> insert(Notice.InsertDTO insertDTO);
+	ResponseEntity<Notice.DetailDTO> update(Notice.UpdateDTO updateDTO);
+	ResponseEntity<Notice.DetailDTO> delete(Long noticeIdx);
+	ResponseEntity<List<Notice.ListDTO>> selectList(CommonSearchVO searchVO);
+	ResponseEntity<Notice.DetailDTO> select(Long noticeIdx);
 	int deleteBySchedule();
 
 }

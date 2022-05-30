@@ -54,7 +54,7 @@ public class NoticeTest {
 	
 	@Test
 	public void testInsert() {
-		Notice.insertDTO insertDTO = new Notice.insertDTO();
+		Notice.InsertDTO insertDTO = new Notice.InsertDTO();
 		insertDTO.setEmployeeIdx(1L);
 		insertDTO.setTitle("삽입 테스트~~");
 		insertDTO.setContent("성공");
@@ -65,7 +65,7 @@ public class NoticeTest {
 	
 	@Test
 	public void testUpdate() {
-		Notice.updateDTO updateDTO = new Notice.updateDTO();
+		Notice.UpdateDTO updateDTO = new Notice.UpdateDTO();
 		updateDTO.setNoticeIdx(8L);
 		updateDTO.setTitle("수정!!!!!");
 		updateDTO.setContent("성공");

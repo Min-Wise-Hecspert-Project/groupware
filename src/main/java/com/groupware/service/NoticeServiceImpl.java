@@ -18,10 +18,10 @@ public class NoticeServiceImpl implements NoticeService {
 	private final NoticeMapper mapper;
 
 	@Override
-	public ResponseEntity<Notice.detailDTO> insert(Notice.insertDTO insertDTO) {
+	public ResponseEntity<Notice.DetailDTO> insert(Notice.InsertDTO insertDTO) {
 		mapper.insert(insertDTO);
 
-		Notice.detailDTO detailDTO = this.getNotice(insertDTO.getNoticeIdx());
+		Notice.DetailDTO detailDTO = this.getNotice(insertDTO.getNoticeIdx());
 
 		if(detailDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
@@ -37,10 +37,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ResponseEntity<Notice.detailDTO> update(Notice.updateDTO updateDTO) {
+	public ResponseEntity<Notice.DetailDTO> update(Notice.UpdateDTO updateDTO) {
 		mapper.update(updateDTO);
 
-		Notice.detailDTO detailDTO = this.getNotice(updateDTO.getNoticeIdx());
+		Notice.DetailDTO detailDTO = this.getNotice(updateDTO.getNoticeIdx());
 
 		if(detailDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
@@ -57,10 +57,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ResponseEntity<Notice.detailDTO> delete(Long noticeIdx) {
-		Notice.detailDTO detailDTO = this.getNotice(noticeIdx);
+	public ResponseEntity<Notice.DetailDTO> delete(Long noticeIdx) {
+		Notice.DetailDTO detailDTO = this.getNotice(noticeIdx);
 
-		Notice.detailDTO resDetailDTO = mapper.delete(noticeIdx) < 1 ? null : this.getNotice(noticeIdx);
+		Notice.DetailDTO resDetailDTO = mapper.delete(noticeIdx) < 1 ? null : this.getNotice(noticeIdx);
 
 		if(resDetailDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
@@ -76,9 +76,9 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ResponseEntity<List<Notice.listDTO>> selectList(CommonSearchVO searchVO) {
+	public ResponseEntity<List<Notice.ListDTO>> selectList(CommonSearchVO searchVO) {
 
-		List<Notice.listDTO> listDTOS = mapper.selectList(searchVO);
+		List<Notice.ListDTO> listDTOS = mapper.selectList(searchVO);
 
 		if(listDTOS.size() < 1 ) {
 			// 값이 없을때 204 - 응답 body가 필요 없는 자원
@@ -94,9 +94,9 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ResponseEntity<Notice.detailDTO> select(Long noticeIdx) {
+	public ResponseEntity<Notice.DetailDTO> select(Long noticeIdx) {
 
-		Notice.detailDTO detailDTO = this.getNotice(noticeIdx);
+		Notice.DetailDTO detailDTO = this.getNotice(noticeIdx);
 
 		if(detailDTO == null) {
 			// 값이 없을때 204 - 응답 body가 필요 없는 자원
@@ -117,7 +117,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.deleteBySchedule();
 	}
 
-	private Notice.detailDTO getNotice(Long noticeIdx){
+	private Notice.DetailDTO getNotice(Long noticeIdx){
 		return mapper.select(noticeIdx);
 	}
 
