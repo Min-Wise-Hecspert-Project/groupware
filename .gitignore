@@ -2,6 +2,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,eclipse,java,intellij
 
+### 어디에 기입해야 할지 몰라서.. ###
+target/
+.idea/
+.classpath
+
 ### Eclipse ###
 .metadata
 bin/
@@ -150,7 +155,7 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# *.iml
+*.iml
 # modules.xml
 # .idea/misc.xml
 # *.ipr
@@ -234,6 +239,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,intellij
-target/
-.idea/
-.classpath
