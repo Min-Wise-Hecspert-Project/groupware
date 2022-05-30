@@ -1,6 +1,10 @@
 package com.groupware.service;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.inject.Inject;
 
 import com.groupware.dto.BoardDTO;
 import com.groupware.dto.Notice;
@@ -9,6 +13,7 @@ import com.groupware.vo.BoardVO;
 import com.groupware.vo.CommonSearchVO;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -62,6 +67,9 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return mapper.getBoardList();
 	}
+
+
+
 
 
 

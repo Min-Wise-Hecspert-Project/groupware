@@ -2,6 +2,7 @@ package com.groupware.mapper;
 
 import java.io.Console;
 import java.util.List;
+import java.util.Map;
 
 import com.groupware.dto.BoardDTO;
 
@@ -23,4 +24,9 @@ public interface BoardMapper {
 	
 	
 	public List<BoardDTO> selectemployee_idx(int employeeIdx);
+	
+	
+	//file
+	public void insertFile(Map<String, Object> map) throws Exception;
+
 }

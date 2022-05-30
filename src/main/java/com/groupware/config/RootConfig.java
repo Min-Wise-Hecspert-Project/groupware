@@ -13,7 +13,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service"})
+@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service","com.groupware.util"})
 @MapperScan(basePackages = {"com.groupware.mapper","com.groupware.dto"})
 public class RootConfig {
 	

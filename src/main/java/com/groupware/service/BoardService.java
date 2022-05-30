@@ -2,6 +2,8 @@ package com.groupware.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.groupware.dto.BoardDTO;
 import com.groupware.dto.Notice;
 import com.groupware.vo.CommonSearchVO;
@@ -14,5 +16,5 @@ public interface BoardService {
 	public BoardDTO modify(BoardDTO board);
 	public boolean remove(Long board_idx);
 	public List<BoardDTO> getList(); 
-	
+
 }

@@ -57,7 +57,7 @@
    </insert>
 
   
-  <select id="reads" resultMap="BoardDTO">s
+  <select id="reads" resultMap="BoardDTO">
   	select * from board where employee_idx = #{employeeIdx}
   </select>
   
@@ -80,7 +80,21 @@
   	
   </update> 
   
-     
+  <insert id="insertFile" parameterType="hashMap">
+		INSERT INTO boardAttach(
+			FILE_NO,
+			BNO,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+			SEQ_MP_FILE_NO.NEXTVAL,
+			#{BNO},
+			#{ORG_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE}
+		)  
+  </insert>
    
   <!-- 
   <insert id="insertSelectKey">

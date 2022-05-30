@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,18 +44,8 @@ public class BoardController {
 //			log.info("list");
 //			model.addAttribute("list", service.getList());
 //		}
-		@GetMapping("/a")
-		public ModelAndView a() {
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("/board/list");
-			return mv;
-		}
-		@GetMapping("/b")
-		public ModelAndView b() {
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("/board/list");
-			return mv;
-		}
+		
+
 		//board 통쨰로 가져옴
 		@GetMapping("/list")
 		public ResponseEntity<List<BoardDTO>>list(){
@@ -76,7 +68,9 @@ public class BoardController {
 		
 		//아이디로 조회함
 		@GetMapping("/list/{employeeIdx}")
-		public ResponseEntity<List<BoardDTO>> getboard_employeeIdx(@PathVariable("employeeIdx")Long employeeIdx){
+		public ResponseEntity<List<BoardDTO>> getboard_employeeIdx(
+				@RequestParam(defaultValue = "") Long employeeIdx){
+			
 			List<BoardDTO> boardDTO = service.gets(employeeIdx);
 			
 			if (boardDTO==null) {

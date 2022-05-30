@@ -1,12 +1,18 @@
 package com.groupware.service;
 
+import com.groupware.dto.BoardDTO;
 import com.groupware.dto.EmployeeDTO;
+import com.groupware.mapper.BoardMapper;
 import com.groupware.mapper.EmployeeMapper;
 import com.groupware.vo.CommonSearchVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
+
+import javax.annotation.Resource;
+import javax.inject.Inject;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +52,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int deleteBySchedule() {
 		return mapper.deleteBySchedule();
 	}
+
 
 }
