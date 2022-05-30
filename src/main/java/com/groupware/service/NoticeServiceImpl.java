@@ -78,7 +78,7 @@ public class NoticeServiceImpl implements NoticeService {
 					.body(resDetailDTO);
 		}
 	}
-	
+
 	@Override
 	public ResponseEntity<Map<String, Object>> selectList(CommonSearchVO searchVO) {
 

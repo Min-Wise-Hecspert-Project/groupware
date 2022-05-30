@@ -18,7 +18,5 @@ public interface NoticeMapper {
 	
 	int deleteBySchedule();
 
-    int getPageData(CommonSearchVO searchVO);
-
 	Integer getTotalCount(CommonSearchVO searchVO);
 }
