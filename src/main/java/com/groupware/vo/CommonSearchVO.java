@@ -20,7 +20,7 @@ public class CommonSearchVO {
 	private Integer startNum;
 	private Integer endNum;
 
-	private final int pageSize = Config.globalPageSize;
+	private final int pageSize = Config.PAGE_SIZE;
 	
 	public CommonSearchVO(String title, String content, String writer, Integer sorting, Integer page) {
 		this.title = title;
