@@ -15,7 +15,8 @@
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<div class="btn-toolbar mb-2 mb-md-0">
-						<div class="btn-group me-2">
+						<div class="btn-group me-4">
+							<div id="searchBar"></div>
 							<button type="button" data-action="search" class="btn btn-sm btn-outline-secondary">검색</button>
 							<button type="button" data-action="register" class="btn btn-sm btn-outline-secondary">글작성</button>
 						</div>
@@ -35,11 +36,93 @@
 		$(function () {
 			//넓이값 측정 후 변경
 			widthBoolean = true;
-
+			searchBoolean = false;
 			$('button').on("click", function () {
 				let action = $(this).data("action");
+				if (searchBoolean&&action==="search") {
+					console.log("필터링 검색 요청 보내기");
+					searchBoolean = !searchBoolean;
+					searchBar = $('#searchBar')
+                	if (!searchBar.find("input[name='keyword']").val()) {
+						alert("키워드를 입력하세요");
+						return false;
+					}
+					let keyword = searchBar.find("input[name='keyword']").val();
+					
+					let select1 = searchBar.find("select[name='option1']").find("option:selected").val();
+					let select2 = searchBar.find("select[name='option2']").find("option:selected").val();
+					console.log(`keyword`, keyword);
+					console.log(`select1`, select1);
+					console.log(`select2`, select2);
+					let params ="";
+					if (select1==="title") {
+						 params = `title=${'${keyword }'}`;
+					}
+					if (select1==="content") {
+						 params = `content=${'${keyword }'}`;
+					}
+					if (select1==="writer") {
+						 params = `writer=${'${keyword }'}`;
+					}
+					if (select1==="titleAndContent") {
+						 params = `title=${'${keyword }'}&content=${'${keyword }'}`;
+					}
+					if (select1==="titleAndWriter") {
+						 params = `title=${'${keyword }'}&writer=${'${keyword }'}`;
+					}
+					if (select1==="contentAndWriter") {
+						 params = `content=${'${keyword }'}&writer=${'${keyword }'}`;
+					}
+					if (select1==="titleAndContentAndWriter") {
+						 params = `title=${'${keyword }'}&writer=${'${keyword }'}`;
+					}
+					var requestOptions = {
+							method: 'GET',
+							redirect: 'follow'
+					};
+						fetch(`http://localhost:8080/api/notice?${'${params}'}&sorting=${'${select2}'}`, requestOptions)
+							.then(response => response.json())
+							.then(result => {
+								let noticeGridDate = new Array();
+								//toast grid에 사용하기 위해 header정보와 맞게 데이터 파싱
+								for (let i = 0; i < result.length; i++) {
+									let data = new Object;
+									//console.log('데이터', result[i]);
+									data.noticeIdx = result[i].noticeIdx
+									data.employeeIdx = result[i].employeeIdx
+									data.title = result[i].title
+									data.name = result[i].employeeDTO.name
+									noticeGridDate.push(data);
+								}
+								noticeGrid.resetData(noticeGridDate,"");
+							})
+							.catch(error => console.log('error', error));
+				} //if end
 				if (action==="search") {
-					action.html("<input type='text'>");
+					$(this).attr('type', "text");
+					let searchBar = `
+									<input class='col-md-6 form-control' type='text' name='keyword'></input>
+									<select class='col form-select form-select-sm' name="option1">
+										<option value="title">제목</option>
+										<option value="content" >내용</option>
+										<option value="writer" >작성자</option>
+										<option value="titleAndContent" >제목&내용</option>
+										<option value="titleAndWriter" >제목&작성자</option>
+										<option value="contentAndWriter" >내용&작성자</option>
+										<option value="titleAndContentAndWriter" >제목&내용&작성자</option>
+									</select>
+									<select class='col form-select form-select-sm' name="option2">
+										<option value="1" >제목 오름차순</option>
+										<option value="2" >제목 내림차순</option>
+										<option value="3" >내용 오름차순</option>
+										<option value="4" >내용 내림차순</option>
+										<option value="5" >작성자 오름차순</option>
+										<option value="6" >작성자 내림차순</option>
+									</select>
+									`;
+					$('#searchBar').addClass("row");
+					$('#searchBar').html(searchBar);
+					searchBoolean = !searchBoolean;
 				}
 				if (action==="register") {
 					location.href = "/notice/register"
