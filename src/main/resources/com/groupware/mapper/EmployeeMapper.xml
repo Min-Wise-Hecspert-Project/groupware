@@ -98,7 +98,7 @@
 		<![CDATA[ rnum >= #{startNum} AND rnum <= #{pageSize} ]]>
   </select>
   
-  <select id="select" resultMap="EmployeeMap">
+  <select id="select" resultMap="EmployeeDetailMap">
   	SELECT
   		*
  	FROM
