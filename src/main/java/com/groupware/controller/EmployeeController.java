@@ -59,7 +59,7 @@ public class EmployeeController {
 		}
 		
 		@PutMapping("/employee")
-		public ResponseEntity<Employee.DetailDTO> put(@RequestBody Employee.DetailDTO employeeDTO) {
+		public ResponseEntity<Employee.DetailDTO> put(@RequestBody Employee.UpdateDTO employeeDTO) {
 			return service.update(employeeDTO);
 		}
 		

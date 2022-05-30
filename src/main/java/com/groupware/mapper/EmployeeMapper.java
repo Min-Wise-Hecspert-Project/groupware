@@ -13,7 +13,7 @@ public interface EmployeeMapper {
 
 	Employee.DetailDTO select(Long noticeIdx);
 
-	Long update(Employee.DetailDTO employeeDTO);
+	Long update(Employee.UpdateDTO updateDTO);
 
 	Long delete(Long noticeIdx);
 	

@@ -298,23 +298,39 @@
   </insert>
   
   <update id="update">
-  	UPDATE
-  		employee
-  	SET
-		title = #{title},
- 		content = #{content},
- 		"FILE" = #{file},
- 		upd_date = SYSDATE
- 	WHERE
- 		employee_idx = #{employeeIdx}
+	  UPDATE
+		  employee
+	  SET
+		  company_idx = #{companyIdx},
+		  department_idx = #{departmentIdx},
+		  team_idx = #{teamIdx},
+		  duty_idx = #{dutyIdx},
+		  position_idx = #{positionIdx},
+		  authority_idx = #{authorityIdx},
+		  name = #{name},
+		  en_name = #{enName},
+		  profile_image = #{profileImage},
+		  gender = #{gender},
+		  birthday = #{birthday},
+		  phone_number = #{phoneNumber},
+		  email = #{email},
+		  address = #{address},
+		  salary = #{salary},
+		  annual_leave = ${annualLeave},
+		  state = #{state},
+		  hire_date = #{hireDate},
+		  resignation_date = #{resignationDate},
+		  upd_date = SYSDATE
+	  WHERE
+		  employee_idx = #{employeeIdx}
   </update>
    
   <update id="delete">
   	UPDATE
   		employee
   	SET
-		state = 0,  	
-  		del_date = SYSDATE
+		state = 0,
+		resignation_date = sysdate
  	WHERE
  		employee_idx = #{employeeIdx}
   </update>
@@ -322,7 +338,7 @@
   <delete id="deleteBySchedule">
 	DELETE FROM (SELECT employee_idx, state
 	             FROM employee
-	             WHERE del_date + (INTERVAL '9' HOUR) + (INTERVAL '3' MONTH) > (SELECT SYSDATE + (INTERVAL '9' HOUR)
+	             WHERE resignation_date + (INTERVAL '9' HOUR) + (INTERVAL '3' MONTH) > (SELECT SYSDATE + (INTERVAL '9' HOUR)
 	                                                                            FROM dual)) del_data
 	WHERE
 	        del_data.state = 0

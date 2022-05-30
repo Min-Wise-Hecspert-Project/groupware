@@ -43,9 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<Employee.DetailDTO> update(Employee.DetailDTO employeeDTO) {
-		mapper.update(employeeDTO);
-		Employee.DetailDTO resEmployeeDTO = this.getEmployee(employeeDTO.getEmployeeIdx());
+	public ResponseEntity<Employee.DetailDTO> update(Employee.UpdateDTO updateDTO) {
+		mapper.update(updateDTO);
+		Employee.DetailDTO resEmployeeDTO = this.getEmployee(updateDTO.getEmployeeIdx());
 
 		if(resEmployeeDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우

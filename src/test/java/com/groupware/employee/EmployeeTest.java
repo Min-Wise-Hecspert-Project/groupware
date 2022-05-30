@@ -45,4 +45,12 @@ public class EmployeeTest {
         insertDTO.setCompanyIdx(1L);
         log.info(es.insert(insertDTO));
     }
+
+    @Test
+    public void updateTest(){
+        Employee.UpdateDTO updateDTO = new Employee.UpdateDTO();
+        updateDTO.setEmployeeIdx(1L);
+        ResponseEntity<Employee.DetailDTO> update = es.update(updateDTO);
+        log.info(update);
+    }
 }
