@@ -107,6 +107,55 @@
 	  WHERE
 	  <![CDATA[ rnum > #{startNum} AND rnum <= #{endNum} ]]>
   </select>
+
+	<select id="getTotalCount" resultType="_integer">
+		SELECT
+			nvl(count(*), 0) AS totalCnt
+		FROM
+			notice a
+			LEFT JOIN employee b ON a.employee_idx = b.employee_idx
+		WHERE
+			a.state = 1
+		<if test='title != ""'>
+			AND a.title like '%'||#{title}||'%'
+		</if>
+		<if test='content != ""'>
+			AND a.content like '%'||#{content}||'%'
+		</if>
+		<if test='writer != ""'>
+			AND b.name like '%'||#{writer}||'%'
+		</if>
+		<choose>
+			<when test="sorting == 1">
+				ORDER BY a.title ASC
+			</when>
+			<when test="sorting == 2">
+				ORDER BY a.title DESC
+			</when>
+			<when test="sorting == 3">
+				ORDER BY b.name ASC
+			</when>
+			<when test="sorting == 4">
+				ORDER BY b.name DESC
+			</when>
+			<when test="sorting == 5">
+				ORDER BY a.ins_date ASC
+			</when>
+			<when test="sorting == 6">
+				ORDER BY a.ins_date DESC
+			</when>
+			<when test="sorting == 7">
+				ORDER BY a.view_cnt ASC
+			</when>
+			<when test="sorting == 8">
+				ORDER BY a.view_cnt DESC
+			</when>
+			<otherwise>
+				ORDER BY a.ins_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
   
   <select id="select" resultMap="NoticeDetailMap">
   	SELECT

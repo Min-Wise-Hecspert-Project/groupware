@@ -17,4 +17,8 @@ public interface NoticeMapper {
 	Long delete(Long noticeIdx);
 	
 	int deleteBySchedule();
+
+    int getPageData(CommonSearchVO searchVO);
+
+	Integer getTotalCount(CommonSearchVO searchVO);
 }

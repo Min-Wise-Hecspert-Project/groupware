@@ -1,15 +1,19 @@
 package com.groupware.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.groupware.dto.Notice;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.groupware.mapper.NoticeMapper;
 import com.groupware.vo.CommonSearchVO;
+import org.springframework.web.servlet.function.ServerRequest;
 
 @Service
 @RequiredArgsConstructor
@@ -75,22 +79,60 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 	}
 
+	/**
+	 * {
+	 *   "result": true,
+	 *   "data": {
+	 *     "contents": [],
+	 *     "pagination": {
+	 *       "page": 1,
+	 *       "totalCount": 100
+	 *     }
+	 *   }
+	 * }
+	 *
+	 * {
+	 *   "result": false,
+	 *   "message": "Error message from the server"
+	 * }
+	 */
 	@Override
-	public ResponseEntity<List<Notice.ListDTO>> selectList(CommonSearchVO searchVO) {
+	public ResponseEntity<Map<String, Object>> selectList(CommonSearchVO searchVO) {
 
 		List<Notice.ListDTO> listDTOS = mapper.selectList(searchVO);
 
+		Map<String, Object> noticeListPageMap = new HashMap<>();
+
 		if(listDTOS.size() < 1 ) {
-			// 값이 없을때 204 - 응답 body가 필요 없는 자원
-			return ResponseEntity
-					.status(HttpStatus.NO_CONTENT)
-					.body(null);
+			// 값이 없을때 204 - 응답 body가 필요 없는 자원 But error message 를 위해 200으로 보낸다~!
+
+			String message = "no notice ^^";
+
+			noticeListPageMap.put("result", false);
+			noticeListPageMap.put("message", message);
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("zzz","utf-8");
+
 		} else {
 			// 성공시 200 - OK
-			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body(listDTOS);
+
+			noticeListPageMap.put("result", true);
+
+			Map<String, Integer> pagination = new HashMap<>();
+			pagination.put("page", searchVO.getPage());
+			pagination.put("totalCount", mapper.getTotalCount(searchVO));
+
+			Map<String, Object> data = new HashMap<>();
+			data.put("contents", listDTOS);
+			data.put("pagination", pagination);
+
+			noticeListPageMap.put("data", data);
 		}
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(noticeListPageMap);
 	}
 
 	@Override
@@ -117,8 +159,13 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.deleteBySchedule();
 	}
 
+
+
 	private Notice.DetailDTO getNotice(Long noticeIdx){
 		return mapper.select(noticeIdx);
 	}
 
+	public int getPageData(CommonSearchVO searchVO) {
+		return mapper.getPageData(searchVO);
+	}
 }

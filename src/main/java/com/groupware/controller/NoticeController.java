@@ -5,6 +5,7 @@ import com.groupware.service.NoticeService;
 import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,15 +31,16 @@ public class NoticeController {
 		private final NoticeService service;
 		
 		@GetMapping("/notice")
-		public ResponseEntity<List<Notice.ListDTO>> list(
+		public ResponseEntity<Map<String, Object>> list(
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
 				@RequestParam(defaultValue = "") String writer,
 				@RequestParam(defaultValue = "") Integer sorting,
-				@RequestParam(defaultValue = "1") Integer page
+				@RequestParam(defaultValue = "1") Integer page,
+				@RequestParam(defaultValue = "10") Integer perPage
 				) {
 			
-			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page);
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, perPage);
 			
 			return service.selectList(searchVO);
 		}

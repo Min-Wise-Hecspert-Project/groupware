@@ -2,10 +2,33 @@ package com.groupware.dto;
 
 import java.sql.Date;
 
+import com.groupware.global.Config;
+import com.groupware.vo.CommonSearchVO;
 import lombok.*;
-import org.apache.ibatis.type.Alias;
 
 public class Notice {
+
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Getter	@Setter	@ToString
+	public static class PageVO {
+		private int totalDataCnt;
+		private int currentDataCnt;
+		private int totalPage;
+		private int currentPage;
+		private boolean isLastPage;
+		private boolean isFirstPage;
+		private int requestPage;
+
+		PageVO(CommonSearchVO searchVO, int totalDataCnt){
+			this.totalDataCnt = totalDataCnt; // DB
+			this.currentDataCnt = totalDataCnt % Config.PAGE_SIZE;
+			this.totalPage = (int) Math.ceil(totalDataCnt / Config.PAGE_SIZE);
+			this.requestPage = searchVO.getPage();
+			this.isLastPage =  this.totalPage == searchVO.getPage();
+			this.isFirstPage = searchVO.getPage() == 1;
+		}
+	}
 
 	@AllArgsConstructor
 	@NoArgsConstructor

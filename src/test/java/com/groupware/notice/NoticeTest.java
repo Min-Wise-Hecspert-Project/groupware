@@ -36,9 +36,10 @@ public class NoticeTest {
 		String writer = "";
 		Integer sorting = Sorting.ORDER_BY_INS_DATE_DESC.getValue();
 		Integer page = 1;
+		Integer perPage = 10;
 		
 		try {
-			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page);
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, perPage);
 			log.info(mapper.selectList(searchVO));
 			
 		} catch (Exception e) {
