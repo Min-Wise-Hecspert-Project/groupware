@@ -6,7 +6,7 @@ import com.groupware.vo.CommonSearchVO;
 import java.util.List;
 
 public interface EmployeeMapper {
-	List<Employee.DetailDTO> selectList(CommonSearchVO searchVO);
+	List<Employee.ListDTO> selectList(CommonSearchVO searchVO);
 	
 	Long insert(Employee.DetailDTO Notice);
 
@@ -17,4 +17,6 @@ public interface EmployeeMapper {
 	Long delete(Long noticeIdx);
 	
 	int deleteBySchedule();
+
+	Integer getTotalCount(CommonSearchVO searchVO);
 }

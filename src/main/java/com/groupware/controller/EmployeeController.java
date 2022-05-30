@@ -5,6 +5,7 @@ import com.groupware.service.EmployeeService;
 import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +31,7 @@ public class EmployeeController {
 		private final EmployeeService service;
 		
 		@GetMapping("/employee")
-		public ResponseEntity<List<Employee.DetailDTO>> list(
+		public ResponseEntity<Map<String, Object>> list(
 				@RequestParam(value = "name", defaultValue = "") String writer,
 				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page,

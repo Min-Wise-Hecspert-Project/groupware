@@ -6,11 +6,12 @@ import com.groupware.vo.CommonSearchVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Question
@@ -77,25 +78,39 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<List<Employee.DetailDTO>> selectList(CommonSearchVO searchVO) {
+	public ResponseEntity<Map<String, Object>> selectList(CommonSearchVO searchVO) {
 
-		List<Employee.DetailDTO> employeeDTOS = mapper.selectList(searchVO);
+		List<Employee.ListDTO> listDTOS = mapper.selectList(searchVO);
+
+		Map<String, Object> employeeListPageMap = new HashMap<>();
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("zzz","utf-8");
 
-		if(employeeDTOS.size() < 1 ) {
-			// 값이 없을때 204 - 응답 body가 필요 없는 자원
-			return ResponseEntity.noContent()
-					.headers(headers)
-					.build();
-
+		if(listDTOS.size() < 1 ) {
+			// 값이 없을때 204 - 응답 body가 필요 없는 자원 But error message 를 위해 200으로 보낸다~!
+			String message = "no employee ^^";
+			employeeListPageMap.put("result", false);
+			employeeListPageMap.put("message", message);
 		} else {
 			// 성공시 200 - OK
-			return ResponseEntity.ok()
-					.headers(headers)
-					.body(employeeDTOS);
+			employeeListPageMap.put("result", true);
+
+			Map<String, Integer> pagination = new HashMap<>();
+			pagination.put("page", searchVO.getPage());
+			pagination.put("totalCount", mapper.getTotalCount(searchVO));
+
+			Map<String, Object> data = new HashMap<>();
+			data.put("contents", listDTOS);
+			data.put("pagination", pagination);
+
+			employeeListPageMap.put("data", data);
 		}
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.headers(headers)
+				.body(employeeListPageMap);
 	}
 
 	@Override
