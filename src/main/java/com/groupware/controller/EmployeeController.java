@@ -68,11 +68,8 @@ public class EmployeeController {
 			return service.delete(employeeIdx);
 		}
 		
-		@DeleteMapping("/employee/schedule")
-		public void deleteBySchedule(RedirectAttributes rttr) {
-			log.info("deleteBySchedule: ");	
-//			return ResponseEntity
-//					.status(HttpStatus.OK)
-//					.body(null); // 수정 필요
+		@DeleteMapping("/employee/cron")
+		public ResponseEntity<Map<String, Object>> deleteBySchedule() {
+			return service.deleteBySchedule();
 		}
 }
