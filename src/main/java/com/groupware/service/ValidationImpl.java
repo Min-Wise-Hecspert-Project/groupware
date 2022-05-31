@@ -1,8 +1,11 @@
 package com.groupware.service;
 
+import com.groupware.dto.Employee;
+import com.groupware.dto.LoginDTO;
 import com.groupware.dto.ValidationDTO;
 import com.groupware.mapper.ValidationMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
@@ -53,4 +56,16 @@ public class ValidationImpl implements Validation{
     public boolean isSamePw(ValidationDTO validationDTO) {
         return validationDTO.getLoginPw().equals(validationDTO.getLoginPwCheck());
     }
+
+    @Override
+    public boolean isAbleLogin(LoginDTO loginDTO) {
+        Integer employeeState = mapper.getEmployeeState(loginDTO);
+
+        if(employeeState == null){
+            return false;
+        }
+
+        return employeeState != 0 && employeeState != 5;
+    }
+
 }

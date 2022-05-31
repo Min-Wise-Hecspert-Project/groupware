@@ -1,17 +1,14 @@
 package com.groupware.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@Alias("LoginDTO")
-public class LoginDTO {
+@Alias("LoginResponseDTO")
+public class LoginResponseDTO {
     private Long employeeIdx;
-    private String loginId;
-    private String loginPw;
+    private String name;
     private Integer state;
 }

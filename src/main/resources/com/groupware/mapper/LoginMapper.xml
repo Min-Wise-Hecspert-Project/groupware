@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.groupware.mapper.LoginMapper">
+
+	<resultMap type="LoginResponseDTO" id="LoginMap">
+		<result property="employeeIdx" column="employee_idx"/>
+		<result property="name" column="name"/>
+		<result property="state" column="state"/>
+	</resultMap>
+
+	<select id="getEmployeeOne" resultMap="LoginMap">
+		SELECT
+		    employee_idx,
+		    name,
+		    state
+		FROM
+			employee
+		WHERE
+		    login_id = #{loginId}
+		AND
+		    login_pw = #{loginPw}
+	</select>
+
+</mapper>

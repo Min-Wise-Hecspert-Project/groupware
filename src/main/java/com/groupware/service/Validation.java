@@ -1,5 +1,6 @@
 package com.groupware.service;
 
+import com.groupware.dto.LoginDTO;
 import com.groupware.dto.ValidationDTO;
 
 public interface Validation {
@@ -13,4 +14,7 @@ public interface Validation {
     boolean isRightPw(ValidationDTO validationDTO);
     // 비밀번호 확인입력 검증
     boolean isSamePw(ValidationDTO validationDTO);
+
+    boolean isAbleLogin(LoginDTO loginDTO);
+
 }

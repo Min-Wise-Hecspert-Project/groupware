@@ -23,4 +23,16 @@
 
   </select>
 
+	<select id="getEmployeeOne" resultType="_integer">
+		SELECT
+		    state
+		FROM
+			employee
+		WHERE
+		    login_id = #{loginId}
+		AND
+		    login_pw = #{loginPW}
+
+	</select>
+
 </mapper>
