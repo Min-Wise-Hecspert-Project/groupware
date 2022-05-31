@@ -13,5 +13,5 @@ public class ValidationDTO {
     private String loginId;
     private String loginPw;
     private String loginPwCheck;
-    private int state;
+    private Integer state;
 }

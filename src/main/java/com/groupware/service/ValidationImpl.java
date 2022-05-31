@@ -25,7 +25,7 @@ public class ValidationImpl implements Validation{
     public boolean isDupId(ValidationDTO validationDTO) {
         ValidationDTO storedEmployee = mapper.selectEmployeeById(validationDTO);
         if(storedEmployee == null){
-            return true;
+            return false;
         } else {
             return storedEmployee.getLoginId().equals(validationDTO.getLoginId());
         }
@@ -34,6 +34,10 @@ public class ValidationImpl implements Validation{
     @Override
     public boolean isWithdrawalId(ValidationDTO validationDTO) {
         ValidationDTO storedEmployee = mapper.selectEmployeeById(validationDTO);
+
+        if(storedEmployee == null){
+            return false;
+        }
         return storedEmployee.getState() == 5 || storedEmployee.getState() == 0;
     }
 

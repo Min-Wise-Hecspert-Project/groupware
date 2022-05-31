@@ -2,6 +2,7 @@ package com.groupware.service;
 
 import com.groupware.dto.JoinDTO;
 import com.groupware.dto.ValidationDTO;
+import com.groupware.mapper.JoinMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JoinServiceImpl implements JoinService{
 
+    private final JoinMapper joinMapper;
     private final Validation validation;
 
     @Override
@@ -33,7 +35,7 @@ public class JoinServiceImpl implements JoinService{
 
         if(validation.isDupId(validationDTO)){
             result.put("result", false);
-            result.put("message", "can`t not use id(dup)");
+            result.put("message", "can not use id(dup)");
 
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
@@ -42,7 +44,7 @@ public class JoinServiceImpl implements JoinService{
 
         if(validation.isWithdrawalId(validationDTO)){
             result.put("result", false);
-            result.put("message", "can`t not use id(wdr)");
+            result.put("message", "can not use id(wdr)");
 
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
@@ -60,18 +62,30 @@ public class JoinServiceImpl implements JoinService{
 
         if(!validation.isSamePw(validationDTO)){
             result.put("result", false);
-            result.put("message", "check your pw(cfrm)");
+            result.put("message", "check your pw(check)");
 
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .body(result);
         }
 
-        result.put("result", true);
-        result.put("message", "validation success");
+        int join = joinMapper.join(joinDTO);
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(result);
+        if (join >= 1) {
+            result.put("result", true);
+            result.put("message", "join success");
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(result);
+        } else {
+            result.put("result", false);
+            result.put("message", "join failed");
+
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(result);
+        }
+
     }
 }

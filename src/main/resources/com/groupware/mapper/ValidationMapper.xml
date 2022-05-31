@@ -5,6 +5,7 @@
 	<resultMap type="ValidationDTO" id="ValidationMap">
 		<result property="loginId" column="LOGIN_ID"/>
 		<result property="loginPw" column="LOGIN_PW"/>
+		<result property="loginPwCheck" column="loginPwCheck"/>
 		<result property="state" column="STATE"/>
 	</resultMap>
 
@@ -13,6 +14,7 @@
 	SELECT
 		login_id,
 		login_pw,
+		login_pw AS loginPwCheck,
 		state
 	FROM
 	    employee
