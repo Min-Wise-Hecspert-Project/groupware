@@ -13,8 +13,8 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service","com.groupware.util"})
-@MapperScan(basePackages = {"com.groupware.mapper","com.groupware.dto"})
+@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service","com.groupware.*"})
+@MapperScan(basePackages = {"com.groupware.mapper","com.groupware.dto","com.groupware.vo"})
 public class RootConfig {
 	
 	@Bean // �޼ҵ��� ���� ����� ��ȯ�Ǵ� ��ü�� ������ ��ü�� ���
@@ -33,7 +33,7 @@ public class RootConfig {
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource());
-		sqlSessionFactory.setTypeAliasesPackage("com.groupware.dto");
+		sqlSessionFactory.setTypeAliasesPackage("com.groupware.*");
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
 	}
 }

@@ -21,12 +21,26 @@ public class AttachBoardMapper {
 	@Test
 	public void testinsert() {
 		BoardAttachVO attachVO = new BoardAttachVO();
-		attachVO.setUuid("1");
-		attachVO.setBoardIdx(1L);
+		attachVO.setUuid("15");
+		attachVO.setBoardIdx(9L);
 		attachVO.setUploadpath("sdf");
 		attachVO.setFileType(true);
 		attachVO.setFileName("sdf");
 	
 		boardAttachMapper.insert(attachVO);
+	}
+	@Test
+	public void testdelete() {
+		boardAttachMapper.delete("1");
+		log.info(boardAttachMapper);
+	}
+	@Test
+	public void testAlldelete() {
+		boardAttachMapper.deleteAll(1L);
+		log.info(boardAttachMapper);
+	}
+	@Test
+	public void testgetOldFiles() {
+		boardAttachMapper.getOldFiles();
 	}
 }
