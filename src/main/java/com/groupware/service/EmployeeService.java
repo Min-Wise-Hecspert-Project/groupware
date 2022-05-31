@@ -12,6 +12,6 @@ public interface EmployeeService {
 	ResponseEntity<Employee.DetailDTO> delete(Long employeeDTO);
 	ResponseEntity<Map<String, Object>> selectList(EmployeeSearchVO searchVO);
 	ResponseEntity<Employee.DetailDTO> select(Long employeeIdx);
-	int deleteBySchedule();
+	ResponseEntity<Map<String, Object>> deleteBySchedule();
 
 }

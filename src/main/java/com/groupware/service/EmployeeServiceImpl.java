@@ -2,7 +2,6 @@ package com.groupware.service;
 
 import com.groupware.dto.Employee;
 import com.groupware.mapper.EmployeeMapper;
-import com.groupware.vo.CommonSearchVO;
 import com.groupware.vo.EmployeeSearchVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -133,8 +132,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public int deleteBySchedule() {
-		return mapper.deleteBySchedule();
+	public ResponseEntity<Map<String, Object>> deleteBySchedule() {
+		int i = mapper.deleteBySchedule();
+
+		Map<String, Object> resultMap = new HashMap<>();
+
+		if(i >= 1){
+			resultMap.put("result", true);
+			resultMap.put("rows", i);
+
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(resultMap);
+		} else {
+			return ResponseEntity
+					.status(HttpStatus.NO_CONTENT)
+					.build();
+		}
 	}
 
 	public Employee.DetailDTO getEmployee(Long employeeIdx) {
