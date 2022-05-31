@@ -254,8 +254,6 @@
 		  employee
 	  (
 		  employee_idx,
-		  company_idx,
-		  department_idx,
 		  team_idx,
 		  duty_idx,
 		  position_idx,
@@ -279,8 +277,6 @@
 	  VALUES
 		  (
 			  employee_seq.nextval,
-			  #{companyIdx},
-			  #{departmentIdx},
 			  #{teamIdx},
 			  #{dutyIdx},
 			  #{positionIdx},

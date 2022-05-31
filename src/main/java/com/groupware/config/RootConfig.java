@@ -11,11 +11,12 @@ import org.springframework.context.annotation.Configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service"})
 @MapperScan(basePackages = {"com.groupware.mapper","com.groupware.dto"})
-public class RootConfig {
+public class RootConfig implements WebMvcConfigurer {
 	
 	@Bean
 	public DataSource dataSource() {
@@ -35,4 +36,6 @@ public class RootConfig {
 		sqlSessionFactory.setTypeAliasesPackage("com.groupware.dto");
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
 	}
+
+
 }
