@@ -2,19 +2,19 @@ package com.groupware.config;
 
 import java.io.IOException;
 
+import com.groupware.interceptor.MyInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.interceptor"})
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.groupware.controller"})
+@Configuration
 public class ServletConfig implements WebMvcConfigurer {
 
 	@Override
@@ -44,4 +44,12 @@ public class ServletConfig implements WebMvcConfigurer {
 	    resolver.setDefaultEncoding("utf-8");
 	    return resolver;
 	  }
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new MyInterceptor())
+				.addPathPatterns("/api/*")
+				.excludePathPatterns("/api/login"); // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
+	}
+
 }

@@ -2,7 +2,7 @@ package com.groupware.service;
 
 import com.groupware.dto.Employee;
 import com.groupware.mapper.EmployeeMapper;
-import com.groupware.vo.CommonSearchVO;
+import com.groupware.vo.EmployeeSearchVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,10 +23,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private final EmployeeMapper mapper;
 
 	@Override
-	public ResponseEntity<Employee.DetailDTO> insert(Employee.DetailDTO employeeDTO) {
-		mapper.insert(employeeDTO);
+	public ResponseEntity<Employee.DetailDTO> insert(Employee.InsertDTO insertDTO) {
+		mapper.insert(insertDTO);
 
-		Employee.DetailDTO resEmployeeDTO = this.getEmployee(employeeDTO.getEmployeeIdx());
+		Employee.DetailDTO resEmployeeDTO = this.getEmployee(insertDTO.getEmployeeIdx());
 
 		if(resEmployeeDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
@@ -42,9 +42,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<Employee.DetailDTO> update(Employee.DetailDTO employeeDTO) {
-		mapper.update(employeeDTO);
-		Employee.DetailDTO resEmployeeDTO = this.getEmployee(employeeDTO.getEmployeeIdx());
+	public ResponseEntity<Employee.DetailDTO> update(Employee.UpdateDTO updateDTO) {
+		mapper.update(updateDTO);
+		Employee.DetailDTO resEmployeeDTO = this.getEmployee(updateDTO.getEmployeeIdx());
 
 		if(resEmployeeDTO == null) {
 			// 실패시 409 - 해당 요청의 처리가 비지니스 로직상 불가능하거나 모순이 생긴 경우
@@ -78,7 +78,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<Map<String, Object>> selectList(CommonSearchVO searchVO) {
+	public ResponseEntity<Map<String, Object>> selectList(EmployeeSearchVO searchVO) {
 
 		List<Employee.ListDTO> listDTOS = mapper.selectList(searchVO);
 
@@ -132,8 +132,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public int deleteBySchedule() {
-		return mapper.deleteBySchedule();
+	public ResponseEntity<Map<String, Object>> deleteBySchedule() {
+		int i = mapper.deleteBySchedule();
+
+		Map<String, Object> resultMap = new HashMap<>();
+
+		if(i >= 1){
+			resultMap.put("result", true);
+			resultMap.put("rows", i);
+
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(resultMap);
+		} else {
+			return ResponseEntity
+					.status(HttpStatus.NO_CONTENT)
+					.build();
+		}
 	}
 
 	public Employee.DetailDTO getEmployee(Long employeeIdx) {

@@ -7,6 +7,7 @@ import com.groupware.vo.CommonSearchVO;
 import java.util.List;
 import java.util.Map;
 
+import com.groupware.vo.EmployeeSearchVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,21 +33,24 @@ public class EmployeeController {
 		
 		@GetMapping("/employee")
 		public ResponseEntity<Map<String, Object>> list(
-				@RequestParam(value = "name", defaultValue = "") String writer,
+				@RequestParam(value = "name", defaultValue = "") String name,
+				@RequestParam(value = "companyName", defaultValue = "") String companyName,
+				@RequestParam(value = "departmentName", defaultValue = "") String departmentName,
+				@RequestParam(value = "teamName", defaultValue = "") String teamName,
 				@RequestParam(defaultValue = "") Integer sorting,
 				@RequestParam(defaultValue = "1") Integer page,
 				@RequestParam(defaultValue = "10") Integer perPage
 				) {
-			
-			CommonSearchVO searchVO = new CommonSearchVO(writer, sorting, page, perPage);
+
+			EmployeeSearchVO searchVO = new EmployeeSearchVO(name, companyName, departmentName, teamName, sorting, page, perPage);
 			
 			return service.selectList(searchVO);
 		}
 
 		
 		@PostMapping("/employee")
-		public ResponseEntity<Employee.DetailDTO> post(Employee.DetailDTO employeeDTO) {
-			return service.insert(employeeDTO);
+		public ResponseEntity<Employee.DetailDTO> post(Employee.InsertDTO insertDTO) {
+			return service.insert(insertDTO);
 		}
 		
 		@GetMapping("/employee/{employeeIdx}")
@@ -55,7 +59,7 @@ public class EmployeeController {
 		}
 		
 		@PutMapping("/employee")
-		public ResponseEntity<Employee.DetailDTO> put(@RequestBody Employee.DetailDTO employeeDTO) {
+		public ResponseEntity<Employee.DetailDTO> put(@RequestBody Employee.UpdateDTO employeeDTO) {
 			return service.update(employeeDTO);
 		}
 		
@@ -64,11 +68,8 @@ public class EmployeeController {
 			return service.delete(employeeIdx);
 		}
 		
-		@DeleteMapping("/employee/schedule")
-		public void deleteBySchedule(RedirectAttributes rttr) {
-			log.info("deleteBySchedule: ");	
-//			return ResponseEntity
-//					.status(HttpStatus.OK)
-//					.body(null); // 수정 필요
+		@DeleteMapping("/employee/cron")
+		public ResponseEntity<Map<String, Object>> deleteBySchedule() {
+			return service.deleteBySchedule();
 		}
 }

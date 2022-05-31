@@ -65,11 +65,8 @@ public class NoticeController {
 			return service.delete(noticeIdx);
 		}
 		
-		@DeleteMapping("/notice/schedule")
-		public void deleteBySchedule(RedirectAttributes rttr) {
-			log.info("deleteBySchedule: ");	
-//			return ResponseEntity
-//					.status(HttpStatus.OK)
-//					.body(null); // 수정 필요
+		@DeleteMapping("/notice/cron")
+		public ResponseEntity<Map<String, Object>> deleteBySchedule() {
+			return service.deleteBySchedule();
 		}
 }

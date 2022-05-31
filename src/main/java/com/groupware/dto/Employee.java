@@ -1,24 +1,19 @@
 package com.groupware.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.Date;
 
 public class Employee {
 
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter	@Setter	@ToString
+	@Getter	@Setter
 	public static class DetailDTO {
 		private Long employeeIdx;
-		private Long companyIdx;
-		private Long teamIdx;
-		private Long dutyIdx;
-		private Long positionIdx;
-		private Long authorityIdx;
-		private Long departmentIdx;
+		private String companyName;
+		private String departmentName;
+		private String teamName;
+		private String positionName;
+		private String dutyName;
 		private String name;
 		private String enName;
 		private String profileImage;
@@ -27,41 +22,80 @@ public class Employee {
 		private String phoneNumber;
 		private String email;
 		private String address;
-		private String salary;
-		private String annualLeave;
-		private String state;
-		private String hireDate;
-		private String resignationDate;
-		private String insDate;
-		private String updDate;
+		private int salary;
+		private int annualLeave;
+		private int state;
+		private Date hireDate;
+		private Date resignationDate;
+		private Date insDate;
+		private Date updDate;
 	}
 
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Getter	@Setter	@ToString
+	@Getter	@Setter
 	public static class ListDTO {
 		private Long employeeIdx;
-		private Long companyIdx;
-		private Long teamIdx;
-		private Long dutyIdx;
-		private Long positionIdx;
-		private Long authorityIdx;
-		private Long departmentIdx;
+		private String companyName;
+		private String departmentName;
+		private String teamName;
+		private String positionName;
+		private String dutyName;
 		private String name;
 		private String enName;
 		private String profileImage;
 		private String gender;
-		private String birthday;
-		private String phoneNumber;
-		private String email;
-		private String address;
-		private String salary;
-		private String annualLeave;
-		private String state;
-		private String hireDate;
-		private String resignationDate;
-		private String insDate;
-		private String updDate;
+		private int state;
+		private Date hireDate;
+		private Date resignationDate;
+		private Date insDate;
+		private Date updDate;
 	}
 
+	// 기본값 관련 수정해야함
+	@Getter	@Setter
+	public static class InsertDTO {
+		private Long employeeIdx;
+		private Long companyIdx = 1L;
+		private Long departmentIdx = 1L;
+		private Long teamIdx = 1L;
+		private Long dutyIdx = 1L;
+		private Long positionIdx = 1L;
+		private Long authorityIdx = 1L;
+		private String name = "";
+		private String enName = "";
+		private String profileImage = "";
+		private String gender = "";
+		private String birthday = "";
+		private String phoneNumber= "";
+		private String email= "";
+		private String address= "";
+		private int salary = 0;
+		private int annualLeave = 0;
+		private int state = 0;
+		private Date hireDate = new Date();
+		private Date resignationDate = new Date();
+	}
+
+	@Getter	@Setter
+	public static class UpdateDTO {
+		private Long employeeIdx;
+		private Long companyIdx = 1L;
+		private Long departmentIdx = 1L;
+		private Long teamIdx = 1L;
+		private Long dutyIdx = 1L;
+		private Long positionIdx = 1L;
+		private Long authorityIdx = 1L;
+		private String name = "";
+		private String enName = "";
+		private String profileImage = "";
+		private String gender = "";
+		private String birthday = "";
+		private String phoneNumber= "";
+		private String email= "";
+		private String address= "";
+		private int salary = 0;
+		private int annualLeave = 0;
+		private int state = 0;
+		private Date hireDate = new Date();
+		private Date resignationDate = new Date();
+	}
 }

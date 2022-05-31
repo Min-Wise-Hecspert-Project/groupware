@@ -135,8 +135,24 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public int deleteBySchedule() {
-		return mapper.deleteBySchedule();
+	public ResponseEntity<Map<String, Object>> deleteBySchedule() {
+
+		int i = mapper.deleteBySchedule();
+
+		Map<String, Object> resultMap = new HashMap<>();
+
+		if(i >= 1){
+			resultMap.put("result", true);
+			resultMap.put("rows", i);
+
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(resultMap);
+		} else {
+			return ResponseEntity
+					.status(HttpStatus.NO_CONTENT)
+					.build();
+		}
 	}
 
 	private Notice.DetailDTO getNotice(Long noticeIdx){

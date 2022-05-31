@@ -12,5 +12,5 @@ public interface NoticeService {
 	ResponseEntity<Notice.DetailDTO> delete(Long noticeIdx);
 	ResponseEntity<Map<String, Object>> selectList(CommonSearchVO searchVO);
 	ResponseEntity<Notice.DetailDTO> select(Long noticeIdx);
-	int deleteBySchedule();
+	ResponseEntity<Map<String, Object>> deleteBySchedule();
 }
