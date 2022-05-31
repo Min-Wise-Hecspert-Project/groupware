@@ -35,7 +35,7 @@
           
 
             <div class="col-md-6">
-              	<jsp:include page="schedule/canlendar.jsp"></jsp:include>
+              	<jsp:include page="schedule/calendar.jsp"></jsp:include>
             </div>
           </div>
           <div class="row">

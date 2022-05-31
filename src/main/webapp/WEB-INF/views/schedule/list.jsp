@@ -26,7 +26,7 @@
 					<div class="content">
 						<div class="row align-items-start">
 							<div class="col-md-12">
-								<jsp:include page="canlendar.jsp"></jsp:include>
+								<jsp:include page="calendar.jsp"></jsp:include>
 							</div>
 						</div>
 					</div>

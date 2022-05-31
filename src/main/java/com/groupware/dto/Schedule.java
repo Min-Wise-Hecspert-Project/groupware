@@ -1,17 +1,10 @@
 package com.groupware.dto;
 
-import java.sql.Date;
-
-import org.apache.ibatis.type.Alias;
-
-import com.groupware.global.Config;
-import com.groupware.vo.CommonSearchVO;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -27,7 +20,7 @@ public class Schedule {
 		private Long state;
 		private String title;
 		private String content;
-		private String name;
+		private String calendarId;
 		private String location;
 		private String place;
 		private Date insDate;

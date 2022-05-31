@@ -7,7 +7,7 @@ import com.groupware.vo.ScheduleVO;
 
 public interface ScheduleService {
 	public List<Schedule.ScheduleDTO> getSchedule();
-	public boolean insertSchedule(Schedule.ScheduleDTO vo);
-	public boolean updateSchedule(ScheduleVO vo);
-	public boolean deleteSchedule(ScheduleVO vo);
+	public Schedule.ScheduleDTO insertSchedule(Schedule.ScheduleDTO dto);
+	public Schedule.ScheduleDTO updateSchedule(Schedule.ScheduleDTO dto);
+	public boolean deleteSchedule(Long scheduleIdx);
 }

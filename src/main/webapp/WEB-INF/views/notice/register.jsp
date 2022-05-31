@@ -59,8 +59,6 @@
 					console.log("요청보내기");
 					let title = $("#notice_title").val();
 					let content = editor.getHTML();
-					editor2.setHTML(content, "ture");
-					let viewer = $('#viewer').html(content);
 
 					var formdata = new FormData();
 					formdata.append("title", title);
@@ -74,13 +72,15 @@
 
 					var requestOptions = {
 						method: 'POST',
-						body: formdata,
-						redirect: 'follow'
+						body: formdata
 					};
 
 					fetch("http://localhost:8080/api/notice", requestOptions)
 						.then(response => response.json())
-						.then(result => console.log(result))
+						.then(result => {	
+							console.log(result);
+							location.href = "/notice";
+						})
 						.catch(error => console.log('error', error));
 				}
 			});

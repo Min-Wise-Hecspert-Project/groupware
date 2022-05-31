@@ -26,21 +26,26 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public boolean updateSchedule(ScheduleVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+	public Schedule.ScheduleDTO updateSchedule(Schedule.ScheduleDTO dto) {
+		if (1==scheduleMapper.modify(dto)) {
+			return scheduleMapper.getSchedule(dto.getScheduleIdx());
+		}
+		return null;
 	}
 
 	@Override
-	public boolean deleteSchedule(ScheduleVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteSchedule(Long scheduleIdx) {
+		
+		return 1==scheduleMapper.removeSchedule(scheduleIdx);
 	}
 
 	@Override
-	public boolean insertSchedule(Schedule.ScheduleDTO dto) {
+	public Schedule.ScheduleDTO insertSchedule(Schedule.ScheduleDTO dto) {
 		// TODO Auto-generated method stub
-		return 1 == scheduleMapper.modify(dto);
+		if (1==scheduleMapper.register(dto)) {
+			return scheduleMapper.getSchedule(dto.getScheduleIdx());		
+		}
+		return null;
 	}
 
 
