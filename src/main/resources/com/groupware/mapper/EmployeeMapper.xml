@@ -344,8 +344,7 @@
   <delete id="deleteBySchedule">
 	DELETE FROM (SELECT employee_idx, state
 	             FROM employee
-	             WHERE resignation_date + (INTERVAL '9' HOUR) + (INTERVAL '3' MONTH) > (SELECT SYSDATE + (INTERVAL '9' HOUR)
-	                                                                            FROM dual)) del_data
+	             WHERE  sysdate - nvl(resignation_date, to_date('99991231', 'YYYYMMDD')) >= 90) del_data
 	WHERE
 	        del_data.state = 0
   </delete>
