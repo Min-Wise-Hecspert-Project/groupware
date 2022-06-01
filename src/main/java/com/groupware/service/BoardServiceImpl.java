@@ -8,7 +8,9 @@ import javax.inject.Inject;
 
 import com.groupware.dto.BoardDTO;
 import com.groupware.dto.Notice;
+import com.groupware.mapper.BoardAttachMapper;
 import com.groupware.mapper.BoardMapper;
+import com.groupware.vo.BoardAttachVO;
 import com.groupware.vo.BoardVO;
 import com.groupware.vo.CommonSearchVO;
 
@@ -24,11 +26,22 @@ import lombok.extern.log4j.Log4j;
 public class BoardServiceImpl implements BoardService{
 	
 	private BoardMapper mapper; 
-	
+	private BoardAttachMapper attachMapper;
+
+
 	@Override
 	public void register(BoardDTO board) {
 		log.info("register...." + board.getBoardIdx());
 		mapper.insertSelectKey(board);
+		
+		if(board.getAttachList() == null || board.getAttachList().size()<=0) {
+			return;
+		}
+		board.getAttachList().forEach(attach->{
+			log.info("active ~ file upload");
+			attach.setBoardIdx(board.getBoardIdx());
+			attachMapper.insert(attach);
+		});
 	}
 
 	@Override
@@ -41,19 +54,35 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return mapper.select(board_idx);
 	}
+	
 
 
 	@Override
-	public BoardDTO modify(BoardDTO board) {
+	public boolean modify(BoardDTO board) {
 		log.info("modify...." + board);
-		mapper.update(board);
-		return select(board.getBoardIdx());
+		
+		
+		if(board.getAttachList() == null || board.getAttachList().size()<=0) {
+			return 1==mapper.update(board);
+		}
+		board.getAttachList().forEach(attach->{
+			log.info("active ~ file upload");
+			attach.setBoardIdx(board.getBoardIdx());
+			attachMapper.insert(attach);
+		});
+		return 1==mapper.update(board);
+	}
+	@Override
+	public int removeFile(String uuid) {
+		// TODO Auto-generated method stub
+		return attachMapper.delete(uuid);
 	}
 
 	@Override
-	public boolean remove(Long bno) {
-		log.info("remove...." + bno);
-		return mapper.delete(bno) == 1;
+	public boolean remove(Long boardIdx) {
+		log.info("remove...." + boardIdx);
+		attachMapper.deleteAll(boardIdx);
+		return mapper.delete(boardIdx) == 1;
 	}
 
 	@Override
@@ -67,6 +96,15 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return mapper.getBoardList();
 	}
+
+	@Override
+	public List<BoardAttachVO> getAttachList(Long boardIdx) {
+		// TODO Auto-generated method stub
+		return attachMapper.findByboardIdx(boardIdx);
+	}
+
+
+
 
 
 

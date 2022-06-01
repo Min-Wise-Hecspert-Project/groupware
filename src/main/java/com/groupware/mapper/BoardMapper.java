@@ -12,7 +12,7 @@ public interface BoardMapper {
 	
 	public void insert(BoardDTO board);
 
-	public void insertSelectKey(BoardDTO board);
+	public void insertSelectKey(BoardDTO boardIdx);
 	
 	public List<BoardDTO> reads(Long employee_idx);
 

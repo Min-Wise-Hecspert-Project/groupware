@@ -41,7 +41,7 @@ public class UploadController {
  
   @PostMapping(value = "/uploadAjaxAction", produces=MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<BoardAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-    String uploadFolder = "e:/upload";
+    String uploadFolder = "c:/upload";
     List<BoardAttachVO> list = new ArrayList<>();
     File uploadPath = new File(uploadFolder,getFolder());
     log.info("upload Path : "+uploadPath);
@@ -86,7 +86,7 @@ public class UploadController {
   @ResponseBody
   public ResponseEntity<byte[]>getFile(String fileName){
     log.info("fileName: "+fileName);
-    File file = new File("e:/upload/"+fileName);
+    File file = new File("c:/upload/"+fileName);
     log.info("file: "+file);
     ResponseEntity<byte[]> result=null;
     try {
@@ -104,7 +104,7 @@ public class UploadController {
   @ResponseBody
   public ResponseEntity<Resource> downloadFile (String fileName){
 	  
-	  Resource resource = new FileSystemResource("e:/upload/"+fileName);
+	  Resource resource = new FileSystemResource("c:/upload/"+fileName);
 	  if (resource.exists() == false) {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	  }
@@ -127,7 +127,7 @@ public class UploadController {
 	  File file;
 	  log.info("fileName: "+fileName);
 	  try {
-		file = new File("e:/upload/"+URLDecoder.decode(fileName,"UTF-8"));
+		file = new File("c:/upload/"+URLDecoder.decode(fileName,"UTF-8"));
 		file.delete();
 		if (type.equals("image")) {
 			String largeFileName = file.getAbsolutePath().replace("s_", "");

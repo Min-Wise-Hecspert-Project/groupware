@@ -1,10 +1,12 @@
 package com.groupware.dto;
 
 import java.sql.Date;
-
+import java.util.List;
 import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
+
+import com.groupware.vo.BoardAttachVO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,6 +52,7 @@ public class BoardDTO {
 	private String state;
 	
 	private String title;
+	private List<BoardAttachVO> attachList;
 
 	
 	

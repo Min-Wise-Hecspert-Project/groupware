@@ -56,3 +56,7 @@ where b.employee_idx = e.employee_idx;
 --ALTER TABLE board MODIFY employee_idx NUMBER;
 --ALTER TABLE board DROP COLUMN employee_idx;
 --ALTER TABLE board add employee_idx NUMBER;
+
+ALTER TABLE boardattach MODIFY (FILE_TYPE DEFAULT '0');
+
+commit;

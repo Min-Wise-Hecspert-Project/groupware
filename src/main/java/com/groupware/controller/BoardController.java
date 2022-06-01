@@ -4,12 +4,17 @@ import com.groupware.dto.BoardDTO;
 import com.groupware.dto.Notice;
 import com.groupware.global.Config;
 import com.groupware.service.BoardService;
+import com.groupware.vo.BoardAttachVO;
 import com.groupware.vo.BoardVO;
 import com.groupware.vo.CommonSearchVO;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,8 +73,7 @@ public class BoardController {
 		
 		//아이디로 조회함
 		@GetMapping("/list/{employeeIdx}")
-		public ResponseEntity<List<BoardDTO>> getboard_employeeIdx(
-				@RequestParam(defaultValue = "") Long employeeIdx){
+		public ResponseEntity<List<BoardDTO>> getboard_employeeIdx(@RequestParam("employeeIdx") Long employeeIdx){
 			
 			List<BoardDTO> boardDTO = service.gets(employeeIdx);
 			
@@ -85,7 +89,7 @@ public class BoardController {
 		}
 		
 		@PostMapping("/register")
-		public String board_register(BoardDTO board, RedirectAttributes rttr) {
+		public String board_register(@RequestBody BoardDTO board, RedirectAttributes rttr) {
 			log.info("register: " + board);
 			service.register(board);
 			rttr.addFlashAttribute("result", board.getBoardIdx());
@@ -102,9 +106,9 @@ public class BoardController {
 		@PutMapping("/modify")
 		public ResponseEntity<BoardDTO>  modify(@RequestBody BoardDTO board) {
 			log.info("modify: " + board);
-			BoardDTO boardDTO = service.modify(board);
 			
-			if(board == null) {
+			boolean check =service.modify(board);
+			if(check == false) {
 				// �떎�뙣�떆 409 - �빐�떦 �슂泥��쓽 泥섎━媛� 鍮꾩��땲�뒪 濡쒖쭅�긽 遺덇��뒫�븯嫄곕굹 紐⑥닚�씠 �깮湲� 寃쎌슦
 				return ResponseEntity
 						.status(HttpStatus.CONFLICT)
@@ -118,12 +122,35 @@ public class BoardController {
 		}
 		
 		@PostMapping("/remove")
-		public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
-			log.info("remove: " + bno);
-			if(service.remove(bno)) {
-				rttr.addFlashAttribute("result", "success");
-			}			
-			
-			return "redirect:/board/list";
+		public String remove(@RequestParam("boardIdx") Long boardIdx) {
+			log.info("remove: " + boardIdx);
+			List<BoardAttachVO> attachList = service.getAttachList(boardIdx);
+			if(service.remove(boardIdx)) {
+				deleteFiles(attachList);
+			}
+			return "ok";
+		}
+		private void deleteFiles(List<BoardAttachVO> attachList) {
+		    if (attachList==null||attachList.size()==0) {
+		      return;
+		    }
+		    log.info("delete attach files.......");
+		    log.info(attachList);
+		    attachList.forEach(attach->{
+		      try {
+		        Path file = Paths.get("c:/upload/"+attach.getUploadpath()+"/"+attach.getUuid()+"_"+attach.getFileName());
+		        Files.deleteIfExists(file);
+		        if (Files.probeContentType(file).startsWith("image")) {
+		          Path thumbNail = Paths.get("c:/upload/"+attach.getUploadpath()+"/s_"+attach.getUuid()+"_"+attach.getFileName());
+		          Files.delete(thumbNail);
+		        }
+		      }catch (Exception e) {
+		        log.error("delete file error : " +e.getMessage());
+		      }
+		    });
+		  }
+		@GetMapping(value = "/getAttachList" ,produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<BoardAttachVO>> getAttachList(@RequestParam("boardIdx") Long boardIdx){
+			return new ResponseEntity<>(service.getAttachList(boardIdx),HttpStatus.OK);
 		}
 }

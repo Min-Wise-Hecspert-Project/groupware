@@ -96,16 +96,15 @@
 		)  
   </insert>
    
-  <!-- 
   <insert id="insertSelectKey">
   	<selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
-  		select BOARD_SEQ.nextval from dual
+  		select BOARD_SEQ.NEXTVAL from dual
   	</selectKey>
-  	insert into board(bno, title, content, writer)
-  	values(#{boardIdx}, #{title}, #{content}, #{writer})
+  	 insert into BOARD(BOARD_IDX, BOARD_TYPE,"CONTENT",TITLE)
+  	 values(BOARD_SEQ.NEXTVAL,#{boardType},#{content},#{title})
   </insert>
-   -->
-<!--   <select id="selectList" resultMap="testMap">
+
+<!--  <selec t id="selectList" resultMap="testMap">
   SELECT
   	notice_idx,
   	employee_idx,

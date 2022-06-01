@@ -5,13 +5,13 @@
 	<resultMap type="BoardAttachVO" id="BoardAttachMap">
 <!-- 	  <id property="noticeIdx" column="NOTICE_IDX"/> -->
 	  <result property="uuid" column="UUID"/>
-	  <result property="boardIdx" column="board_idx"/>
+	  <result property="boardIdx" column="BOARD_IDX"/>
 	  <result property="uploadpath" column="UPLOADPATH"/>
 	  <result property="fileName" column="FILE_NAME"/>
 	  <result property="fileType" column="FILE_TYPE"/>
 	</resultMap>
-	<select id="findByBno" resultMap="BoardAttachMap">
-		SELECT * FROM boardAttach WHERE board_idx=#{boardIdx}
+	<select id="findByboardIdx" resultMap="BoardAttachMap">
+		SELECT * FROM boardAttach WHERE BOARD_IDX=#{boardIdx}
 	</select>
 	<insert id="insert">
 		INSERT INTO boardAttach
