@@ -11,7 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
-public class MyInterceptor implements HandlerInterceptor {
+public class FlowInterceptor2 implements HandlerInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -19,14 +19,14 @@ public class MyInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("employeeIdx") == null) {
-            response.sendError(200, "zz");
-            System.out.println("myinterceptor false");
-            logger.info("dzdz");
+        if (session.getAttribute("employeeIdx") != null) {
+            response.sendRedirect("/");
+            System.out.println("FlowInterceptor2.preHandle");
             return false;
         }
-        logger.info("sssss");
-        System.out.println("myinterceptor true");
+
+        System.out.println("FlowInterceptor2.preHandle");
+
         return true;
     }
 
