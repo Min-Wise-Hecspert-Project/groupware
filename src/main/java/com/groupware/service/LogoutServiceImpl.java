@@ -14,7 +14,7 @@ public class LogoutServiceImpl implements LogoutService{
     public ResponseEntity<Map<String, Object>> logoutAction(HttpSession session) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        session.setMaxInactiveInterval(0);
+        session.invalidate();
 
         resultMap.put("result", true);
         resultMap.put("message", "session destroyed");

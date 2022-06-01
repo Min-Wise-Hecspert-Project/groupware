@@ -2,7 +2,6 @@ package com.groupware.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
 
 import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
