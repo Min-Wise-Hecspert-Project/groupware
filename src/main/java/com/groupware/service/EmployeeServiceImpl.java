@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,6 +150,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 					.status(HttpStatus.NO_CONTENT)
 					.build();
 		}
+	}
+
+	@Override
+	public ResponseEntity<Employee.DetailDTO> info(HttpSession session) {
+		return null;
 	}
 
 	public Employee.DetailDTO getEmployee(Long employeeIdx) {
