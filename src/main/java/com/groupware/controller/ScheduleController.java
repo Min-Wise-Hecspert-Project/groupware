@@ -2,11 +2,11 @@ package com.groupware.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.groupware.dto.Notice;
 import com.groupware.dto.Schedule;
 import com.groupware.service.ScheduleService;
 
@@ -33,6 +31,8 @@ public class ScheduleController {
 	
 	@Autowired
 	ScheduleService service;
+	HttpServletRequest request;
+	
 	
 	@GetMapping("/schedule")
 	public ResponseEntity<List<Schedule.ScheduleDTO>> scheduleList() {
@@ -40,6 +40,11 @@ public class ScheduleController {
 	}
 	@PostMapping("/schedule")
 	public ResponseEntity<Schedule.ScheduleDTO> post(Schedule.ScheduleDTO dto) {
+		HttpSession session = request.getSession();
+		System.out.println(dto.getEmployeeIdx());
+		String employeeIdx = session.getAttribute("employeeIdx").toString();
+		System.out.println("이게 왜 됢?"+employeeIdx);
+		dto.setEmployeeIdx(Long.parseLong(employeeIdx));
 		Schedule.ScheduleDTO getDto = service.insertSchedule(dto);
 		if (getDto!=null) {
 			return new ResponseEntity<>(getDto,HttpStatus.OK);

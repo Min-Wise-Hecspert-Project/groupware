@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.groupware.dto.Schedule;
 import com.groupware.dto.Schedule.ScheduleDTO;
 import com.groupware.mapper.ScheduleMapper;
-import com.groupware.vo.ScheduleVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +17,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Autowired
 	ScheduleMapper scheduleMapper;
-	
 	@Override
 	public List<ScheduleDTO> getSchedule() {
 		
