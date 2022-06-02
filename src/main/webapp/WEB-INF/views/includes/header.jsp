@@ -103,7 +103,7 @@
                 $('#notice :nth-child(1)').toggle("nav-link active");
             
 			}
-        	if (pathname==="/schedule") {
+        	if (pathname==="/schedule") { 
 				$('#schedule :nth-child(1)').toggle("nav-link text-white");
                 $('#schedule :nth-child(1)').toggle("nav-link active");
              
