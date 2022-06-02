@@ -1,12 +1,8 @@
 package com.groupware.service;
 
-<<<<<<< HEAD
 import com.groupware.dto.BoardDTO;
-import com.groupware.dto.EmployeeDTO;
 import com.groupware.mapper.BoardMapper;
-=======
 import com.groupware.dto.Employee;
->>>>>>> 457e3ca7769cbac2906710120786be81e281095b
 import com.groupware.mapper.EmployeeMapper;
 import com.groupware.vo.EmployeeSearchVO;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
-=======
-/**
- * @Question
- */
->>>>>>> 457e3ca7769cbac2906710120786be81e281095b
+
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {

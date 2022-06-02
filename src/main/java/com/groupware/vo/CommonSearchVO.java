@@ -21,16 +21,8 @@ public class CommonSearchVO {
 	private Integer startNum;
 	private Integer endNum;
 
-<<<<<<< HEAD
-	private final int pageSize = Config.globalPageSize;
-	
-	//board 추가
-	private String boardType;
-	
-	public CommonSearchVO(String title, String content, String writer, Integer sorting, Integer page) {
-=======
+
 	public CommonSearchVO(String title, String content, String writer, Integer sorting, Integer page, Integer perPage) {
->>>>>>> 457e3ca7769cbac2906710120786be81e281095b
 		this.title = title;
 		this.content = content;
 		this.writer = writer;

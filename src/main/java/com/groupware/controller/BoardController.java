@@ -89,12 +89,12 @@ public class BoardController {
 		}
 		
 		@PostMapping("/register")
-		public String board_register(@RequestBody BoardDTO board, RedirectAttributes rttr) {
+		public BoardDTO board_register(@RequestBody BoardDTO board, RedirectAttributes rttr) {
 			log.info("register: " + board);
 			service.register(board);
 			rttr.addFlashAttribute("result", board.getBoardIdx());
 			
-			return "redirect:/board/list";
+			return board;
 		}
 		
 //		@GetMapping("/get")

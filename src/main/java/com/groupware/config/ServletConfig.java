@@ -19,6 +19,7 @@ import com.groupware.interceptor.FlowInterceptor;
 import com.groupware.interceptor.FlowInterceptor2;
 import com.groupware.interceptor.MyInterceptor;
 
+
 @ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.interceptor"})
 @EnableWebMvc
 @Configuration
