@@ -10,9 +10,9 @@ public interface BoardMapper {
 //	@Select("select * from tbl_board")
 	public List<BoardDTO> getBoardList();
 	
-	public void insert(BoardDTO board);
+	public int insert(BoardDTO board);
 
-	public void insertSelectKey(BoardDTO boardIdx);
+	public int insertSelectKey(BoardDTO board);
 	
 	public List<BoardDTO> reads(Long employee_idx);
 

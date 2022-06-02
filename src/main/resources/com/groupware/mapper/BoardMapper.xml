@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
 <mapper namespace="com.groupware.mapper.BoardMapper">
 
 	<resultMap type="BoardDTO" id="BoardDTO">
@@ -37,6 +39,7 @@
 		<result property="insDate" column="ins_Date"/>
 		<result property="updDate" column="upd_Date"/>
 		<collection property="BoardDTO" resultMap="BoardDTO" />
+		
 	</resultMap>
 	
 	<select id="selectemployee_idx" parameterType="BoardDTO" resultMap="BoardDTO">
@@ -96,12 +99,12 @@
 		)  
   </insert>
    
-  <insert id="insertSelectKey">
+  <insert id="insertSelectKey" parameterType="BoardDTO">
   	<selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
   		select BOARD_SEQ.NEXTVAL from dual
   	</selectKey>
-  	 insert into BOARD(BOARD_IDX, BOARD_TYPE,"CONTENT",TITLE)
-  	 values(BOARD_SEQ.NEXTVAL,#{boardType},#{content},#{title})
+	  	 insert into BOARD(BOARD_IDX, BOARD_TYPE,"CONTENT",TITLE)
+	  	 values(BOARD_SEQ.NEXTVAL,#{boardType},#{content},#{title})
   </insert>
 
 <!--  <selec t id="selectList" resultMap="testMap">

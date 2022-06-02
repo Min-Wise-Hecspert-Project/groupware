@@ -1,6 +1,6 @@
 package com.groupware.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
@@ -11,7 +11,7 @@ import lombok.NonNull;
 @Alias("ScheduleVO")
 public class ScheduleVO {
 	@NonNull
-	private String name;
+	private String calendarId;
 	private String title;
 	private String content;
 	private String file;

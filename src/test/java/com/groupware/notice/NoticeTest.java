@@ -10,7 +10,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.groupware.config.RootConfig;
 import com.groupware.config.ServletConfig;
-import com.groupware.global.Config;
 import com.groupware.global.Sorting;
 import com.groupware.mapper.NoticeMapper;
 import com.groupware.service.NoticeService;
@@ -37,9 +36,10 @@ public class NoticeTest {
 		String writer = "";
 		Integer sorting = Sorting.ORDER_BY_INS_DATE_DESC.getValue();
 		Integer page = 1;
+		Integer perPage = 10;
 		
 		try {
-			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page);
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, perPage);
 			log.info(mapper.selectList(searchVO));
 			
 		} catch (Exception e) {
@@ -55,7 +55,7 @@ public class NoticeTest {
 	
 	@Test
 	public void testInsert() {
-		Notice.insertDTO insertDTO = new Notice.insertDTO();
+		Notice.InsertDTO insertDTO = new Notice.InsertDTO();
 		insertDTO.setEmployeeIdx(1L);
 		insertDTO.setTitle("삽입 테스트~~");
 		insertDTO.setContent("성공");
@@ -66,7 +66,7 @@ public class NoticeTest {
 	
 	@Test
 	public void testUpdate() {
-		Notice.updateDTO updateDTO = new Notice.updateDTO();
+		Notice.UpdateDTO updateDTO = new Notice.UpdateDTO();
 		updateDTO.setNoticeIdx(8L);
 		updateDTO.setTitle("수정!!!!!");
 		updateDTO.setContent("성공");

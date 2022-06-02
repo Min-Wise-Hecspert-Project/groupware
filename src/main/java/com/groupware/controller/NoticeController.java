@@ -5,8 +5,8 @@ import com.groupware.service.NoticeService;
 import com.groupware.vo.CommonSearchVO;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,16 +31,18 @@ public class NoticeController {
 		private final NoticeService service;
 		
 		@GetMapping("/notice")
-		public ResponseEntity<List<Notice.listDTO>> list(
+		public ResponseEntity<Map<String, Object>> list(
 				@RequestParam(defaultValue = "") String title,
 				@RequestParam(defaultValue = "") String content,
 				@RequestParam(defaultValue = "") String writer,
 				@RequestParam(defaultValue = "") Integer sorting,
-				@RequestParam(defaultValue = "1") Integer page
+				@RequestParam(defaultValue = "1") Integer page,
+				@RequestParam(defaultValue = "10") Integer perPage
 				) {
 			
-			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page);
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, perPage);
 			
+<<<<<<< HEAD
 			List<Notice.listDTO> dtos = service.selectList(searchVO);
 			
 			if(dtos.size() < 1 ) {
@@ -54,10 +56,13 @@ public class NoticeController {
 						.status(HttpStatus.OK)
 						.body(dtos);
 			}
+=======
+			return service.selectList(searchVO);
+>>>>>>> 457e3ca7769cbac2906710120786be81e281095b
 		}
-
 		
 		@PostMapping("/notice")
+<<<<<<< HEAD
 		public ResponseEntity<Notice.detailDTO> post(Notice.insertDTO insertDTO) {
 
 			Notice.detailDTO resNoticeDTO = service.insert(insertDTO);
@@ -136,5 +141,29 @@ public class NoticeController {
 //			return ResponseEntity
 //					.status(HttpStatus.OK)
 //					.body(null); // �닔�젙 �븘�슂
+=======
+		public ResponseEntity<Notice.DetailDTO> post(Notice.InsertDTO insertDTO) {
+			return service.insert(insertDTO);
+		}
+		
+		@GetMapping("/notice/{noticeIdx}")
+		public ResponseEntity<Notice.DetailDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
+			return service.select(noticeIdx);
+		}
+		
+		@PutMapping("/notice")
+		public ResponseEntity<Notice.DetailDTO> put(@RequestBody Notice.UpdateDTO updateDTO) {
+			return service.update(updateDTO);
+		}
+		
+		@DeleteMapping("/notice/{noticeIdx}")		
+		public ResponseEntity<Notice.DetailDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
+			return service.delete(noticeIdx);
+		}
+		
+		@DeleteMapping("/notice/cron")
+		public ResponseEntity<Map<String, Object>> deleteBySchedule() {
+			return service.deleteBySchedule();
+>>>>>>> 457e3ca7769cbac2906710120786be81e281095b
 		}
 }

@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="">
-  	
+<mapper namespace="com.groupware.mapper.ScheduleMapper">
+  	<resultMap type="com.groupware.dto.Schedule$ScheduleDTO" id="ScheduleListMap">
+		<result property="scheduleIdx" column="SCHEDULE_IDX"/>
+		<result property="employeeIdx" column="EMPLOYEE_IDX"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="insDate" column="INS_DATE"/>
+		<result property="updDate" column="UPD_DATE"/>
+		<result property="startDate" column="START_DATE"/>
+		<result property="endDate" column="END_DATE"/>
+		<result property="state" column="STATE"/>
+		<result property="calendarId" column="CALENDAR_ID"/>
+		<result property="location" column="LOCATION"/>
+		<result property="place" column="PLACE"/>
+		<result property="file" column="FILE"/>
+		<result property="participant" column="PARTICPANT"/>
+	</resultMap>
+	
+	<select id="selectList" resultMap="ScheduleListMap">
+		SELECT
+			*
+		FROM schedule
+	</select>
+	<select id="getSchedule" resultMap="ScheduleListMap">
+		SELECT
+			*
+		FROM schedule
+		WHERE SCHEDULE_IDX = #{schedule}
+	</select>
+	
+	<insert id="register">
+		<selectKey keyProperty="scheduleIdx" order="BEFORE" resultType="long">
+  			SELECT SCHEDULE_SEQ.nextval FROM dual
+  		</selectKey>
+		INSERT INTO SCHEDULE (CALENDAR_ID, SCHEDULE_IDX, EMPLOYEE_IDX, TITLE, CONTENT, 
+			"FILE", INS_DATE, UPD_DATE, STATE, PARTICIPANT,
+			 PLACE, LOCATION, START_DATE, END_DATE) 
+		VALUES(#{calendarId}, #{scheduleIdx}, #{employeeIdx}, #{title}, #{content},
+			 #{file}, sysdate , sysdate , 0, #{participant},
+			  #{place}, #{location}, #{startDate}, #{endDate})
+	</insert>
+	<delete id="removeSchedule">
+		DELETE FROM SCHEDULE WHERE SCHEDULE_IDX=#{scheduleIdx}
+	</delete>
+	<update id="modify">
+		UPDATE SCHEDULE 
+			SET CALENDAR_ID=#{calendarId},
+			 	TITLE=#{title},
+			    CONTENT=#{content},
+			    "FILE"=#{file},
+		        UPD_DATE=sysdate ,
+		        STATE=#{state}, 
+		        PARTICIPANT=#{participant},
+		        PLACE=#{place}, 
+		        LOCATION=#{location},
+   	         	START_DATE=#{startDate},
+	            END_DATE=#{endDate}
+        WHERE SCHEDULE_IDX=#{scheduleIdx}
+	</update>
+	
 </mapper>
