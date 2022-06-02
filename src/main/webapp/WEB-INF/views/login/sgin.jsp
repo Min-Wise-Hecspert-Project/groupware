@@ -5,7 +5,7 @@
 <head>
 	<jsp:include page="../includes/head.jsp"></jsp:include>
   <meta charset="UTF-8">
-  <title>Join</title>
+  <title>Sgin UP</title>
   <style type="text/css">
    	html {
   height: 100%;

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class MyInterceptor implements HandlerInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();

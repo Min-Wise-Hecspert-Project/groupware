@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="segment" value="${requestScope['javax.servlet.forward.servlet_path']}"/>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Company name</a>
 </header>
@@ -15,7 +19,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath }/" class="nav-link active" aria-current="page">
+                <a href="${pageContext.request.contextPath }/" id="home" class='nav-link text-white' aria-current="page">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#home" />
                     </svg>
@@ -23,7 +27,7 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath }#" class="nav-link text-white">
+                <a href="${pageContext.request.contextPath }#" id="employee" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#speedometer2" />
                     </svg>
@@ -31,7 +35,7 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath }#" class="nav-link text-white">
+                <a href="${pageContext.request.contextPath }#"   class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#table" />
                     </svg>
@@ -39,15 +43,16 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath }/schedule" class="nav-link text-white">
+                <a href="${pageContext.request.contextPath }/schedule" id="schedule" class='nav-link text-white ${fn:split(segment, '/')[0] eq "schedule" ? "active" : ""}'>
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#grid" />
                     </svg>
                     달력
                 </a>
             </li>
+            
             <li>
-                <a href="${pageContext.request.contextPath }/notice" class="nav-link text-white">
+                <a href="${pageContext.request.contextPath }/notice" id="notice"  class='nav-link text-white ${fn:split(segment, '/')[0] eq "notice" ? "active" : ""}'>
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#people-circle" />
                     </svg>
@@ -85,6 +90,31 @@
     </div>
     <script>
         $(function () {
+            var pathname = $(location).attr('pathname');
+            console.log(pathname);
+        	if (pathname==="/") {
+				$('#home :nth-child(1)').toggle("nav-link text-white");
+                $('#home :nth-child(1)').toggle("nav-link active");
+                $('#home').addClass("nav-link text-white");
+                $('#home').addClass("nav-link active");
+			}
+        	if (pathname==="/notice") {
+				$('#notice :nth-child(1)').toggle("nav-link text-white");
+                $('#notice :nth-child(1)').toggle("nav-link active");
+            
+			}
+        	if (pathname==="/schedule") {
+				$('#schedule :nth-child(1)').toggle("nav-link text-white");
+                $('#schedule :nth-child(1)').toggle("nav-link active");
+             
+			}
+        	if (pathname==="/board") {
+				$('#home :nth-child(1)').toggle("nav-link text-white");
+                $('#home :nth-child(1)').toggle("nav-link active");
+             
+			}
+
+            //logout
             $(".dropdown-item").on("click", function () {
             	let action = $(this).data("action");
                 console.log(action);
