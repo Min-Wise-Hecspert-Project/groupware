@@ -89,7 +89,6 @@
 						"title": title,
 						"content": content,
 						"file": "없음!",
-						"employeeIdx":1,
 						"state":1
 					})
 					var myHeaders = new Headers();
