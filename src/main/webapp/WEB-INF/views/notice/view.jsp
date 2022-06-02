@@ -68,6 +68,19 @@
 						let action = $(this).data("action");
 						if (action==="remove") {
 							console.log("작성취소");
+	
+							var requestOptions = {
+							  method: 'DELETE',
+							  redirect: 'follow'
+							};
+
+							fetch("http://localhost:8080/api/notice/"+noticeIdx, requestOptions)
+							  .then(response => response.text())
+							  .then(result => {
+								  console.log(result);
+								  location.href="/notice";
+							  })				  
+							  .catch(error => console.log('error', error));
 						}
 						if (action==="modify") {
 							console.log("수정폼으로 이동");
