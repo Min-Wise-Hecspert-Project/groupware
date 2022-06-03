@@ -22,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 public class NoticeController {
 
 		private final NoticeService service;
-		
+
 		@GetMapping("/notice")
 		public ResponseEntity<Map<String, Object>> list(
 				@RequestParam(defaultValue = "") String title,
@@ -41,12 +43,13 @@ public class NoticeController {
 				) {
 			
 			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, perPage);
-			
+
 			return service.selectList(searchVO);
 		}
 		
 		@PostMapping("/notice")
-		public ResponseEntity<Notice.DetailDTO> post(Notice.InsertDTO insertDTO) {
+		public ResponseEntity<Notice.DetailDTO> post(Notice.InsertDTO insertDTO, HttpSession session) {
+			insertDTO.setEmployeeIdx((Long) session.getAttribute("employeeIdx"));
 			return service.insert(insertDTO);
 		}
 		

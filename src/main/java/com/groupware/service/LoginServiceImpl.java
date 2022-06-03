@@ -55,6 +55,7 @@ public class LoginServiceImpl implements LoginService{
         }
 
         session.setAttribute("employeeIdx", employeeOne.getEmployeeIdx());
+        session.setAttribute("name", employeeOne.getName());
         session.setMaxInactiveInterval(60 * 60 * 8);
 
         resultMap.put("result", true);

@@ -10,6 +10,8 @@ import com.groupware.dto.Employee;
 import com.groupware.vo.EmployeeSearchVO;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpSession;
+
 public interface EmployeeService {
 	ResponseEntity<Employee.DetailDTO> insert(Employee.InsertDTO insertDTO);
 	ResponseEntity<Employee.DetailDTO> update(Employee.UpdateDTO employeeDTO);
@@ -18,4 +20,5 @@ public interface EmployeeService {
 	ResponseEntity<Employee.DetailDTO> select(Long employeeIdx);
 	ResponseEntity<Map<String, Object>> deleteBySchedule();
 
+    ResponseEntity<Employee.DetailDTO> info(HttpSession session);
 }
