@@ -62,4 +62,4 @@
             </div>
             <!-- /.col-lg-6 -->
         <!-- /.row -->
- <%@include file="../includes/footer.jsp" %>       
+<%--  <%@include file="../includes/footer.jsp" %>  --%>    

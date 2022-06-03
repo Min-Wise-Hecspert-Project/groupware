@@ -1,5 +1,7 @@
 package com.groupware.service;
 
+import com.groupware.dto.BoardDTO;
+import com.groupware.mapper.BoardMapper;
 import com.groupware.dto.Employee;
 import com.groupware.mapper.EmployeeMapper;
 import com.groupware.vo.EmployeeSearchVO;
@@ -8,15 +10,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Question
- */
+import javax.annotation.Resource;
+import javax.inject.Inject;
+
+
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
@@ -160,5 +164,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee.DetailDTO getEmployee(Long employeeIdx) {
 		return mapper.select(employeeIdx);
 	}
+
 
 }

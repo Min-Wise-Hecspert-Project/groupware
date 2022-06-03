@@ -1,11 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<<<<<<< HEAD
+<<<<<<< HEAD
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        
+        <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Company name</a>
+        </header>
+=======
+=======
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="segment" value="${requestScope['javax.servlet.forward.servlet_path']}" />
+>>>>>>> 9210ab401d820aad1df98bad2a74a82831c93f90
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Company name</a>
 </header>
+>>>>>>> 457e3ca7769cbac2906710120786be81e281095b
 
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="position-sticky pt-3 d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"

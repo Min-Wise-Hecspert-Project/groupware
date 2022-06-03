@@ -14,14 +14,16 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service"})
-@MapperScan(basePackages = {"com.groupware.mapper","com.groupware.dto"})
+@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service","com.groupware.*"})
+@MapperScan(basePackages = {"com.groupware.mapper","com.groupware.dto","com.groupware.vo"})
+
 public class RootConfig implements WebMvcConfigurer {
 	
-	@Bean
+	@Bean // �޼ҵ��� ���� ����� ��ȯ�Ǵ� ��ü�� ������ ��ü�� ���
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
+//		jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE
 		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@3.37.246.102:1521:XE");
 		hikariConfig.setUsername("hecto");
 		hikariConfig.setPassword("hecto");
@@ -33,7 +35,7 @@ public class RootConfig implements WebMvcConfigurer {
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource());
-		sqlSessionFactory.setTypeAliasesPackage("com.groupware.dto");
+		sqlSessionFactory.setTypeAliasesPackage("com.groupware.*");
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
 	}
 

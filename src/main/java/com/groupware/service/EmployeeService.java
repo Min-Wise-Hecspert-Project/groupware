@@ -2,6 +2,10 @@ package com.groupware.service;
 
 import java.util.Map;
 
+import com.groupware.dto.BoardDTO;
+import com.groupware.vo.CommonSearchVO;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.groupware.dto.Employee;
 import com.groupware.vo.EmployeeSearchVO;
 import org.springframework.http.ResponseEntity;

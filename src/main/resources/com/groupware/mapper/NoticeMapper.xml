@@ -215,4 +215,4 @@
 	WHERE
 	        del_data.state = 0
   </delete>
-</mapper>
+</mapper> 

@@ -21,6 +21,7 @@ public class CommonSearchVO {
 	private Integer startNum;
 	private Integer endNum;
 
+
 	public CommonSearchVO(String title, String content, String writer, Integer sorting, Integer page, Integer perPage) {
 		this.title = title;
 		this.content = content;
@@ -38,4 +39,10 @@ public class CommonSearchVO {
 		this.startNum = (page-1)*perPage;
 		this.endNum = page*perPage;
 	}
+
+
+
+	
+	//board 값넣기
+	
 }

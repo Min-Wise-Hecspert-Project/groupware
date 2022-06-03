@@ -1,20 +1,32 @@
 package com.groupware.mapper;
 
+import java.io.Console;
 import java.util.List;
+import java.util.Map;
 
-import com.groupware.vo.BoardVO;
+import com.groupware.dto.BoardDTO;
 
 public interface BoardMapper {
 //	@Select("select * from tbl_board")
-	public List<BoardVO> getBoardList();
+	public List<BoardDTO> getBoardList();
 	
-	public void insert(BoardVO board);
+	public int insert(BoardDTO board);
 
-	public void insertSelectKey(BoardVO board);
+	public int insertSelectKey(BoardDTO board);
 	
-	public BoardVO read(Long bno);
+	public List<BoardDTO> reads(Long employee_idx);
 
-	public int update(BoardVO boardVO);
+	public int update(BoardDTO boardDTO);
 
-	public int delete(long l);
+	public int delete(long boardIdx);
+	
+	public BoardDTO select(long boardIdx);
+	
+	
+	public List<BoardDTO> selectemployee_idx(int employeeIdx);
+	
+	
+	//file
+	public void insertFile(Map<String, Object> map) throws Exception;
+
 }
