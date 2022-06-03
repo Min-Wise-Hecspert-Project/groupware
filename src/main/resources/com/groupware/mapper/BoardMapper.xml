@@ -105,7 +105,7 @@
   		select BOARD_SEQ.NEXTVAL from dual
   	</selectKey> 
 	  	 insert into BOARD(BOARD_IDX, BOARD_TYPE,"CONTENT",TITLE)
-	  	 values(BOARD_SEQ.NEXTVAL,#{boardType},#{content},#{title})
+	  	 values(#{boardIdx},#{boardType},#{content},#{title})
   </insert>
 </mapper>
 
