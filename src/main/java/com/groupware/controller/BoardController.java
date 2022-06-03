@@ -71,6 +71,21 @@ public class BoardController {
 			
 				
 		}
+		@GetMapping("{boardIdx}")
+		public ResponseEntity<BoardDTO> getboard_eboardIdx(@RequestParam("boardIdx") Long boardIdx){
+			
+			BoardDTO board = service.select(boardIdx);
+			
+			if (board==null) {
+				return ResponseEntity
+						.status(HttpStatus.NO_CONTENT)
+						.body(null);
+			}else {
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(board);
+			}
+		}
 		
 		//아이디로 조회함
 		@GetMapping("/list/{employeeIdx}")
