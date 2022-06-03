@@ -61,8 +61,8 @@ public class FlowController {
 	public String login() {
 		return "/login/login";
 	}
-	@RequestMapping(value = "/sgin", method = RequestMethod.GET)
-	public String sgin() {
+	@RequestMapping(value = "/sign", method = RequestMethod.GET)
+	public String sign() {
 		return "/login/sign";
 	}
 }

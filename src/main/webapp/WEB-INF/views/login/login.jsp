@@ -116,7 +116,6 @@ body {
     	    .catch(error => console.log('error', error));
       }
       if (action==="sign") {
-        alert("회원 가입으로 이동");
         location.href = "/sign";
       }
      });
