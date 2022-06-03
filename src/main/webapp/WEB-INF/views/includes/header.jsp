@@ -65,6 +65,15 @@
                 </a>
             </li>
             <li>
+                <a href="${pageContext.request.contextPath }/borad" id="borad"
+                    class='nav-link text-white ${fn:split(segment, ' /')[0] eq "borad" ? "active" : "" }'>
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#people-circle" />
+                    </svg>
+                    게시판
+                </a>
+            </li>
+            <li>
                 <a href="#" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#people-circle" />
