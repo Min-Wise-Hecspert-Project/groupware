@@ -60,11 +60,7 @@
 	                            </div>`;
                            }else{
                               
-                           }
-						
-                        
-                    
-		                            i++;
+                           }i++;
                         });
                      
                        $("#employeeProfile").append(content);
