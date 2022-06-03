@@ -66,7 +66,7 @@
 					// 파일 업로드 콜백 함수값 사용
 					formdata.append("file", "없음!");
 					// 로그인 구현후 추가 변경
-					formdata.append("employeeIdx", "1");
+					//formdata.append("employeeIdx", "1");
 					// 임시저장 구현 후 변경
 					formdata.append("state", "1");
 

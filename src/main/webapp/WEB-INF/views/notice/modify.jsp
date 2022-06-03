@@ -76,9 +76,36 @@
 				let action = $(this).data("action");
 				if (action === "remove") {
 					console.log("삭제요청");
+					history.back();
 				}
 				if (action === "modify") {
 					console.log("업데이트 요청");
+					let title = $("#notice_title").val();
+					let content = editor.getHTML();
+
+				
+					let updateData =JSON.stringify({ 
+						"noticeIdx": noticeIdx,
+						"title": title,
+						"content": content,
+						"file": "없음!",
+						"state":1
+					})
+					var myHeaders = new Headers();
+				    myHeaders.append("Content-Type", "application/json");
+					var requestOptions = {
+						method: 'PUT',
+						headers: myHeaders,
+						body: updateData
+					};
+
+					fetch("http://localhost:8080/api/notice", requestOptions)
+						.then(response => response.json())
+						.then(result => {	
+							console.log(result);
+							location.href = "/notice/"+result?.noticeIdx;
+						})
+						.catch(error => console.log('error', error));
 				}
 			});
 

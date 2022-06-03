@@ -5,7 +5,7 @@
 <head>
 	<jsp:include page="../includes/head.jsp"></jsp:include>
   <meta charset="UTF-8">
-  <title>Join</title>
+  <title>Sign up</title>
   <style type="text/css">
    	html {
   height: 100%;
@@ -78,7 +78,7 @@ body {
 
 <body>
   <div class="login-box">
-  <h2>Sgin up</h2>
+  <h2>Sign up</h2>
     <div class="user-box">
       <div class="hintId"></div>
       <input class="form-control" id="id" type="text" placeholder="3자 이상 ~ 15자 이하 영문 숫자 조합">
@@ -172,7 +172,7 @@ body {
     	  };
 
     	  fetch("http://localhost:8080/api/join", requestOptions)
-    	    .then(response => response.text())
+    	    .then(response => response.json())
     	    .then(result => {
     	    	console.log(result);
             if (result.result === true) {

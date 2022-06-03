@@ -92,8 +92,9 @@ public class BoardController {
 		@PostMapping("/register")
 		public BoardDTO board_register(@RequestBody BoardDTO board) {
 			log.info("register: " + board);
-
+			
 			service.register(board);
+	
 			
 			return board;
 		}

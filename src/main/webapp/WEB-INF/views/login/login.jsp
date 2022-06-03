@@ -5,7 +5,7 @@
 <head>
 	<jsp:include page="../includes/head.jsp"></jsp:include>
   <meta charset="UTF-8">
-  <title>Join</title>
+  <title>Login</title>
   <style type="text/css">
    	html {
   height: 100%;
@@ -117,7 +117,7 @@ body {
       }
       if (action==="sign") {
         alert("회원 가입으로 이동");
-        location.href = "/sgin";
+        location.href = "/sign";
       }
      });
     });

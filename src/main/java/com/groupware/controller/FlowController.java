@@ -53,9 +53,9 @@ public class FlowController {
 	}	
 	
 	@RequestMapping(value = "/user/{employeeIdx}", method = RequestMethod.GET)
-	public String userProfile(@PathVariable("employeeIdx") Long employeeIdx ) {
-		
-		return "/schedule/list";
+	public String userProfile(@PathVariable("employeeIdx") Long employeeIdx ,Model model) {
+		model.addAttribute("employeeIdx",employeeIdx);
+		return "/employee/profile";
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
@@ -63,6 +63,6 @@ public class FlowController {
 	}
 	@RequestMapping(value = "/sgin", method = RequestMethod.GET)
 	public String sgin() {
-		return "/login/sgin";
+		return "/login/sign";
 	}
 }

@@ -3,13 +3,11 @@
 <mapper namespace="com.groupware.mapper.JoinMapper">
 
   <insert id="join">
-	  INSERT INTO employee (employee_idx, department_idx, team_idx, duty_idx, position_idx,
+	  INSERT INTO employee (employee_idx,  duty_idx, position_idx,
 							login_id, login_pw, name, en_name, profile_image, gender, birthday, phone_number, email,
 	                        address, ins_date, upd_date)
 	  VALUES (
 				 employee_seq.nextval,
-				 #{departmentIdx},
-				 #{teamIdx},
 				 #{dutyIdx},
 				 #{positionIdx},
 				  #{loginId},

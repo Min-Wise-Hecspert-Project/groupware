@@ -1,11 +1,8 @@
 package com.groupware.controller;
 
-import com.groupware.dto.Notice;
-import com.groupware.service.NoticeService;
-import com.groupware.vo.CommonSearchVO;
-
-import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.groupware.dto.Notice;
+import com.groupware.service.NoticeService;
+import com.groupware.vo.CommonSearchVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-
-import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api")
@@ -52,7 +50,7 @@ public class NoticeController {
 			insertDTO.setEmployeeIdx((Long) session.getAttribute("employeeIdx"));
 			return service.insert(insertDTO);
 		}
-		
+	
 		@GetMapping("/notice/{noticeIdx}")
 		public ResponseEntity<Notice.DetailDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
 			return service.select(noticeIdx);
