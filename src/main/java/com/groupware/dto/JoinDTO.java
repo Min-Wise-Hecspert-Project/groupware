@@ -13,9 +13,9 @@ import org.apache.ibatis.type.Alias;
 @Alias("JoinDTO")
 public class JoinDTO {
 
-    private Long teamIdx=0L;
-    private Long dutyIdx=0L;
-    private Long positionIdx=0L;
+    private Long teamIdx=1L;
+    private Long dutyIdx=1L;
+    private Long positionIdx=1L;
     private String loginId;
     private String loginPw;
     private String loginPwCheck;

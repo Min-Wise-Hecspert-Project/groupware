@@ -67,8 +67,26 @@
 		editor.removeHook("addImageBlobHook");
 
 		editor.addHook("addImageBlobHook", (blob, callback) => {
-			console.log(blob);
-			callback("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png", "imageURL");
+			var formdata = new FormData();
+			formdata.append("uploadFile", blob);
+
+			var requestOptions = {
+			  method: 'POST',
+			  body: formdata,
+			  redirect: 'follow'
+			};
+
+			fetch("http://localhost:8080/upload/uploadAjaxAction", requestOptions)
+			  .then(response => response.json())
+			  .then(result => {
+				  console.log('result', result);
+				  
+				  let fileUrl = "http://localhost:8080/upload/display?fileName="+result[0].uploadpath+"/"+result[0].uuid+"_"+result[0].fileName;
+				  
+				  console.log('fileUrl', fileUrl);
+				  callback(fileUrl.replace(new RegExp(/\\/g), "/"), "imageURL");
+			  })
+			  .catch(error => console.log('error', error));
 		})
 
 		$(function () {

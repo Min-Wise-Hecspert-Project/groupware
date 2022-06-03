@@ -65,4 +65,23 @@ public class FlowController {
 	public String sign() {
 		return "/login/sign";
 	}
+	@RequestMapping(value = "/board", method = RequestMethod.GET)
+	public String boardList() {
+		return "/board/list";
+	}
+	@RequestMapping(value = "/board/{boardIdx}", method = RequestMethod.GET)
+	public String board(@PathVariable("boardIdx") Long boardIdx, Model model) {
+		model.addAttribute("boardIdx",boardIdx);
+		return "/board/view";
+	}
+	@RequestMapping(value = "/board/modify/{boardIdx}", method = RequestMethod.GET)
+	public String boardModify(@PathVariable("boardIdx") Long boardIdx, Model model) {
+		model.addAttribute("boardIdx",boardIdx);
+		return "/board/modify";
+	}
+	
+	@RequestMapping(value = "/board/register", method = RequestMethod.GET)
+	public String boardRegister() {
+		return "/board/register";
+	}
 }

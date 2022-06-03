@@ -31,56 +31,14 @@
           </div>
           <div class="row">
             <div class="col-md-6" id="grid3">
-              <h2>게시판</h2>
-            </div>
-            <div class="col-md-6">
-              
+          		<jsp:include page="board/gridView.jsp"></jsp:include>
             </div>
           </div>
         </div>
       </main>
     </div>
   </div>
-  <script>
-    const gridData = [{
-      name: 'qwe',
-      artist: '<a href = "https://www.notion.so">이동확인</a>'
-    }, {
-      name: 'rq',
-      artist: 'qwe'
-    }
 
-    ]
-
-    const grid3 = new tui.Grid({
-      el: document.getElementById('grid3'),
-      data: gridData,
-      scrollX: false,
-      scrollY: false,
-      columns: [
-        {
-          header: 'Name',
-          name: 'name'
-        },
-        {
-          header: 'Artist',
-          name: 'artist'
-        },
-        {
-          header: 'Type',
-          name: 'type'
-        },
-        {
-          header: 'Release',
-          name: 'release'
-        },
-        {
-          header: 'Genre',
-          name: 'genre'
-        }
-      ]
-    });
-  </script>
 
   </body>
 

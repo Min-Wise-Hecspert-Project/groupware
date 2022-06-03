@@ -27,7 +27,9 @@
 			</div>
 		</div>
         <script>
+        let data="";
             $(function () {
+            	
                 const employeeIdx = `${employeeIdx}`
                 console.log(employeeIdx);
                 var formdata = new FormData();
@@ -39,16 +41,32 @@
                 fetch("http://localhost:8080/api/employee/${employeeIdx}", requestOptions)
                     .then(response => response.json())
                     .then(result => {
-                       console.log(result);
-                       let content =`<div class="col">
-		                                <div class="card shadow-sm">
-		                                    <svg class="bd-placeholder-img card-img-top" width="20%" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">
-		                                        ${'${result.employeeIdx}'}</text></svg>
-		                                    <div class="card-body">
-		                                    <p class="card-text">${'${result.employeeIdx}'}</p>
-		                                    </div>
-		                                </div>
-		                            </div>`;
+                    	data=result;
+                       console.log(Object.keys(result));
+                       let content="";
+                       let list = ["사원번호","회사명","부서명","팀명","직책","직급","이름","영문이름","프로필 사진","성별","생일","전화번호","이메일","거주지","급여","잔여 연차","상태","입사일"];
+                       let exculude= ['resignationDate', 'insDate', 'updDate'];
+                       let i = 0;
+                       Object.keys(result).forEach(element => {
+                    	   if (!exculude.includes(element, 0)) {
+                    		    content +=`<div class="col">
+	                                <div class="card shadow-sm">
+	                                    <svg class="bd-placeholder-img card-img-top" width="20%" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">
+	                                        ${'${result[element]}'}</text></svg>
+	                                    <div class="card-body">
+	                                    <p class="card-text">${'${list[i]}'}</p>
+	                                    </div>
+	                                </div>
+	                            </div>`;
+                           }else{
+                              
+                           }
+						
+                        
+                    
+		                            i++;
+                        });
+                     
                        $("#employeeProfile").append(content);
                     })
                     .catch(error => console.log('error', error));

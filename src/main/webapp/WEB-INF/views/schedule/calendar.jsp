@@ -17,20 +17,20 @@
     <div class="row">
    	 <div class="col form-check form-switch">
       <input class="col form-check-input" type="checkbox" role="switch" id="company" value="company" checked>
-      <label class="form-check-label" for="flexSwitchCheckChecked">회사 일정</label>
+      <label class="form-check-label" for="company">회사 일정</label>
     </div>
     <div class="col form-check form-switch">
       <input class="form-check-input" type="checkbox" role="switch" id="department" value="department" checked>
-      <label class="form-check-label" for="flexSwitchCheckChecked">부서 일정</label>
+      <label class="form-check-label" for="department">부서 일정</label>
      
     </div>
     <div class="col form-check form-switch">
       <input class="form-check-input" type="checkbox" role="switch" id="executive" value="executive" checked>
-      <label class="form-check-label" for="flexSwitchCheckChecked">임원 일정</label>
+      <label class="form-check-label" for="executive">임원 일정</label>
     </div>
     <div class="col form-check form-switch">
       <input class="form-check-input" type="checkbox" role="switch" id="my" value="my" checked>
-      <label class="form-check-label" for="flexSwitchCheckChecked">나의 일정</label>
+      <label class="form-check-label" for="my">나의 일정</label>
     </div>
     </div>
    
