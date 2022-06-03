@@ -117,7 +117,7 @@ body {
       }
       if (action==="sign") {
         alert("회원 가입으로 이동");
-        location.href = "/sgin";
+        location.href = "/sign";
       }
      });
     });

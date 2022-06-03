@@ -14,28 +14,30 @@
       <option value="" data-action="change-week">주</option>
       <option value="" data-action="change-day">일</option>
     </select>
+    <div class="row">
+   	 <div class="col form-check form-switch">
+      <input class="col form-check-input" type="checkbox" role="switch" id="company" value="company" style="color: ff5583;" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">회사 일정</label>
+    </div>
+    <div class="col form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="department" value="department" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">부서 일정</label>
+    </div>
+    <div class="col form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="executive" value="executive" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">임원 일정</label>
+    </div>
+    <div class="col form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="my" value="my" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">나의 일정</label>
+    </div>
+    </div>
+   
   </span>
   <span id="renderRange" class="render-range"></span>
 </div>
 <div id="calendar"></div>
-<div id="menu">
-  <span id="menu-navi">
-    <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
-    <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
-      <i class="bi bi-arrow-left"></i>
-    </button>
-    <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
-      <i class="bi bi-arrow-right"></i>
-    </button>
-    <select name="" id="" class="form-select-sm">
-      <option value="" data-action="change-month">월</option>
-      <option value="" data-action="change-week">주</option>
-      <option value="" data-action="change-day">일</option>
-    </select>
-  </span>
-  <span id="renderRange" class="render-range"></span>
-</div>
-<div id="calendar2"></div>
+
 <script>
   // 캘린더를 생성하는 방법! 아래 옵션은 popup을 활성화
   var calendar = new tui.Calendar('#calendar', {
@@ -47,68 +49,54 @@
   //TODO: table 만들어서 CRUD 할 수 있게 생성할것!
   calendar.setCalendars([
     {
-      id: 'Major Subject',
-      name: '전공 필수',
+      id: 'Company Subject',
+      name: '회사 일정',
       color: '#ffffff',
       bgColor: '#ff5583',
       dragBgColor: '#ff5583',
       borderColor: '#ff5583'
     },
     {
-      id: 'Elective Subject',
-      name: '전공 선택',
+      id: 'Department Subject',
+      name: '부서 일정',
       color: '#ffffff',
       bgColor: '#ffbb3b',
       dragBgColor: '#ffbb3b',
       borderColor: '#ffbb3b'
     },
     {
-      id: 'General Subject',
-      name: '일반 교양',
+      id: 'Executive Subject',
+      name: '임원 일정',
       color: '#ffffff',
       bgColor: '#03bd9e',
       dragBgColor: '#03bd9e',
       borderColor: '#03bd9e'
+    },
+    {
+      id: 'My Subject',
+      name: '나의 일정',
+      color: '#ffffff',
+      bgColor: '#03ff9e',
+      dragBgColor: '#03ff9e',
+      borderColor: '#03ff9e'
     }
   ]);
 
-  calendar.setCalendarColor('1', {
-    color: '#e8e8e8',
-    bgColor: '#585858',
-    borderColor: '#a1b56c',
-    dragBgColor: '#585858',
-  });
-  calendar.setCalendarColor('2', {
-    color: '#282828',
-    bgColor: '#dc9656',
-    borderColor: '#a1b56c',
-    dragBgColor: '#dc9656',
-  });
-  calendar.setCalendarColor('3', {
-    color: '#a16946',
-    bgColor: '#ab4642',
-    borderColor: '#a1b56c',
-    dragBgColor: '#ab4642',
-  });
-  var calendar2 = new tui.Calendar('#calendar2', {
-    defaultView: 'month',
-    useCreationPopup: true,
-    useDetailPopup: true
-  });
+
+
 
   $(function () {
     var setRequestOptions = {
       method: 'get',
       redirect: 'follow'
     };
-
     fetch("http://localhost:8080/api/schedule", setRequestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result);
         result.forEach(element => {
           const schedule = {
-            calendarId: result.calendarId,
+            calendarId: element.calendarId,
             id: element.scheduleIdx,
             title: element.title,
             isAllDay: element.isAllDay,
@@ -123,6 +111,17 @@
 
       })
       .catch(error => console.log('error', error));
+  });
+
+  $('.form-check-input').on("click" ,function (e) { 
+    
+   
+    calendar.toggleSchedules("Company Subject", !$("#company").is(":checked"), true);
+    calendar.toggleSchedules("Department Subject", !$("#department").is(":checked"), true);
+    calendar.toggleSchedules("Executive Subject", !$("#executive").is(":checked"), true);
+    calendar.toggleSchedules("My Subject", !$("#my").is(":checked"), true);
+   
+    
   });
 
   //생성
@@ -242,7 +241,7 @@
       }
       if (operation === 'move-today') {
         let data = calendar.getDate();
-        calendar2.createSchedules(data);
+     
         calendar.today();
       }
     });
