@@ -104,8 +104,8 @@
   	 <selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
   		select BOARD_SEQ.NEXTVAL from dual
   	</selectKey> 
-	  	 insert into BOARD(BOARD_IDX, BOARD_TYPE,"CONTENT",TITLE)
-	  	 values(#{boardIdx},#{boardType},#{content},#{title})
+	  	 insert into BOARD(BOARD_IDX,EMPLOYEE_IDX, BOARD_TYPE,"CONTENT",TITLE)
+	  	 values(#{boardIdx},#{employeeIdx},#{boardType},#{content},#{title})
   </insert>
 </mapper>
 

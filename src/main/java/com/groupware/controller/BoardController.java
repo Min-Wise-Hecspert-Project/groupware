@@ -13,6 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +47,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 
 		private BoardService service; 
+		HttpServletRequest request;
 		
 //		@GetMapping("/list")
 //		public void list(Model model) {
@@ -107,6 +111,7 @@ public class BoardController {
 		@PostMapping("/register")
 		public BoardDTO board_register(@RequestBody BoardDTO board) {
 			log.info("register: " + board);
+			board.setEmployeeIdx((Long)request.getSession().getAttribute("employeeIdx"));
 			
 			service.register(board);
 	
@@ -170,4 +175,20 @@ public class BoardController {
 		public ResponseEntity<List<BoardAttachVO>> getAttachList(@RequestParam("boardIdx") Long boardIdx){
 			return new ResponseEntity<>(service.getAttachList(boardIdx),HttpStatus.OK);
 		}
+		
+		@GetMapping("/{boardIdx}")
+	    public ResponseEntity<BoardDTO> getboard_eboardIdx(@PathVariable("boardIdx") Long boardIdx){
+	      
+	      BoardDTO board = service.select(boardIdx);
+	      
+	      if (board==null) {
+	        return ResponseEntity
+	            .status(HttpStatus.NO_CONTENT)
+	            .body(null);
+	      }else {
+	        return ResponseEntity
+	            .status(HttpStatus.OK)
+	            .body(board);
+	      }
+	    }
 }

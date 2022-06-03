@@ -62,11 +62,11 @@ public class ServletConfig implements WebMvcConfigurer {
 		registry.addInterceptor(new FlowInterceptor())
 				.addPathPatterns("/*")
 				.excludePathPatterns("/login")
-				.excludePathPatterns("/sgin")
+				.excludePathPatterns("/sign")
 				.excludePathPatterns("/api/*");
 		registry.addInterceptor(new FlowInterceptor2())
 				.addPathPatterns("/login")
-				.addPathPatterns("/sgin");
+				.addPathPatterns("/sign");
 	}
 
 }

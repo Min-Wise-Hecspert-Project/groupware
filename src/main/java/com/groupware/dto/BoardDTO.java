@@ -1,8 +1,6 @@
 package com.groupware.dto;
 
-import java.sql.Date;
 import java.util.List;
-import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
@@ -40,10 +38,10 @@ public class BoardDTO {
 	@NonNull
 	private Long boardIdx;
 	private Long employeeIdx;
-	private String boardType;
+	private String boardType="";
 	private String content;
 
-	private String File;
+	private String File="";
 	
 	private String insDate;
 	
