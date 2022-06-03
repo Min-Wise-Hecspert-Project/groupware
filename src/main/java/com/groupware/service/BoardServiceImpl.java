@@ -32,9 +32,8 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void register(BoardDTO board) {
 		log.info("register...." + board.getBoardIdx());
-		log.info("register....111" + board);
 		mapper.insertSelectKey(board);
-		
+		log.info("register....222" + board);
 		if(board.getAttachList() == null || board.getAttachList().size()<=0) {
 			return;
 		}

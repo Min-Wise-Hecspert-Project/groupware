@@ -101,9 +101,9 @@
   </insert>
    
   <insert id="insertSelectKey" parameterType="BoardDTO">
-  	<!-- <selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
+  	 <selectKey keyProperty="boardIdx" order="BEFORE" resultType="long">
   		select BOARD_SEQ.NEXTVAL from dual
-  	</selectKey> -->
+  	</selectKey> 
 	  	 insert into BOARD(BOARD_IDX, BOARD_TYPE,"CONTENT",TITLE)
 	  	 values(BOARD_SEQ.NEXTVAL,#{boardType},#{content},#{title})
   </insert>
