@@ -2,16 +2,21 @@ package com.groupware.mapper;
 
 import java.util.List;
 
-import com.groupware.vo.NoticeVO;
+import com.groupware.dto.Notice;
+import com.groupware.vo.CommonSearchVO;
 
 public interface NoticeMapper {
-	public List<NoticeVO> getNoticeList();
+	List<Notice.ListDTO> selectList(CommonSearchVO searchVO);
 	
-	public void insert(NoticeVO Notice);
+	Long insert(Notice.InsertDTO insertDTO);
 	
-	public NoticeVO getNotice(Long noticeIdx);
+	Notice.DetailDTO select(Long noticeIdx);
 
-	public int update(NoticeVO NoticeVO);
+	Long update(Notice.UpdateDTO updateDTO);
 
-	public int delete(Long noticeIdx);
+	Long delete(Long noticeIdx);
+	
+	int deleteBySchedule();
+
+	Integer getTotalCount(CommonSearchVO searchVO);
 }

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.groupware.mapper.EmployeeMapper">
+
+	<resultMap type="com.groupware.dto.Employee$DetailDTO" id="EmployeeDetailMap">
+		<result property="employeeIdx" column="employee_idx"/>
+		<result property="companyName" column="company_name"/>
+		<result property="departmentName" column="department_name"/>
+		<result property="teamName" column="team_name"/>
+		<result property="positionName" column="position_name"/>
+		<result property="dutyName" column="duty_name"/>
+		<result property="name" column="name"/>
+		<result property="enName" column="en_name"/>
+		<result property="profileImage" column="profile_image"/>
+		<result property="gender" column="gender"/>
+		<result property="birthday" column="birthday"/>
+		<result property="phoneNumber" column="phone_number"/>
+		<result property="email" column="email"/>
+		<result property="address" column="address"/>
+		<result property="salary" column="salary"/>
+		<result property="annualLeave" column="annual_leave"/>
+		<result property="state" column="state"/>
+		<result property="hireDate" column="hire_date"/>
+		<result property="resignationDate" column="resignation_date"/>
+		<result property="insDate" column="ins_date"/>
+		<result property="updDate" column="upd_date"/>
+	</resultMap>
+
+	<resultMap type="com.groupware.dto.Employee$ListDTO" id="EmployeeListMap">
+		<result property="employeeIdx" column="employee_idx"/>
+		<result property="companyName" column="company_name"/>
+		<result property="departmentName" column="department_name"/>
+		<result property="teamName" column="team_name"/>
+		<result property="positionName" column="position_name"/>
+		<result property="dutyName" column="duty_name"/>
+		<result property="name" column="name"/>
+		<result property="enName" column="en_name"/>
+		<result property="profileImage" column="profile_image"/>
+		<result property="gender" column="gender"/>
+		<result property="birthday" column="birthday"/>
+		<result property="phoneNumber" column="phone_number"/>
+		<result property="email" column="email"/>
+		<result property="address" column="address"/>
+		<result property="salary" column="salary"/>
+		<result property="annualLeave" column="annual_leave"/>
+		<result property="state" column="state"/>
+		<result property="hireDate" column="hire_date"/>
+		<result property="resignationDate" column="resignation_date"/>
+		<result property="insDate" column="ins_date"/>
+		<result property="updDate" column="upd_date"/>
+	</resultMap>
+  
+  <select id="selectList" resultMap="EmployeeListMap">
+	  SELECT
+		  rnum,
+		  employee_idx,
+		  company_name,
+		  department_name,
+		  team_name,
+		  position_name,
+		  duty_name,
+		  name,
+		  en_name,
+		  profile_image,
+		  gender,
+		  state,
+		  hire_date,
+		  resignation_date,
+		  ins_date,
+		  upd_date
+	  FROM
+		  (
+		  SELECT
+			  rownum AS rnum,
+			  e.employee_idx,
+			  c.company_name,
+			  d.department_name,
+			  t.team_name,
+			  p.name AS position_name,
+			  d2.duty_name,
+			  e.name,
+			  e.en_name,
+			  e.profile_image,
+			  e.gender,
+			  e.birthday,
+			  e.phone_number,
+			  e.email,
+			  e.address,
+			  e.salary,
+			  e.annual_leave,
+			  e.state,
+			  e.hire_date,
+			  e.resignation_date,
+			  e.ins_date,
+			  e.upd_date
+		  FROM
+			  employee e
+			  LEFT JOIN team t ON e.team_idx = t.team_idx
+			  LEFT JOIN department d ON t.department_idx = d.department_idx
+			  LEFT JOIN company c ON c.company_idx = d.company_idx
+			  LEFT JOIN duty d2 ON e.duty_idx = d2.duty_idx
+			  LEFT JOIN position p ON e.position_idx = p.position_idx
+			  LEFT JOIN authority a ON e.authority_idx = a.authority_idx
+		  WHERE
+			  1 = 1
+			  <if test='name != ""'>
+				  AND e.name like '%'||#{name}||'%'
+			  </if>
+			  <if test='companyName != ""'>
+				  AND c.company_name like '%'||#{companyName}||'%'
+			  </if>
+			  <if test='departmentName != ""'>
+				  AND d.department_name like '%'||#{departmentName}||'%'
+			  </if>
+			  <if test='teamName != ""'>
+				  AND t.team_name like '%'||#{teamName}||'%'
+			  </if>
+			  <if test='sorting != ""'>
+				  <choose>
+					  <when test="sorting == 1">
+						  ORDER BY e.name ASC
+					  </when>
+					  <when test="sorting == 2">
+						  ORDER BY e.name DESC
+					  </when>
+					  <when test="sorting == 3">
+						  ORDER BY e.ins_date ASC
+					  </when>
+					  <when test="sorting == 4">
+						  ORDER BY e.ins_date DESC
+					  </when>
+					  <otherwise>
+						  ORDER BY e.ins_date DESC
+					  </otherwise>
+				  </choose>
+			  </if>
+			  )
+	  WHERE
+	  <![CDATA[ rnum > #{startNum} AND rnum <= #{endNum} ]]>
+
+  </select>
+
+	<select id="getTotalCount" resultType="_integer">
+		SELECT
+			nvl(count(*), 0) AS totalCnt
+		FROM
+			employee e
+			LEFT JOIN team t ON e.team_idx = t.team_idx
+			LEFT JOIN department d ON t.department_idx = d.department_idx
+			LEFT JOIN company c ON c.company_idx = d.company_idx
+			LEFT JOIN duty d2 ON e.duty_idx = d2.duty_idx
+			LEFT JOIN position p ON e.position_idx = p.position_idx
+			LEFT JOIN authority a ON e.authority_idx = a.authority_idx
+		WHERE
+			1 = 1
+		<if test='name != ""'>
+			AND e.name like '%'||#{name}||'%'
+		</if>
+		<if test='companyName != ""'>
+			AND c.company_name like '%'||#{companyName}||'%'
+		</if>
+		<if test='departmentName != ""'>
+			AND d.department_name like '%'||#{departmentName}||'%'
+		</if>
+		<if test='teamName != ""'>
+			AND t.team_name like '%'||#{teamName}||'%'
+		</if>
+		<if test='sorting != ""'>
+			<choose>
+				<when test="sorting == 1">
+					ORDER BY e.name ASC
+				</when>
+				<when test="sorting == 2">
+					ORDER BY e.name DESC
+				</when>
+				<when test="sorting == 3">
+					ORDER BY e.ins_date ASC
+				</when>
+				<when test="sorting == 4">
+					ORDER BY e.ins_date DESC
+				</when>
+				<otherwise>
+					ORDER BY e.ins_date DESC
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+
+	<select id="select" resultMap="EmployeeDetailMap">
+		SELECT
+		rnum,
+		employee_idx,
+		company_name,
+		department_name,
+		team_name,
+		position_name,
+		duty_name,
+		name,
+		en_name,
+		profile_image,
+		gender,
+		birthday,
+		phone_number,
+		email,
+		address,
+		salary,
+		annual_leave,
+		state,
+		hire_date,
+		resignation_date,
+		ins_date,
+		upd_date
+		FROM
+		(
+		SELECT
+		rownum AS rnum,
+		e.employee_idx,
+		c.company_name,
+		d.department_name,
+		t.team_name,
+		p.name AS position_name,
+		d2.duty_name,
+		e.name,
+		e.en_name,
+		e.profile_image,
+		e.gender,
+		e.birthday,
+		e.phone_number,
+		e.email,
+		e.address,
+		e.salary,
+		e.annual_leave,
+		e.state,
+		e.hire_date,
+		e.resignation_date,
+		e.ins_date,
+		e.upd_date
+		FROM
+		employee e
+		LEFT JOIN team t ON e.team_idx = t.team_idx
+		LEFT JOIN department d ON t.department_idx = d.department_idx
+		LEFT JOIN company c ON c.company_idx = d.company_idx
+		LEFT JOIN duty d2 ON e.duty_idx = d2.duty_idx
+		LEFT JOIN position p ON e.position_idx = p.position_idx
+		LEFT JOIN authority a ON e.authority_idx = a.authority_idx
+		WHERE
+			e.employee_idx = #{employeeIdx}
+		)
+
+	</select>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="employeeIdx" keyColumn="employee_idx">
+	  INSERT INTO
+		  employee
+	  (
+		  employee_idx,
+		  team_idx,
+		  duty_idx,
+		  position_idx,
+		  authority_idx,
+		  name,
+		  en_name,
+		  profile_image,
+		  gender,
+		  birthday,
+		  phone_number,
+		  email,
+		  address,
+		  salary,
+		  annual_leave,
+		  state,
+		  hire_date,
+		  resignation_date,
+		  ins_date,
+		  upd_date
+	  )
+	  VALUES
+		  (
+			  employee_seq.nextval,
+			  #{teamIdx},
+			  #{dutyIdx},
+			  #{positionIdx},
+			  #{authorityIdx},
+			  #{name},
+			  #{enName},
+			  #{profileImage},
+			  #{gender},
+			  #{birthday},
+			  #{phoneNumber},
+			  #{email},
+			  #{address},
+			  #{salary},
+			  #{annualLeave},
+			  #{state},
+			  #{hireDate},
+			  #{resignationDate},
+			  sysdate,
+			  sysdate
+		  )
+  </insert>
+  
+  <update id="update">
+	  UPDATE
+		  employee
+	  SET
+		  company_idx = #{companyIdx},
+		  department_idx = #{departmentIdx},
+		  team_idx = #{teamIdx},
+		  duty_idx = #{dutyIdx},
+		  position_idx = #{positionIdx},
+		  authority_idx = #{authorityIdx},
+		  name = #{name},
+		  en_name = #{enName},
+		  profile_image = #{profileImage},
+		  gender = #{gender},
+		  birthday = #{birthday},
+		  phone_number = #{phoneNumber},
+		  email = #{email},
+		  address = #{address},
+		  salary = #{salary},
+		  annual_leave = ${annualLeave},
+		  state = #{state},
+		  hire_date = #{hireDate},
+		  resignation_date = #{resignationDate},
+		  upd_date = SYSDATE
+	  WHERE
+		  employee_idx = #{employeeIdx}
+  </update>
+   
+  <update id="delete">
+  	UPDATE
+  		employee
+  	SET
+		state = 0,
+		resignation_date = sysdate
+ 	WHERE
+ 		employee_idx = #{employeeIdx}
+  </update>
+  
+  <delete id="deleteBySchedule">
+	DELETE FROM (SELECT employee_idx, state
+	             FROM employee
+	             WHERE  sysdate - nvl(resignation_date, to_date('99991231', 'YYYYMMDD')) >= 90) del_data
+	WHERE
+	        del_data.state = 0
+  </delete>
+</mapper>

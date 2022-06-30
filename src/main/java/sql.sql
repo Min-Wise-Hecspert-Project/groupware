@@ -35,3 +35,28 @@ CREATE TABLE "EMPLOYEE"
 	"DEPARTMENT_IDX" NUMBER, 
 	 CONSTRAINT "EMPLOYEE_PK" PRIMARY KEY ("EMP_IDX"));
 	
+	 
+	 
+	 
+	 select * from board;
+
+DELETE from board WHERE employee_idx!=null;
+
+
+select * from Employee;
+
+		SELECT * FROM Board b,Employee e where b.employee_idx = e.employee_idx	;
+commit;
+SELECT * 
+FROM Board b 
+left join Employee e on b.employee_idx = e.employee_idx
+where b.employee_idx = e.employee_idx;
+--alter table board modify(
+--
+--ALTER TABLE board MODIFY employee_idx NUMBER;
+--ALTER TABLE board DROP COLUMN employee_idx;
+--ALTER TABLE board add employee_idx NUMBER;
+
+ALTER TABLE boardattach MODIFY (FILE_TYPE DEFAULT '0');
+
+commit;

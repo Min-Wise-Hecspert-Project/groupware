@@ -11,11 +11,13 @@ import org.springframework.context.annotation.Configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service"})
-@MapperScan(basePackages = {"com.groupware.mapper"})
-public class RootConfig {
+@ComponentScan(basePackages = {"com.groupware.controller", "com.groupware.service","com.groupware.*"})
+@MapperScan(basePackages = {"com.groupware.mapper","com.groupware.dto","com.groupware.vo"})
+
+public class RootConfig implements WebMvcConfigurer {
 	
 	@Bean // �޼ҵ��� ���� ����� ��ȯ�Ǵ� ��ü�� ������ ��ü�� ���
 	public DataSource dataSource() {
@@ -33,8 +35,9 @@ public class RootConfig {
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource());
-//		typeAlias �����ϱ�
-//		sqlSessionFactory.setTypeAliasesPackage("com.groupware.vo");
+		sqlSessionFactory.setTypeAliasesPackage("com.groupware.*");
 		return (SqlSessionFactory)sqlSessionFactory.getObject();
 	}
+
+
 }

@@ -1,14 +1,16 @@
 package com.groupware.service;
 
-import java.util.List;
+import java.util.Map;
 
-import com.groupware.vo.NoticeVO;
+import com.groupware.dto.Notice;
+import com.groupware.vo.CommonSearchVO;
+import org.springframework.http.ResponseEntity;
 
 public interface NoticeService {
-	Boolean insert(NoticeVO noticeVO);
-	Boolean update(NoticeVO noticeVO);
-	Boolean delete(Long noticeIdx);
-	List<NoticeVO> getNoticeList();
-	NoticeVO getNotice(Long noticeIdx);
-
+	ResponseEntity<Notice.DetailDTO> insert(Notice.InsertDTO insertDTO);
+	ResponseEntity<Notice.DetailDTO> update(Notice.UpdateDTO updateDTO);
+	ResponseEntity<Notice.DetailDTO> delete(Long noticeIdx);
+	ResponseEntity<Map<String, Object>> selectList(CommonSearchVO searchVO);
+	ResponseEntity<Notice.DetailDTO> select(Long noticeIdx);
+	ResponseEntity<Map<String, Object>> deleteBySchedule();
 }

@@ -1,75 +1,73 @@
 package com.groupware.controller;
 
-import com.groupware.service.NoticeService;
-import com.groupware.vo.NoticeVO;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
+import com.groupware.dto.Notice;
+import com.groupware.service.NoticeService;
+import com.groupware.vo.CommonSearchVO;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-@Controller
+@RestController
+@RequestMapping("/api")
+@RequiredArgsConstructor
 @Log4j
-@RequestMapping("/notice")
-@AllArgsConstructor
 public class NoticeController {
 
-		private NoticeService service;
-		
-		@GetMapping("/")
-		public String list(Model model) {
-			log.info("list");
-			model.addAttribute("list", service.getNoticeList());
+		private final NoticeService service;
+
+		@GetMapping("/notice")
+		public ResponseEntity<Map<String, Object>> list(
+				@RequestParam(defaultValue = "") String title,
+				@RequestParam(defaultValue = "") String content,
+				@RequestParam(defaultValue = "") String writer,
+				@RequestParam(defaultValue = "") Integer sorting,
+				@RequestParam(defaultValue = "1") Integer page,
+				@RequestParam(defaultValue = "10") Integer perPage
+				) {
 			
-			return "/notice/list";
-		}
-		
-		@GetMapping("/newnotice")
-		public String insert() {
-			return "/notice/insertForm"; 
+			CommonSearchVO searchVO = new CommonSearchVO(title, content, writer, sorting, page, perPage);
+
+			return service.selectList(searchVO);
 		}
 		
 		@PostMapping("/notice")
-		public String register(NoticeVO noticeVO, RedirectAttributes rttr) {
-			log.info("newnoteice: " + noticeVO);
-			service.insert(noticeVO);
-			rttr.addFlashAttribute("result", noticeVO.getNoticeIdx());
-			
-			return "redirect:/notice";
+		public ResponseEntity<Notice.DetailDTO> post(Notice.InsertDTO insertDTO, HttpSession session) {
+			insertDTO.setEmployeeIdx((Long) session.getAttribute("employeeIdx"));
+			return service.insert(insertDTO);
 		}
-		
-		@GetMapping("/notice/{notice_idx}")
-		public String get(@RequestParam("notice_idx") Long notice_idx, Model model) {
-			log.info("/get");
-			model.addAttribute("notice", service.getNotice(notice_idx));
-			
-			return "/notice/detailForm"; 
+	
+		@GetMapping("/notice/{noticeIdx}")
+		public ResponseEntity<Notice.DetailDTO> get(@PathVariable("noticeIdx") Long noticeIdx) {
+			return service.select(noticeIdx);
 		}
 		
 		@PutMapping("/notice")
-		public String update(NoticeVO noticeVO, RedirectAttributes rttr) {
-			log.info("update: " + noticeVO);
-			if(service.update(noticeVO)) {
-				rttr.addFlashAttribute("result", noticeVO.getNoticeIdx());
-			}			
-			
-			return "redirect:/notice";
+		public ResponseEntity<Notice.DetailDTO> put(@RequestBody Notice.UpdateDTO updateDTO) {
+			return service.update(updateDTO);
 		}
 		
-		@DeleteMapping("/notice/{notice_idx}")		
-		public String delete(@RequestParam("notice_idx") Long notice_idx, RedirectAttributes rttr) {
-			log.info("delete: " + notice_idx);
-			if(service.delete(notice_idx)) {
-				rttr.addFlashAttribute("result", "success");
-			}			
-			
-			return "redirect:/notice";
+		@DeleteMapping("/notice/{noticeIdx}")		
+		public ResponseEntity<Notice.DetailDTO> delete(@PathVariable("noticeIdx") Long noticeIdx) {
+			return service.delete(noticeIdx);
+		}
+		
+		@DeleteMapping("/notice/cron")
+		public ResponseEntity<Map<String, Object>> deleteBySchedule() {
+			return service.deleteBySchedule();
 		}
 }

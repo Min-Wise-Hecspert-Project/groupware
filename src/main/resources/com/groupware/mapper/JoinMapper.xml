@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.groupware.mapper.JoinMapper">
+
+  <insert id="join">
+	  INSERT INTO employee (employee_idx,  duty_idx, position_idx,
+							login_id, login_pw, name, en_name, profile_image, gender, birthday, phone_number, email,
+	                        address, ins_date, upd_date)
+	  VALUES (
+				 employee_seq.nextval,
+				 #{dutyIdx},
+				 #{positionIdx},
+				  #{loginId},
+				  #{loginPw},
+				 #{name},
+				 #{enName},
+				 #{profileImage},
+				 #{gender},
+				 #{birthday},
+				 #{phoneNumber},
+				 #{email},
+				 #{address},
+				 sysdate,
+				 sysdate
+			 )
+  </insert>
+
+</mapper>

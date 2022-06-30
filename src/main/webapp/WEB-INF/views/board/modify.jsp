@@ -1,94 +1,135 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
 
-<%@include file="../includes/header.jsp" %>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">List Page</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            게시글 목록
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                           <form role="form" action="/board/modify" method="post">
-                        		<div class="form-group">
-	                       			<label>Bno</label>
-	                       			<input class="form-control" name="bno" 
-	                       				   value='<c:out value="${board.bno }"/>' 
-	                       				   readonly="readonly">
-	                       		</div>
-	                       		
-                        		<div class="form-group">
-                       			<label>Title</label>
-                       			<input class="form-control" name="title" value='<c:out value="${board.title}"/>'>
-	                       		</div>
-	                       		
-	                       		<div class="form-group">
-	                       			<label>Content</label>
-	                       			<input class="form-control" rows="3" name="content" value='<c:out value="${board.content}"/>'>
-	                       		</div>
-	                       		
-	                       		<div class="form-group">
-	                       			<label>Writer</label>
-	                       			<input class="form-control" name="writer" value='<c:out value="${board.writer}"/>'>
-	                       		</div>
-	                       		
-	                       		<div class="form-group">
-							        <label>RegDate</label> 
-							        <input class="form-control" name="regDate"
-							               value='<fmt:formatDate pattern="yyyy/MM/dd" value="${board.regDate}"/>'
-							               readonly="readonly">
-							    </div>
-							
-							    <div class="form-group">
-							        <label>Update Date</label> 
-							        <input class="form-control" name="updateDate"
-							            value='<fmt:formatDate pattern="yyyy/MM/dd" value="${board.updateDate}"/>'
-							            readonly="readonly">
-							    </div>
-							
-							    <button type="submit" data-oper="modify" class="btn btn-info">Modify</button>
-							    <button type="submit" data-oper="remove" class="btn btn-danger">Remove</button>
-							    <button type="submit" data-oper="list" class="btn btn-success">List</button>
+<head>
+	<meta charset="UTF-8">
+	<title>게시판 작성</title>
+	<jsp:include page="../includes/head.jsp"></jsp:include>
+</head>
 
-                        	</form>
-                        </div>
-                        <!-- /.table-responsive -->
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-6 -->
-        <!-- /.row -->
-<script type="text/javascript">
-	$(document).ready(function() {
-		var formObj = $("form");
-		$('button').on("click", function (e) {
-			e.preventDefault();
-			
-			var operation = $(this).data("oper");
-			console.log(operation);
-			
-			if(operation === 'remove')
-				formObj.attr("action", "/board/remove");
-			else if(operation === 'list'){
-				self.location = "/board/list";
-				return;
-			}
-			
-			formObj.submit();
+<body>
+	<jsp:include page="../includes/header.jsp"></jsp:include>
+	<div class="container-fluid">
+		<div class="row">
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2">게시판 작성</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<div class="btn-group me-2">
+							<button type="button" class="btn btn-sm btn-outline-secondary"
+								data-action="remove">취소</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary"
+								data-action="modify">작성</button>
+						</div>
+					</div>
+				</div>
+				<div class="container-fluid">
+					<div class="content">
+						<div class="row align-items-start">
+							<input class="col-md-6 form-control m-3" id="board_title" placeholder="게시판 제목을 입력하세요"></input>
+						</div>
+						<div class="row align-items-start">
+							<div class="col-md-12" id="editor"></div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+
+	<script>
+		const editor = new toastui.Editor({
+			el: document.querySelector('#editor'),
+			initialEditType: 'wysiwyg',
+			height: '500px'
+		});
+		const boardIdx = `${boardIdx}`
+		console.log(boardIdx);
+		var formdata = new FormData();
+
+		var requestOptions = {
+			method: 'GET',
+			redirect: 'follow'
+		};
+
+		fetch("http://localhost:8080/api/board/${boardIdx}", requestOptions)
+			.then(response => response.json())
+			.then(result => {
+				editor.setHTML(result.content);
+				$('#board_title').val(result.title)
+			})
+			.catch(error => console.log('error', error));
+
+
+		editor.removeHook("addImageBlobHook");
+
+		editor.addHook("addImageBlobHook", (blob, callback) => {
+			var formdata = new FormData();
+			formdata.append("uploadFile", blob);
+
+			var requestOptions = {
+			  method: 'POST',
+			  body: formdata,
+			  redirect: 'follow'
+			};
+
+			fetch("http://localhost:8080/upload/uploadAjaxAction", requestOptions)
+			  .then(response => response.json())
+			  .then(result => {
+				  console.log('result', result);
+				  
+				  let fileUrl = "http://localhost:8080/upload/display?fileName="+result[0].uploadpath+"/"+result[0].uuid+"_"+result[0].fileName;
+				  
+				  console.log('fileUrl', fileUrl);
+				  callback(fileUrl.replace(new RegExp(/\\/g), "/"), "imageURL");
+			  })
+			  .catch(error => console.log('error', error));
 		})
-	})
-</script>
- <%@include file="../includes/footer.jsp" %>     
-   
+
+		$(function () {
+			$('button').on("click", function () {
+				let action = $(this).data("action");
+				if (action === "remove") {
+					console.log("삭제요청");
+					history.back();
+				}
+				if (action === "modify") {
+					console.log("업데이트 요청");
+					let title = $("#board_title").val();
+					let content = editor.getHTML();
+
+				
+					let updateData =JSON.stringify({ 
+						"boardIdx": boardIdx,
+						"title": title,
+						"content": content,
+						"file": "없음!",
+						"state":1
+					})
+					var myHeaders = new Headers();
+				    myHeaders.append("Content-Type", "application/json");
+					var requestOptions = {
+						method: 'PUT',
+						headers: myHeaders,
+						body: updateData
+					};
+
+					fetch("http://localhost:8080/api/board/modify", requestOptions)
+						.then(response => response.json())
+						.then(result => {	
+							console.log(result);
+							location.href = "/board/"+result?.boardIdx;
+						})
+						.catch(error => console.log('error', error));
+				}
+			});
+
+		});
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.groupware.mapper.ValidationMapper">
+
+	<resultMap type="ValidationDTO" id="ValidationMap">
+		<result property="loginId" column="LOGIN_ID"/>
+		<result property="loginPw" column="LOGIN_PW"/>
+		<result property="loginPwCheck" column="loginPwCheck"/>
+		<result property="state" column="STATE"/>
+	</resultMap>
+
+  
+  <select id="selectEmployeeById" resultMap="ValidationMap">
+	SELECT
+		login_id,
+		login_pw,
+		login_pw AS loginPwCheck,
+		state
+	FROM
+	    employee
+	WHERE
+		login_id = #{loginId}
+
+  </select>
+
+	<select id="getEmployeeOne" resultType="_integer">
+		SELECT
+		    state
+		FROM
+			employee
+		WHERE
+		    login_id = #{loginId}
+		AND
+		    login_pw = #{loginPW}
+
+	</select>
+
+</mapper>
